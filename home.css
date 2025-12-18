@@ -19,6 +19,44 @@ html, body {
     line-height: 1.6;
 }
 
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1em 1.5em; /* Было 1.5em, уменьшаем до 1em */
+        text-align: center;
+    }
+    
+    .logo a {
+        font-size: 1.6em; /* Было 1.8em, уменьшаем */
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 0.8em; /* Было 1em, уменьшаем */
+        margin-top: 1em; /* Было 1.5em, уменьшаем */
+        width: 100%;
+    }
+    
+    nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 0.5em 1em; /* Было 0.6em 1.2em, уменьшаем */
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.8em 1em; /* Добавляем меньший padding */
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.6em 0.8em; /* Еще меньше */
+    }
+}
+
 /* ==================== НАВИГАЦИЯ ==================== */
 .navbar {
     display: flex;
@@ -2157,3 +2195,4 @@ footer p {
     background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
 
 }
+
