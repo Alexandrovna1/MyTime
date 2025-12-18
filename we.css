@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/pictures/Fon.jpg');
+    background-image: url('/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -851,5 +851,6 @@ footer p {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(147, 112, 219, 0.4);
 }
+
 
 
