@@ -45,7 +45,14 @@ html, body {
     transform: scale(1.05);
 }
 
-nav ul {
+/* Контейнер для навигации */
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Основное меню для десктопа */
+.nav-menu {
     list-style-type: none;
     display: flex;
     gap: 2em;
@@ -66,6 +73,12 @@ nav a:hover {
     color: #b19cd9;
 }
 
+nav a.active {
+    background-color: rgba(147, 112, 219, 0.3);
+    color: #b19cd9;
+    border: 1px solid #9370db;
+}
+
 nav a::after {
     content: '';
     position: absolute;
@@ -80,6 +93,41 @@ nav a::after {
 
 nav a:hover::after {
     width: 80%;
+}
+
+/* ==================== ГАМБУРГЕР-МЕНЮ ==================== */
+.hamburger {
+    display: none; /* Скрыт на десктопе по умолчанию */
+    flex-direction: column;
+    cursor: pointer;
+    width: 30px;
+    height: 24px;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #b19cd9;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
@@ -1101,3 +1149,4 @@ footer p {
     }
 
 }
+
