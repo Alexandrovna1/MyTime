@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/Fon.jpg');
+    background-image: url('/pictures/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -30,6 +30,7 @@ html, body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 15px rgba(75, 0, 130, 0.4);
+    min-height: 70px; /* Добавим минимальную высоту для десктопа */
 }
 
 .logo a {
@@ -551,14 +552,20 @@ footer p {
 @media (max-width: 992px) {
     .navbar {
         flex-direction: column;
-        padding: 1.5em;
+        padding: 1.2em 1.5em;
         text-align: center;
+        min-height: auto;
+    }
+    
+    .logo a {
+        font-size: 1.6em;
+        margin-bottom: 0.5em;
     }
     
     nav ul {
         flex-direction: column;
-        gap: 1em;
-        margin-top: 1.5em;
+        gap: 0.8em;
+        margin-top: 1.2em;
         width: 100%;
     }
     
@@ -566,6 +573,8 @@ footer p {
         display: block;
         width: 100%;
         text-align: center;
+        padding: 0.8em 1em;
+        font-size: 0.95em;
     }
     
     .page-header h1 {
@@ -585,6 +594,24 @@ footer p {
 }
 
 @media (max-width: 768px) {
+    .navbar {
+        padding: 1em 1.2em;
+    }
+    
+    .logo a {
+        font-size: 1.4em;
+    }
+    
+    nav ul {
+        gap: 0.6em;
+        margin-top: 1em;
+    }
+    
+    nav a {
+        padding: 0.7em 0.9em;
+        font-size: 0.9em;
+    }
+    
     .page-header {
         padding: 4em 1.5em;
     }
@@ -624,6 +651,26 @@ footer p {
 }
 
 @media (max-width: 576px) {
+    .navbar {
+        padding: 0.8em 1em;
+    }
+    
+    .logo a {
+        font-size: 1.2em;
+        margin-bottom: 0.4em;
+    }
+    
+    nav ul {
+        gap: 0.5em;
+        margin-top: 0.8em;
+    }
+    
+    nav a {
+        padding: 0.6em 0.8em;
+        font-size: 0.85em;
+        border-radius: 4px;
+    }
+    
     .page-header h1 {
         font-size: 2em;
     }
@@ -667,6 +714,19 @@ footer p {
 }
 
 @media (max-width: 400px) {
+    .navbar {
+        padding: 0.7em 0.8em;
+    }
+    
+    .logo a {
+        font-size: 1.1em;
+    }
+    
+    nav a {
+        padding: 0.5em 0.7em;
+        font-size: 0.8em;
+    }
+    
     .mission-section,
     .principles-section,
     .contact-section {
@@ -695,5 +755,5 @@ footer p {
 .team-member:hover .team-photo {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(147, 112, 219, 0.4);
-
 }
+
