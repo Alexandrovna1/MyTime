@@ -1283,4 +1283,14 @@ style.textContent = `
 
 document.head.appendChild(style);
 
+// Добавьте в ваш общий JS файл
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+    } else {
+        navbar.classList.remove('scrolled');
+    }
+}); 
+
 console.log("✅ Полная функциональность фильтрации загружена");
