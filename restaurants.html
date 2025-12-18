@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/restaurants.css">
+    <title>Рестораны/Кафе</title>
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <header class="navbar">
+        <div class="logo"><a href="/">Мое Время</a></div>
+        <nav>
+            <ul>
+                <li><a href="/html/index.html">Главная</a></li><li><a href="/html/events.html">Мероприятия</a></li>
+                <li><a href="/html/restaurants.html">Рестораны/Кафе</a></li><li><a href="/html/we.html">О нас</a></li>
+            </ul>
+        </nav>
+    </header>
+    <!-- Заголовок страницы -->
+    <header class="page-header">
+        <h1>Рестораны и кафе в Кирове</h1>
+        <p>Откройте для себя лучшие заведения города</p>
+    </header>
+    <!-- Блок фильтров -->
+    <div class="filter-menu">
+        <div class="filter-buttons">
+            <button class="filter-toggle">
+                <span>🔍</span>
+                Фильтровать заведения
+            </button>
+            <button class="reset-filters">
+                <span>🔄</span>
+                Сбросить фильтры
+            </button>
+        </div>
+        <div class="filter-dropdown hidden">
+            <form id="filter-form">
+                <!-- Фильтр по времени работы -->
+                <div class="filter-group">
+                    <label for="working-hours">🕒 Время работы:</label>
+                    <select id="working-hours">
+                        <option value="">Любое</option>
+                        <option value="morning">Утро (до 12:00)</option>
+                        <option value="afternoon">День (12:00-18:00)</option>
+                        <option value="evening">Вечер (после 18:00)</option>
+                        <option value="late">Поздно (после 22:00)</option>
+                        <option value="24_7">Круглосуточно</option>
+                    </select>
+                </div>
+                
+                <!-- Фильтр по среднему чеку -->
+                <div class="filter-group">
+                    <label for="cost">💰 Средний чек:
+                        <span id="cost-value">5000 ₽</span>
+                    </label>
+                    <input type="range" id="cost" min="0" max="10000" step="500" value="5000">
+                </div>
+                
+                <!-- Фильтр по рейтингу -->
+                <div class="filter-group">
+                    <label for="rating">⭐ Минимальный рейтинг:</label>
+                    <select id="rating">
+                        <option value="0">Любой</option>
+                        <option value="4">4+</option>
+                        <option value="4.5">4.5+</option>
+                        <option value="4.7">4.7+</option>
+                        <option value="4.9">4.9+</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                
+                <!-- Фильтр по типу кухни -->
+                <div class="filter-group">
+                    <label for="restaurant-cuisine">🍽️ Тип кухни:</label>
+                    <select id="restaurant-cuisine">
+                        <option value="">Все</option>
+                        <option value="russian">Русская</option>
+                        <option value="vostochnaya">Восточная</option>
+                        <option value="gruz">Грузинская</option>
+                        <option value="italian">Итальянская</option>
+                        <option value="frank">Французская</option>
+                        <option value="smesh">Смешанная</option>
+                        <option value="sred">Средиземноморская</option>
+                        <option value="izrail">Израильская</option>
+                    </select>
+                </div>
+                
+                <button type="button" class="apply-filters">Применить фильтры</button>
+            </form>
+        </div>
+    </div>
+    <!-- Лента ресторанов -->
+    <section class="restaurant-list">
+        <h2>Наши заведения</h2>
+        <div class="event-list">
+        <!-- 1 -->
+        <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Tsarskoye 1.jpg" class="active" /><img src="/pictures/Tsarskoye 2.jpg" /><img src="/pictures/Tsarskoye 3.jpg" /></div><h3>Царское Село</h3><p>Ресторан русской кухни.</p><a href="#tsarskoe-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 2 -->
+        <div class="vostochnaya"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Mivan 1.jpg" class="active"><img src="/pictures/Mivan 2.jpg"><img src="/pictures/Mivan 3.jpg"></div><h3>Миван</h3><p>Ресторан восточной кухни.</p><a href="#mivan-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 3 -->
+        <div class="gruz"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/MamaToma 1.jpg" class="active"><img src="/pictures/MamaToma 2.jpg"><img src="/pictures/MamaToma 3.jpg"></div><h3>МамаТома</h3><p>Ресторан грузинской кухни.</p><a href="#mamatoma-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 4 -->
+        <div class="italian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/MamaRoma 2.jpg" class="active"><img src="/pictures/MamaRoma 2.jpg"><img src="/pictures/MamaRoma 3.jpg"></div><h3>МамаРома</h3><p>Ресторан итальянской кухни</p><a href="#mamaroma-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 5 -->
+        <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Vasnetsov 1.jpg" class="active"><img src="/pictures/Vasnetsov 2.jpg"><img src="/pictures/Vasnetsov 3.jpg"></div><h3>Васнецовъ</h3><p>Ресторан русской кухни.</p><a href="#vasnetsov-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 6 -->
+        <div class="frank"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Bliss-Terrace 1.webp" class="active"><img src="/pictures/Bliss-Terrace 2.webp"><img src="/pictures/Bliss-Terrace 3.jpg"></div><h3>Bliss-Terrace</h3><p>Ресторан французской кухни.</p><a href="#bliss-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 7 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Four 1.jpg" class="active"><img src="/pictures/Four 2.jpg"><img src="/pictures/Four 3.webp"></div><h3>Four</h3><p>Ресторан смешанной кухни.</p><a href="#four-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 8 -->
+        <div class="vostochnaya"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Kerkema 1.jpg" class="active"><img src="/pictures/Kerkema 2.webp"><img src="/pictures/Kerkema 3.webp"></div><h3>Куркума</h3><p>Ресторан восточной кухни.</p><a href="#kyrkyma-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 9 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Ecumene  1.jpg" class="active"><img src="/pictures/Ecumene  2.jpg"><img src="/pictures/Ecumene 3.webp"></div><h3>Ойкумена</h3><p>Ресторан разнообразной кухни.</p><a href="#oikymena-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 10 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/The first cheese 1.jpg" class="active"><img src="/pictures/The first cheese 2.jpg"><img src="/pictures/The first cheese 3.jpg"></div><h3>Первый сырный бар</h3><p>Бар разнообразной кухни.</p><a href="#sirnii-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 11 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Agata 1.webp" class="active"><img src="/pictures/Agata 2.jpg"><img src="/pictures/Agata 3.jpg"></div><h3>Agata</h3><p>Кафе европейской и японской кухни.</p><a href="#agata-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 12 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/egg 1.webp" class="active"><img src="/pictures/egg 2.jpg"><img src="/pictures/egg 3.webp"></div><h3>Яйцо</h3><p>Кафе разнообразной кухни.</p><a href="#iaico-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 13 -->
+        <div class="sred"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Shchedrin 1.jpg" class="active"><img src="/pictures/Shchedrin 2.jpg"><img src="/pictures/Shchedrin 3.jpg"></div><h3>Щедринъ</h3><p>Кафе средиземноморской кухни.</p><a href="#shedrin-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 14 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Adjikueli 1.webp" class="active"><img src="/pictures/Adjikueli 2.jpg"><img src="/pictures/Adjikueli 3.jpg"></div><h3>Аджикуели</h3><p>Ресторан разнообразной кухни.</p><a href="#adjikyeli-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 15 -->
+        <div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Oblako  1.jpg" class="active"><img src="/pictures/Oblako 2.webp"><img src="/pictures/Oblako 3.webp"></div><h3>Облако</h3><p>Ресторан разнообразной кухни.</p><a href="#oblako-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 16 -->
+        <div class="izrail"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Shalom Berman 1.webp" class="active"><img src="/pictures/Shalom Berman 2.webp"><img src="/pictures/Shalom Berman 3.jpg"></div><h3>Шалом Берман</h3><p>Бистро-бар израильской кухни.</p><a href="#shalom-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 17 -->
+        <div class="sred"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Si-mare 1.webp" class="active"><img src="/pictures/Si-mare 2.jpg"><img src="/pictures/Si-mare 3.jpg"></div><h3>Si-mare</h3><p>Ресторан средиземноморской кухни.</p><a href="#si-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 18 -->
+        <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Aromaroomsbar 1.webp" class="active"><img src="/pictures/Aromaroomsbar 2.jpg"><img src="/pictures/Aromaroomsbar 3.jpg"></div><h3>Aroma Rooms Bar</h3><p>Ресторан русской кухни.</p><a href="#aromaroomsbar-details" class="btn-detail">Подробнее →</a></article></div></div>
+        <!-- 19 -->
+        <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Vasya Lozhkin's 1.webp" class="active"><img src="/pictures/Vasya Lozhkin's 2.webp"><img src="/pictures/Vasya Lozhkin's 3.webp"></div><h3>Бармузей Васи Ложкина</h3><p>Бармузей русской кухни.</p><a href="#vasia-details" class="btn-detail">Подробнее →</a></article></div></div>
+        </div>
+    </section>
+    
+
+    <!-- Модальные окна -->
+    <!-- 1 -->
+<div id="tsarskoe-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Царское Село</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Tsarskoye 1.jpg" class="active"><img src="/pictures/Tsarskoye 2.jpg"><img src="/pictures/Tsarskoye 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторация русской кухни «Царское село» это излюбленное место гостей и жителей города. Здесь можно отведать традиционные, а также авторские блюда русской и европейской кухни, провести торжественное или деловое мероприятие любого формата и масштаба.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 125 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 40-53-43 </p>
+<p><strong>💵 Средний чек:</strong> 1000-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская, Европейская</p>
+</div>
+<a href="https://m-kyhnia.ru/tsarskoe-selo/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-tsarskoe" class="yandex-map" data-lat="58.599666" data-lon="49.656293" data-title="Царское Село" data-address="Октябрьский просп., 125">
+</div>
+</div>
+</div>
+
+<!-- 2 -->
+<div id="mivan-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Миван</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Mivan 1.jpg" class="active"><img src="/pictures/Mivan 2.jpg"><img src="/pictures/Mivan 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Легенда о Миван
+Высоко высоко в горах… Кавказа, где запредельная красота и грандиозность природы сливаются с глубокими культурными традициями и духовностью и создают свой собственный неповторимый мир, вырос наш Миван.
+Он рос яркой личностью с непреодолимой тягой к знаниям и самообразованию. Путешествия стали неотъемлемой частью жизни повзрослевшего Миван. Он безудержно погружался в атмосферу разных стран, исследовал культуры и обычаи, но при этом никогда не забывал о своих собственных корнях.
+От мамы и бабушки Миван наследовал талант и непреходящую любовь к приготовлению пищи и к традиционным рецептам своего народа. А заложенное культурой воспитание наполняет тщанием, щедростью и заботой встречу любого гостя в его доме.
+Миван готов встретить своих дорогих гостей! Насладить каждого гармоничной смесью традиций Кавказа и впечатлений от путешествий по миру в каждом блюде.
+Добро пожаловать в “Миван”, дом гостеприимства Кавказа. </p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Ленина, 86 • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 21-48-88 </p>
+<p><strong>💵 Средний чек:</strong> 900-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9</p><p><strong>🍽️ Кухня:</strong> Восточная, Кавказская</p>
+</div>
+<a href="https://mivan.rest/?ysclid=mirrnb23vu780750604" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mivan" class="yandex-map" data-lat="58.601402" data-lon="49.681491" data-title="Миван" data-address="ул. Ленина, 86 • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 3 -->
+<div id="mamatoma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>МамаТома</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/MamaToma 1.jpg" class="active"><img src="/pictures/MamaToma 2.jpg"><img src="/pictures/MamaToma 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан, вдохновленный грузинскими легендами о царице Тамар. По всему миру шла молва о красоте царицы, ее богатстве, милосердии и щедрости.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Маклина, 1 • этаж 0 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 903-72-78 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Грузинская</p>
+</div>
+<a href="https://mamatomakirov.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mamatoma" class="yandex-map" data-lat="58.597373" data-lon="49.668170" data-title="МамаТома" data-address="ул. Маклина, 1 • этаж 0">
+</div>
+</div>
+</div>
+
+<!-- 4 -->
+<div id="mamaroma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>МамаРома</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/MamaRoma  1.webp" class="active"><img src="/pictures/MamaRoma 2.jpg"><img src="/pictures/MamaRoma 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан итальянской кухни с неаполитанской пиццей и авторскими блюдами.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 92 </p><p><strong>🕒 Часы работы:</strong> 11:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 41-33-23 (доб. 2) </p>
+<p><strong>💵 Средний чек:</strong> 1200-2500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Итальянская</p>
+</div>
+<a href="https://kirov.mamaroma.ru/pizza" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mamaroma" class="yandex-map" data-lat="58.596306" data-lon="49.616165" data-title="МамаРома" data-address="ул. Воровского, 92">
+</div>
+</div>
+</div>
+
+<!-- 5 -->
+<div id="vasnetsov-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Васнецовъ</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Vasnetsov 1.jpg" class="active"><img src="/pictures/Vasnetsov 2.jpg"><img src="/pictures/Vasnetsov 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Все блюда ресторана – это авторская кухня, творческое переосмысление «золотого фонда» мирового искусства кулинарии. Вас ждет широкий выбор аперитивов, тонких, насыщенных полнотелых и десертных вин и дижестивов.
+ Каждое блюдо, представленное в «Минью» «Васнецова», отличается не только безупречным вкусом, но и оригинальной подачей. И даже ставший уже традиционным на нашем столе салат «Оливье» откроется вам с необычной, неведомой вам ранее стороны.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 41В • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 11:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (912) 734-18-18 </p>
+<p><strong>💵 Средний чек:</strong> 2500-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская, Авторская</p>
+</div>
+<a href="https://ресторан-васнецов.рф/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-vasnetsov" class="yandex-map" data-lat="58.602073" data-lon="49.672750" data-title="Васнецовъ" data-address="Спасская ул., 41В • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 6 -->
+<div id="bliss-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Bliss-Terrace</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Bliss-Terrace 1.webp" class="active"><img src="/pictures/Bliss-Terrace 2.webp"><img src="/pictures/Bliss-Terrace 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Мы превращаем обычные дни в незабываемые события! Доверьте нам организацию вашего праздника: от тёплого камерного мероприятия для близких до грандиозного банкета.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Профсоюзная ул., 23 этаж 1 </p><p><strong>🕒 Часы работы:</strong> 8:00 - 12:00 </p><p><strong>📞 Телефон:</strong> +7 (800) 301-08-24 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1700 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Французская</p>
+</div>
+<a href="https://bliss-terrace.ru/restaurant/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-bliss" class="yandex-map" data-lat="58.615481" data-lon="49.677484" data-title="Bliss-Terrace" data-address="Профсоюзная ул., 23 этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 7 -->
+<div id="four-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Four</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Four 1.jpg" class="active"><img src="/pictures/Four 2.jpg"><img src="/pictures/Four 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>FOUR - первый и единственный в городе ресторан четырёх кухонь - удобно расположен в самом центре города, на первом этаже отеля Elements Kirov Hotel 5*.
+Вдохновляющий живописный вид на городской парк, открывающийся из панорамных окон и с летней террасы, дополняет атмосферу уюта и тепла. А радушный прием, забота и внимание, оказываемые каждому гостю, позволят вам по достоинству оценить кулинарное искусство поваров, не отвлекаясь на мелочи.
+Меню для ресторана разработал шеф-повар Иван Хонин, и благодаря слаженной работе нашей команды вы можете попробовать интернациональную, русскую, вятскую и сезонную кухню - всё в одном месте!
+Мы рады приветствовать гостей и жителей города круглосуточно каждый день!</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 145, корп. 1 </p><p><strong>🕒 Часы работы:</strong> Круглосуточно </p><p><strong>📞 Телефон:</strong> +7 (8332) 20-93-36 </p>
+<p><strong>💵 Средний чек:</strong> 3000-6000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://four-kirov.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-four" class="yandex-map" data-lat="58.590323" data-lon="49.657531" data-title="Four" data-address="Октябрьский просп., 145, корп. 1">
+</div>
+</div>
+</div>
+
+<!-- 8 -->
+<div id="kyrkyma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Куркума</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Kerkema 1.jpg" class="active"><img src="/pictures/Kerkema 2.webp"><img src="/pictures/Kerkema 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан-чайхана Куркума приглашает вас окунуться в атмосферу любимых вкусов.
+В истинных традициях бара для вас приготовили щедрое меню с богатым выбором пива и всевозможными закусками, вкусно дополняющими пенный напиток. Здесь можно выпить с друзьями под ненавязчивую музыку и в целом провести приятный вечер.
+Вы — преданный поклонник жареного мяса? Тогда вам может понравиться выбор блюд в меню Ресторана-чайханы Куркума. Легкая, средняя или сильная прожарка — ароматное лакомство всегда будет радовать глаз, особенно даря яркий фейерверк вкусов. В дополнение к мясным блюдам вам предложат холодные напитки или бокал пенного.
+Помимо вкусной еды здесь можно насладиться винами из разных уголков мира. Искусство сомелье недаром высоко ценят в современном обществе. Умение правильно дегустировать этот напиток часто позволяет полностью раскрыть его вкусовой букет. А дополнить вкус вина помогут незамысловатые закуски.
+Кухня стран Азии примечательна тем, что в ней сочетается огромное число специй, позволяющее составлять новые блюда из, казалось бы, обыденных продуктов. Особую роль здесь играет красный перец, добавляющий блюдам пикантную «остринку». Таким образом еда получается особенно пряной и пикантной. В Ресторане-чайхане Куркума вам предложат знаменитые азиатские блюда от шефа.
+Если вам захотелось перекусить на свежем воздухе, особенно в теплый денек, то здесь открыта удобная терраса. Для летнего периода в заведении имеется специальное меню, которое прекрасно освежает в жаркую погоду. Летние кафе отличаются быстрым приготовлением блюд, что сокращает время ожидания заказа.
+Для вас и вашей компании повара приготовят блюда еврейской, тайской, турецкой, узбекской кухни. Тут же вы можете выбрать бизнес-ланч из отдельного меню, заказать блюда с доставкой на дом.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 67 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 47-02-20 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1400 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Восточная</p>
+</div>
+<a href="https://kurkuma.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-kyrkyma" class="yandex-map" data-lat="58.601824" data-lon="49.660099" data-title="Куркума" data-address="Спасская ул., 67">
+</div>
+</div>
+</div>
+
+<!-- 9 -->
+<div id="oikymena-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Ойкумена</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Ecumene  1.jpg" class="active"><img src="/pictures/Ecumene  2.jpg"><img src="/pictures/Ecumene 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Добро пожаловать в наш уютный мир!
+Мы создали место, где вкусная еда и тёплая атмосфера объединяют людей. Здесь каждый найдёт что-то своё: новые вкусы, знакомства, впечатления и вдохновение. Наш ресторан - это дом странника, где Вы можете почувствовать себя как дома, даже если находитесь далеко от него.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Герцена, 15 </p><p><strong>🕒 Часы работы:</strong> 9:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 663-70-08 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://ojkumena-ulitsa-gertsena.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-oikymena" class="yandex-map" data-lat="58.600381" data-lon="49.676023" data-title="Ойкумена" data-address="ул. Герцена, 15">
+</div>
+</div>
+</div>
+
+<!-- 10 -->
+<div id="sirnii-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Первый сырный бар</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/The first cheese 1.jpg" class="active"><img src="/pictures/The first cheese 2.jpg"><img src="/pictures/The first cheese 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Первый винный бар-сыроварня в городе! Сыры, стейки и вино, своя сыроварня, американская коптильня, витрина с десертами и бонусная программа.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 120 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 900-78-70 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://pervyj-syrnyj-bar-friends.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-sirnii" class="yandex-map" data-lat="58.583848" data-lon="49.659276" data-title="Первый сырный бар" data-address="Октябрьский просп., 120">
+</div>
+</div>
+</div>
+
+<!-- 11 -->
+<div id="agata-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Agata</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Agata 1.webp" class="active"><img src="/pictures/Agata 2.jpg"><img src="/pictures/Agata 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>История кафе «Агата» насчитывает уже 20 лет непрерывной работы. 15 мая 2003 года мы открыли двери легендарного кафе в Кирове!
+Мы открывали Агату для ценителей вкусной кухни, уютной атмосферы и любителей рока. Название было придумано в честь группы «Агата Кристи». Неоднократно в Киров приезжали рок-группы и всегда по достоинству оценивали нашу кухню.
+В конце 2004 года кафе «Агата» познакомило кировчан с японской кухней и культурой потребления восточных блюд. На тот момент это было настоящим прорывом в мире Кировского общепита! Гости впервые пробовали роллы, суши, гунканы, традиционные японские супы.
+Многие жители и гости города посещали нас за это долгое время работы. Агату успели полюбить гости разного возраста и вкусовых пристрастий, так как мы старались готовить блюда на любой вкус от Детского Меню и Вегетарианского до блюд разных кухонь мира. Не осталось в стороне и Обеденное Меню, которое регулярно обновлялось!
+За 20 лет работы кафе «Агата» выросло из небольшого бара в одно из лучших заведений Кирова!
+Сейчас формат кафе изменился и уже ничего не напоминает о роке.
+Всё течёт, меняется, мы не могли больше сохранять старый формат «Агаты», он был уже не актуален. В новом проекте кафе мы воплотили лаконичный современный стиль, уют и неизменно высокое качество кухни!
+Мы много путешествуем, посещаем лучшие рестораны России и Европы, поэтому чётко понимаем, как развивается сфера, в каких интерьерах комфортно находиться, куда хочется возвращаться? Поэтому наш новый проект кафе «AGATA» получился неким синтезом лучших черт современной гастрономии. Сейчас в кафе очень комфортно, много натуральных материалов, живые цветы, красивая посуда и дизайнерская мебель.
+При создании меню мы вдохновлялись творчеством 15 шефов, за которыми мы следим, приезжаем в их рестораны, непосредственно общаемся с ними. Наш шеф-повар Денис Сумароков регулярно повышает квалификацию и уже прошел обучение у 3 именитых шефов, и это не предел. Мы посещаем много ресторанов, изучаем тренды современной кулинарии, а после мы создаем свои блюда. Конечно же, мы чутко прислушиваемся к пожеланиями наших гостей и учитываем их вкусы!
+Одного посещения не хватит, чтобы познакомиться с нашей кухней! С удовольствием приглашаем вас насладиться неповторимым сочетанием кухни, стиля и современной атмосферы!
+</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Маклина, 56 </p><p><strong>🕒 Часы работы:</strong> 10:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (982) 383-14-14 </p>
+<p><strong>💵 Средний чек:</strong> 750-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://кафеагата.рф/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-agata" class="yandex-map" data-lat="58.594863" data-lon="49.642342" data-title="Agata" data-address="ул. Маклина, 56">
+</div>
+</div>
+</div>
+
+<!-- 12 -->
+<div id="iaico-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Яйцо</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/egg 1.webp" class="active"><img src="/pictures/egg 2.jpg"><img src="/pictures/egg 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>Завтраки весь день!
+Всё, что вы любите есть на завтрак: каши, более 20 блюд с яйцами, сэндвичи, сырники, сладкие завтраки.
+А ещё горячее, салаты, супы и даже азиатские блюда.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 10 </p><p><strong>🕒 Часы работы:</strong> 08:00 - 20:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 75-43-24 </p>
+<p><strong>💵 Средний чек:</strong> 700-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://eggcafe.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-iaico" class="yandex-map" data-lat="58.593875" data-lon="49.679174" data-title="Яйцо" data-address="ул. Воровского, 10">
+</div>
+</div>
+</div>
+
+<!-- 13 -->
+<div id="shedrin-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Щедринъ</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Shchedrin 1.jpg" class="active"><img src="/pictures/Shchedrin 2.jpg"><img src="/pictures/Shchedrin 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>«Щедринъ» — кафе на Спасской, 17, где классика оживает в новых смыслах. Мы вдохновились русской литературой, атмосферой старых гостиных и вкусами, которые не теряют актуальности.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 17 • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 9:00 - 21:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 79-22-52 </p>
+<p><strong>💵 Средний чек:</strong> 600-1200 руб </p><p><strong>⭐ Рейтинг:</strong> 4.7 </p><p><strong>🍽️ Кухня:</strong> Средиземноморская</p>
+</div>
+<a href="https://vk.com/shchedrin.kirov" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-shedrin" class="yandex-map" data-lat="58.602291" data-lon="49.681717" data-title="Щедринъ" data-address="Спасская ул., 17 • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 14 -->
+<div id="adjikyeli-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Аджикуели</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Adjikueli 1.webp" class="active"><img src="/pictures/Adjikueli 2.jpg"><img src="/pictures/Adjikueli 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>В ресторане «Аджикуели» в Кирове представлены блюда грузинской, европейской, итальянской, кавказской, паназиатской, русской и японской кухни. В меню — шашлык, хинкали, картофель-фри, бельгийские вафли, салаты, хачапури, супы и другие блюда.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 78 этаж 1 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 49-03-09 </p>
+<p><strong>💵 Средний чек:</strong> 1400-2200 руб </p><p><strong>⭐ Рейтинг:</strong> 4.7 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://vk.com/adjikueli" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-adjikyeli" class="yandex-map" data-lat="58.592966" data-lon="49.632025" data-title="Аджикуели" data-address="ул. Воровского, 78 этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 15 -->
+<div id="oblako-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Облако</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Oblako  1.jpg" class="active"><img src="/pictures/Oblako 2.webp"><img src="/pictures/Oblako 3.webp"><button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>В кальян-баре «Oblako» царит уютная и расслабляющая атмосфера, которая идеально подходит для свиданий и встреч с друзьями. Гости отмечают стильный и современный интерьер с преобладанием светлых тонов, а также спокойную музыку и приглушенный свет.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Ленина, 89 </p><p><strong>🕒 Часы работы:</strong> 13:00 - 01:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 662-63-33 </p>
+<p><strong>💵 Средний чек:</strong> 1200-2000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://vk.com/oblako_bar" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-oblako" class="yandex-map" data-lat="58.597572" data-lon="49.680989" data-title="Облако" data-address="ул. Ленина, 89">
+</div>
+</div>
+</div>
+
+<!-- 16 -->
+<div id="shalom-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Шалом Берман</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Shalom Berman 1.webp" class="active"><img src="/pictures/Shalom Berman 2.webp"><img src="/pictures/Shalom Berman 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>📍Бистро- бар «Шалом Берман» — уникальное место в объекте культурного наследия «Аптека Берман» с атмосферой истории и современного гастрономического искусства.
+🍴 Нас вдохновляет история здания и нашего города, а наша кухня сочетает традиции разных культур с авторскими решениями.
+🍷 В баре «Аптека» вас ждут фирменные коктейли- рецепты, домашнее вино и настойки.
+🐶 Мы — friendly пространство
+✨ Добро пожаловать разделить душевную атмосферу, вкусную еду и историю с нами! Шалом, любимый гость!</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Горбачёва, 24/81 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 21:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 940-81-24 </p>
+<p><strong>💵 Средний чек:</strong> 1300-2100 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Израильская</p>
+</div>
+<a href="https://shalomberman.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-shalom" class="yandex-map" data-lat="58.599395" data-lon="49.681019" data-title="Шалом Берман" data-address="ул. Горбачёва, 24/81">
+</div>
+</div>
+</div>
+
+<!-- 17 -->
+<div id="si-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Si-mare</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Si-mare 1.webp" class="active"><img src="/pictures/Si-mare 2.jpg"><img src="/pictures/Si-mare 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Si,mare — ресторан, где каждое «да» обретает вкус и смысл.
+В меню европейская классика: свежие устрицы, пицца с хрустящей корочкой, паста, будто сотканная из солнечных нитей, ароматное вино и традиционные итальянские десерты.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Свободы, 28 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (912) 734-74-00 </p>
+<p><strong>💵 Средний чек:</strong> 2000-2500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Средиземноморская</p>
+</div>
+<a href="https://si-mare.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-si" class="yandex-map" data-lat="58.612093" data-lon="49.676389" data-title="Si-mare" data-address="ул. Свободы, 28">
+</div>
+</div>
+</div>
+
+<!-- 18 -->
+<div id="aromaroomsbar-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Aroma Rooms Bar</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Aromaroomsbar 1.webp" class="active"><img src="/pictures/Aromaroomsbar 2.jpg"><img src="/pictures/Aromaroomsbar 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Aroma Rooms Bar в Кирове — заведение, где можно провести время с друзьями или коллегами, завести новые знакомства или расслабиться после тяжёлого рабочего дня.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 92 этаж 3 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 01:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 44-41-70 </p>
+<p><strong>💵 Средний чек:</strong> 1500-1900 руб </p><p><strong>⭐ Рейтинг:</strong> 4.8 </p><p><strong>🍽️ Кухня:</strong> Русская</p>
+</div>
+<a href="https://vk.com/aromaroomsbar" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-aromaroomsbar" class="yandex-map" data-lat="58.592620" data-lon="49.658846" data-title="Aroma Rooms Bar" data-address="Октябрьский просп., 92 этаж 3">
+</div>
+</div>
+</div>
+
+<!-- 19 -->
+<div id="vasia-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Бармузей Васи Ложкина</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Vasya Lozhkin's 1.webp" class="active"><img src="/pictures/Vasya Lozhkin's 2.webp"><img src="/pictures/Vasnetsov 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Бармузей? В Кирове? С рыжими котиками художника Васи Ложкина?
+Да, это точно мы 🧡
+Приятная атмосфера и горячие чебуреки.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 8 Спасская 8, вход с улицы Ленина </p><p><strong>🕒 Часы работы:</strong> 12:00 - 00:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 46-80-80 </p>
+<p><strong>💵 Средний чек:</strong> 500-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская</p>
+</div>
+<a href="https://vk.com/barmuzey_kirov" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-vasia"  class="yandex-map" data-lat="58.602006" data-lon="49.680871" data-title="Бармузей Васи Ложкина" data-address="Спасская 8, вход с улицы Ленина">
+</div>
+</div>
+</div>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=ac7d90b6-8a36-4460-baa6-67b90381b4ac&lang=ru_RU" type="text/javascript"></script>
+    
+    <!-- Подвал страницы -->
+    <footer>
+        <p>© 2025 Мое Время | Все права защищены</p>
+    </footer>
+
+    <script src="/js/restaurants.js"></script>
+</body>
+</html>

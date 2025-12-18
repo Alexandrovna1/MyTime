@@ -1,0 +1,2158 @@
+/* ==================== ОБЩИЕ СТИЛИ ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    background-image: url('/pictures/Fon.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    color: #f7f4f4;
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+/* ==================== НАВИГАЦИЯ ==================== */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(20, 0, 40, 0.95);
+    padding: 1.2em 2em;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 15px rgba(75, 0, 130, 0.4);
+}
+
+.logo a {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #b19cd9;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo a:hover {
+    color: #fff;
+    transform: scale(1.05);
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    gap: 2em;
+}
+
+nav a {
+    text-decoration: none;
+    color: #faf7f7;
+    font-weight: 500;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+nav a:hover {
+    background-color: rgba(147, 112, 219, 0.2);
+    color: #b19cd9;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #9370db;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 80%;
+}
+
+/* ==================== ОПИСАНИЕ САЙТА ==================== */
+.description {
+    text-align: center;
+    padding: 5em 2em;
+    background: linear-gradient(rgba(30, 0, 60, 0.8), rgba(20, 0, 40, 0.9));
+    margin-bottom: 3em;
+    animation: fadeIn 1s ease-out;
+}
+
+.description h1 {
+    font-size: 3.5em;
+    margin-bottom: 0.5em;
+    color: #b19cd9;
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+}
+
+.description p {
+    font-size: 1.3em;
+    max-width: 800px;
+    margin: 0 auto;
+    color: #e6e0ff;
+}
+
+/* ==================== ФИЛЬТРЫ ==================== */
+.filter-menu {
+    position: relative;
+    margin: 0 auto 3em auto;
+    max-width: 1200px;
+    padding: 0 2em;
+    text-align: center;
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+/* Кнопка фильтров */
+.filter-toggle {
+    background: linear-gradient(135deg, #2d1b47 0%, #4b0082 100%);
+    color: white;
+    border: 2px solid #9370db;
+    padding: 14px 28px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
+    z-index: 1001;
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-toggle::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.filter-toggle:hover::before {
+    left: 100%;
+}
+
+.filter-toggle:hover {
+    background: linear-gradient(135deg, #4b0082 0%, #2d1b47 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
+    color: #e6e0ff;
+}
+
+/* Кнопка сброса фильтров */
+.reset-filters {
+    background: linear-gradient(135deg, #8b0000 0%, #b22222 100%);
+    color: white;
+    border: 2px solid #8b0000;
+    padding: 14px 28px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 4px 15px rgba(139, 0, 0, 0.3);
+    z-index: 1001;
+    position: relative;
+    overflow: hidden;
+}
+
+.reset-filters::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.reset-filters:hover::before {
+    left: 100%;
+}
+
+.reset-filters:hover {
+    background: linear-gradient(135deg, #b22222 0%, #8b0000 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(178, 34, 34, 0.4);
+    color: #e6e0ff;
+}
+
+/* Выпадающее меню фильтров */
+.filter-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(45, 27, 71, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 2.5em;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(75, 0, 130, 0.3);
+    width: 380px;
+    z-index: 1002;
+    margin-top: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(147, 112, 219, 0.3);
+}
+
+/* КЛАСС ДЛЯ ОТКРЫТИЯ ФИЛЬТРОВ */
+.filter-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.filter-dropdown label {
+    display: block;
+    margin: 18px 0 8px 0;
+    color: #e6e0ff;
+    font-weight: 600;
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.filter-dropdown select {
+    width: 100%;
+    margin-bottom: 1.8em;
+    padding: 14px;
+    border: 2px solid #7b68ee;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background: rgba(30, 0, 60, 0.8);
+    color: #e6e0ff;
+    cursor: pointer;
+}
+
+.filter-dropdown select:focus {
+    border-color: #b19cd9;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.2);
+}
+
+/* Слайдер стоимости */
+.filter-dropdown input[type="range"] {
+    width: 100%;
+    margin: 20px 0;
+    height: 8px;
+    border-radius: 4px;
+    background: #7b68ee;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.filter-dropdown input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #9370db;
+    cursor: pointer;
+    border: 3px solid #e6e0ff;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.5);
+}
+
+.filter-dropdown input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #9370db;
+    cursor: pointer;
+    border: 3px solid #e6e0ff;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.5);
+}
+
+#cost-value {
+    display: inline-block;
+    margin-left: 12px;
+    font-weight: bold;
+    color: #e6e0ff;
+    font-size: 1.2em;
+    padding: 4px 12px;
+    background: rgba(147, 112, 219, 0.2);
+    border-radius: 6px;
+    border: 1px solid #9370db;
+}
+
+hr {
+    margin: 25px 0;
+    border: none;
+    border-top: 2px solid #7b68ee;
+}
+
+/* Кнопка применения фильтров */
+.apply-filters {
+    background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.apply-filters::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.apply-filters:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+.apply-filters:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(123, 104, 238, 0.5);
+    background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
+}
+
+/* ==================== БЕСКОНЕЧНАЯ ПРОКРУТКА ==================== */
+.events-section,
+.restaurants-section {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    margin: 4em 0;
+    padding: 2em 0;
+}
+
+.events-list.paused,
+.restaurants-list.paused {
+    animation: none !important;
+}
+.events-section h2,
+.restaurants-section h2 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 1.8em;
+    color: #b19cd9;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.events-section h2::after,
+.restaurants-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #9370db, transparent);
+}
+
+.events-container, .restaurants-container {
+    position: relative; 
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 30px; 
+}
+
+/* Затемнение краев для плавного перехода */
+.events-container::before,
+.events-container::after,
+.restaurants-container::before,
+.restaurants-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 150px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.events-container::before,
+.restaurants-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(30, 0, 60, 0.9), transparent);
+}
+
+.events-container::after,
+.restaurants-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
+}
+
+.events-list,
+.restaurants-list {
+    display: flex;
+    gap: 30px;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    width: max-content;
+    padding: 30px 20px;
+}
+
+.events-list {
+    animation-name: scrollLeftInfinite;
+}
+
+.restaurants-list {
+    animation-name: scrollRightInfinite;
+}
+
+@keyframes scrollLeftInfinite {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRightInfinite {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Пауза при наведении */
+.events-list:hover,
+.restaurants-list:hover {
+    animation-play-state: paused;
+}
+
+/* ==================== КАРТОЧКИ ==================== */
+.container {
+    background: rgba(45, 27, 71, 0.95);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(75, 0, 130, 0.4);
+    color: #f7f4f4;
+    width: 300px; 
+    flex-shrink: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    height: 420px; 
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(147, 112, 219, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #7b68ee, #9370db, #7b68ee);
+}
+
+.container:hover {
+    transform: translateY(-12px) scale(1.02); 
+    box-shadow: 0 20px 40px rgba(123, 104, 238, 0.3);
+    border-color: rgba(147, 112, 219, 0.4);
+}
+
+/* Слайдер изображений */
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 200px; 
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.image-slider img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.image-slider img.active {
+    opacity: 1;
+}
+
+/* Заголовки и текст */
+.container h3 {
+    margin: 12px 0 8px 0;
+    font-size: 1.4em;
+    color: #b19cd9;
+    min-height: 60px; 
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.container p {
+    margin: 8px 0 15px 0;
+    font-size: 1em;
+    color: #e6e0ff;
+    flex-grow: 1;
+    line-height: 1.5;
+}
+
+/* Кнопка "Подробнее" - ИСПРАВЛЕННАЯ */
+.btn-detail {
+    display: inline-block;
+    text-align: center;
+    padding: 12px 24px; /* Уменьшил padding */
+    background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    margin-top: auto;
+    font-size: 1em; 
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    width: fit-content; 
+    align-self: center; 
+    min-width: 160px; 
+}
+
+.btn-detail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.btn-detail:hover::before {
+    left: 100%;
+}
+
+.btn-detail:hover {
+    background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.4);
+}
+
+/* ==================== МОДАЛЬНЫЕ ОКНА ==================== */
+.modal-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 0, 40, 0.97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.modal-details:not(.hidden) {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: rgba(45, 27, 71, 0.98);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    border: 2px solid #9370db;
+    animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.modal-content h2 {
+    color: #b19cd9;
+    margin-bottom: 25px;
+    font-size: 2.3em;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content p {
+    margin: 20px 0;
+    line-height: 1.8;
+    font-size: 1.1em;
+    color: #e6e0ff;
+}
+
+.modal-content a {
+    display: inline-block;
+    color: #b19cd9;
+    text-decoration: none;
+    margin: 15px 0;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border: 2px solid #9370db;
+    border-radius: 8px;
+    background: rgba(147, 112, 219, 0.1);
+}
+
+.modal-content a:hover {
+    color: #fff;
+    background: #7b68ee;
+    transform: translateX(5px);
+}
+
+/* Галерея в модальных окнах */
+.modal-content .gallery {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    margin: 25px 0;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content .gallery img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+.modal-content .gallery img.active {
+    opacity: 1;
+}
+
+/* Кнопки навигации галереи */
+.prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(45, 27, 71, 0.9);
+    color: white;
+    border: none;
+    font-size: 28px;
+    padding: 15px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #9370db;
+}
+
+.prev-button:hover, .next-button:hover {
+    background: #7b68ee;
+    color: #fff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.prev-button {
+    left: 20px;
+}
+
+.next-button {
+    right: 20px;
+}
+
+/* Карта Яндекс */
+.modal-content iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    margin: 25px 0;
+    border: 2px solid #9370db;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Кнопка закрытия */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: #8b0000;
+    color: white;
+    border: none;
+    padding: 12px 18px;
+    cursor: pointer;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    z-index: 10;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+}
+
+.close-modal:hover {
+    background: #b22222;
+    transform: rotate(90deg) scale(1.1);
+}
+
+/* ==================== ИНФОРМАЦИЯ О НАС ==================== */
+.about {
+    text-align: center;
+    padding: 4em 2em;
+    background: linear-gradient(rgba(30, 0, 60, 0.9), rgba(20, 0, 40, 0.95));
+    margin-top: 4em;
+    position: relative;
+    overflow: hidden;
+}
+
+.about::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #7b68ee, #9370db, #7b68ee);
+}
+
+.about h2 {
+    font-size: 2.5em;
+    margin-bottom: 1.2em;
+    color: #b19cd9;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+}
+
+.about p {
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto 2.5em auto;
+    line-height: 1.7;
+    color: #e6e0ff;
+}
+
+.about-images {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin: 2.5em 0;
+}
+
+.about-images img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid #9370db;
+    transition: all 0.4s ease;
+    box-shadow: 0 15px 35px rgba(147, 112, 219, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.about-images img:hover {
+    transform: scale(1.1) rotate(5deg);
+    border-color: #b19cd9;
+    box-shadow: 0 25px 50px rgba(147, 112, 219, 0.5);
+}
+
+.about-images img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(147, 112, 219, 0.1), transparent);
+    transition: 0.5s;
+}
+
+.about-images img:hover::before {
+    left: 100%;
+}
+
+/* ==================== ПОДВАЛ ==================== */
+footer {
+    text-align: center;
+    padding: 2.5em;
+    background: rgba(20, 0, 40, 0.98);
+    color: #e6e0ff;
+    font-size: 1.1em;
+    margin-top: 4em;
+    border-top: 3px solid #9370db;
+    position: relative;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #7b68ee, #9370db, #7b68ee);
+}
+
+footer p {
+    font-size: 1.1em;
+    letter-spacing: 1px;
+}
+
+/* ==================== АНИМАЦИИ ==================== */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+.description,
+.events-section,
+.restaurants-section,
+.about {
+    animation: fadeIn 1s ease-out;
+}
+
+/* ==================== СКРОЛЛБАР ==================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(30, 0, 60, 0.3);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(#7b68ee, #9370db);
+    border-radius: 6px;
+    border: 2px solid rgba(30, 0, 60, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#9370db, #7b68ee);
+}
+
+/* ==================== ДОСТУПНОСТЬ ==================== */
+*:focus {
+    outline: 3px solid #9370db;
+    outline-offset: 3px;
+}
+
+/* ==================== АДАПТИВНОСТЬ ==================== */
+@media (max-width: 1200px) {
+    .container {
+        width: 280px;
+        height: 400px;
+    }
+    
+    .modal-content {
+        padding: 35px;
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar {
+        flex-direction: column;
+        padding: 1.5em;
+        text-align: center;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 1em;
+        margin-top: 1.5em;
+        width: 100%;
+    }
+    
+    nav a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .description h1 {
+        font-size: 2.8em;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 25px;
+    }
+    
+    .container {
+        width: 260px;
+        height: 380px;
+    }
+    
+    .filter-dropdown {
+        width: 340px;
+    }
+    
+    .btn-detail {
+        padding: 10px 20px;
+        font-size: 0.95em;
+        min-width: 140px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .description {
+        padding: 4em 1.5em;
+    }
+    
+    .description h1 {
+        font-size: 2.4em;
+    }
+    
+    .description p {
+        font-size: 1.1em;
+    }
+    
+    .events-section h2,
+    .restaurants-section h2,
+    .about h2 {
+        font-size: 2.2em;
+    }
+    
+    .container {
+        width: 240px;
+        height: 360px;
+        padding: 15px;
+    }
+    
+    .image-slider {
+        height: 170px;
+    }
+    
+    .container h3 {
+        font-size: 1.3em;
+        min-height: 55px;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 20px;
+    }
+    
+    .modal-content {
+        padding: 25px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.9em;
+    }
+    
+    .modal-content .gallery {
+        height: 300px;
+    }
+    
+    .filter-dropdown {
+        width: 320px;
+        padding: 2em;
+    }
+    
+    .about-images {
+        gap: 30px;
+    }
+    
+    .about-images img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .prev-button, .next-button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        padding: 12px;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 12px 24px;
+        font-size: 1.1em;
+    }
+}
+
+@media (max-width: 576px) {
+    .description h1 {
+        font-size: 2em;
+    }
+    
+    .description p {
+        font-size: 1em;
+    }
+    
+    .events-section h2,
+    .restaurants-section h2,
+    .about h2 {
+        font-size: 1.8em;
+    }
+    
+    .container {
+        width: 220px;
+        height: 340px;
+        padding: 15px;
+    }
+    
+    .image-slider {
+        height: 150px;
+    }
+    
+    .container h3 {
+        font-size: 1.2em;
+        min-height: 50px;
+    }
+    
+    .container p {
+        font-size: 0.95em;
+    }
+    
+    .btn-detail {
+        padding: 9px 18px;
+        font-size: 0.9em;
+        min-width: 130px;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.6em;
+    }
+    
+    .modal-content p {
+        font-size: 1em;
+    }
+    
+    .modal-content .gallery {
+        height: 250px;
+    }
+    
+    .modal-content iframe {
+        height: 250px;
+    }
+    
+    .filter-dropdown {
+        width: 300px;
+        padding: 1.5em;
+    }
+    
+    .about-images {
+        gap: 25px;
+    }
+    
+    .about-images img {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .about p {
+        font-size: 1.1em;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    
+    .prev-button, .next-button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        padding: 10px;
+    }
+    
+    .close-modal {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        font-size: 1em;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 400px) {
+    .container {
+        width: 200px;
+        height: 320px;
+        padding: 12px;
+    }
+    
+    .filter-dropdown {
+        width: 280px;
+        padding: 1.5em 1em;
+    }
+    
+    .modal-content {
+        padding: 15px;
+    }
+    
+    .btn-detail {
+        padding: 8px 16px;
+        font-size: 0.85em;
+        min-width: 120px;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 10px 18px;
+        font-size: 0.95em;
+    }
+}
+
+/* ==================== РЕЗУЛЬТАТЫ ФИЛЬТРАЦИИ ==================== */
+.filter-results-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 0, 40, 0.97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.filter-results-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.filter-results-content {
+    background: rgba(45, 27, 71, 0.98);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+    width: 95%;
+    max-width: 1200px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 2px solid #9370db;
+    animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.filter-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #7b68ee;
+}
+
+.filter-results-header h2 {
+    color: #b19cd9;
+    font-size: 2.3em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.filter-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.filter-result-item {
+    background: rgba(30, 0, 60, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+    cursor: pointer;
+}
+
+.filter-result-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
+    border-color: #9370db;
+}
+
+.filter-result-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.filter-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.filter-result-item:hover .filter-result-image img {
+    transform: scale(1.05);
+}
+
+.filter-result-info {
+    padding: 20px;
+}
+
+.filter-result-info h3 {
+    color: #b19cd9;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+    min-height: auto;
+}
+
+.filter-result-info p {
+    color: #e6e0ff;
+    margin-bottom: 15px;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.filter-result-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(147, 112, 219, 0.2);
+}
+
+.filter-result-price {
+    color: #9370db;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.filter-result-rating {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.no-results {
+    text-align: center;
+    padding: 50px;
+    color: #e6e0ff;
+    font-size: 1.2em;
+    grid-column: 1 / -1;
+}
+
+.filter-results-close {
+    background: #8b0000;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-results-close:hover {
+    background: #b22222;
+    transform: scale(1.05);
+}
+
+/* Адаптивность для результатов фильтрации */
+@media (max-width: 992px) {
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-results-content {
+        padding: 30px;
+    }
+    
+    .filter-results-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-results-content {
+        padding: 20px;
+    }
+    
+    .filter-results-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== КНОПКИ ПРОЛИСТЫВАНИЯ ЛЕНТ ==================== */
+.scroll-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.scroll-btn {
+    pointer-events: auto;
+    background: rgba(45, 27, 71, 0.9);
+    color: white;
+    border: 2px solid #9370db;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 4;
+}
+
+.scroll-btn:hover {
+    background: #7b68ee;
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.5);
+    border-color: #b19cd9;
+}
+
+.scroll-btn:active {
+    transform: scale(0.95);
+}
+
+/* Стили для индикаторов прокрутки */
+.scroll-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.scroll-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(147, 112, 219, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.scroll-dot:hover {
+    background: rgba(147, 112, 219, 0.6);
+    transform: scale(1.2);
+}
+
+.scroll-dot.active {
+    background: #9370db;
+    transform: scale(1.2);
+}
+
+/* Адаптивность для кнопок прокрутки */
+@media (max-width: 768px) {
+    .scroll-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+    }
+    
+    .scroll-controls {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .scroll-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .scroll-controls {
+        padding: 0 10px;
+    }
+}
+
+/* ==================== СТИЛИ ДЛЯ ЯНДЕКС КАРТ (API v3) ==================== */
+.yandex-map {
+    width: 100%;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 25px 0;
+    border: 2px solid #9370db;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    background: rgba(30, 0, 60, 0.8);
+    position: relative;
+}
+
+/* Адаптивность для карт */
+@media (max-width: 768px) {
+    .yandex-map {
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .yandex-map {
+        height: 250px;
+    }
+}
+
+.scroll-controls {
+    z-index: 100 !important;
+}
+
+.events-container::before,
+.events-container::after,
+.restaurants-container::before,
+.restaurants-container::after {
+    z-index: 2;
+}
+
+.scroll-btn {
+    z-index: 101 !important;
+}
+
+/* ==================== СПИСОК КИНОТЕАТРОВ В МОДАЛЬНЫХ ОКНАХ ==================== */
+.modal-info {
+    background: rgba(30, 0, 60, 0.8);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 25px 0;
+    border-left: 5px solid #9370db;
+    box-shadow: 0 5px 15px rgba(75, 0, 130, 0.3);
+}
+
+.modal-info p {
+    margin: 12px 0;
+    font-size: 1.1em;
+    color: #e6e0ff;
+    line-height: 1.6;
+}
+
+.modal-info strong {
+    color: #b19cd9;
+    font-weight: 600;
+}
+
+/* Список кинотеатров */
+.cinema-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(45, 27, 71, 0.6);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+}
+
+.cinema-list li {
+    padding: 15px 20px;
+    margin: 12px 0;
+    background: rgba(30, 0, 60, 0.9);
+    border-radius: 10px;
+    border-left: 4px solid #7b68ee;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 1.05em;
+    color: #e6e0ff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cinema-list li:hover {
+    background: rgba(123, 104, 238, 0.2);
+    transform: translateX(8px);
+    box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
+}
+
+.cinema-list li.active {
+    background: rgba(147, 112, 219, 0.3);
+    border-left: 4px solid #b19cd9;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+}
+
+.cinema-list li::before {
+    content: '🎬';
+    font-size: 1.2em;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+/* Информация о времени и цене в списке кинотеатров */
+.cinema-time {
+    color: #b19cd9;
+    font-weight: 600;
+    margin-left: auto;
+    font-size: 0.95em;
+    background: rgba(123, 104, 238, 0.2);
+    padding: 5px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+}
+
+.cinema-price {
+    color: #ffd700;
+    font-weight: bold;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    margin-left: 10px;
+}
+
+/* Скроллбар для списка кинотеатров */
+.cinema-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.cinema-list::-webkit-scrollbar-track {
+    background: rgba(30, 0, 60, 0.3);
+    border-radius: 4px;
+}
+
+.cinema-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(#7b68ee, #9370db);
+    border-radius: 4px;
+}
+
+.cinema-list::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(#9370db, #7b68ee);
+}
+
+/* Заголовок списка кинотеатров */
+.cinema-list-title {
+    color: #b19cd9;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 15px 0 10px 0;
+    padding-bottom: 10px;
+    border-bottom: 2px solid rgba(147, 112, 219, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cinema-list-title::before {
+    content: '📍';
+    font-size: 1.2em;
+}
+
+/* ==================== СТИЛИ ДЛЯ КАРТ ЯНДЕКС С КИНОТЕАТРАМИ ==================== */
+.yandex-map {
+    width: 100%;
+    height: 400px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 25px 0;
+    border: 2px solid #9370db;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    background: rgba(30, 0, 60, 0.8);
+    position: relative;
+}
+
+.yandex-map::before {
+    content: 'Загрузка карты...';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #b19cd9;
+    font-style: italic;
+    font-size: 1.1em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ==================== КНОПКИ НАВИГАЦИИ МЕЖДУ КИНОТЕАТРАМИ ==================== */
+.cinema-nav-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(45, 27, 71, 0.8);
+    border-radius: 15px;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+    box-shadow: 0 5px 15px rgba(75, 0, 130, 0.2);
+}
+
+.cinema-nav-btn {
+    background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(75, 0, 130, 0.3);
+}
+
+.cinema-nav-btn:hover {
+    background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(123, 104, 238, 0.4);
+}
+
+.cinema-nav-btn:disabled {
+    background: linear-gradient(135deg, #666 0%, #888 100%);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.cinema-nav-info {
+    color: #e6e0ff;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+
+.cinema-nav-info span {
+    color: #b19cd9;
+    font-size: 1.2em;
+    margin: 0 5px;
+}
+
+/* ==================== СТИЛИ ДЛЯ БАЛЛУНОВ ВСЕХ ТИПОВ ==================== */
+/* Стили для содержимого балунов (текст и фон) */
+.ymaps-balloon__content {
+    background-color: #9370db !important; /* Основной цвет фона, как у Колизея */
+    color: #f7f4f4 !important; /* Цвет текста */
+    font-family: 'Arial', sans-serif !important;
+    border-radius: 15px !important; /* Закругленные углы */
+    padding: 20px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    max-width: 350px !important;
+    line-height: 1.6 !important;
+}
+
+/* Стили для рамки (хвостика) балуна */
+.ymaps-balloon__tail {
+    background-color: #9370db !important; /* Цвет хвостика */
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.5) !important; /* Тень для хвостика */
+}
+
+/* Универсальный класс для стилизации заголовка внутри балуна */
+.map-balloon-title {
+    color: #f7f4f4;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Универсальный класс для стилизации текста внутри балуна */
+.map-balloon-text {
+    color: #e6e0ff;
+    margin: 10px 0;
+    line-height: 1.5;
+}
+
+/* Адаптивность для балунов */
+@media (max-width: 768px) {
+    .ymaps-balloon__content {
+        max-width: 280px !important;
+        padding: 15px !important;
+    }
+}
+
+/* ==================== АДАПТИВНОСТЬ ДЛЯ КИНОТЕАТРОВ ==================== */
+@media (max-width: 992px) {
+    .cinema-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .cinema-time {
+        margin-left: 0;
+        align-self: flex-start;
+    }
+    
+    .cinema-nav-controls {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .yandex-map {
+        height: 350px;
+    }
+}
+
+@media (max-width: 768px) {
+    .cinema-list {
+        max-height: 200px;
+    }
+    
+    .cinema-list li {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+    
+    .yandex-map {
+        height: 300px;
+    }
+    
+    .cinema-nav-btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
+}
+
+@media (max-width: 576px) {
+    .cinema-list {
+        max-height: 180px;
+        padding: 10px;
+    }
+    
+    .cinema-list li {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+    
+    .yandex-map {
+        height: 250px;
+    }
+    
+    .cinema-nav-controls {
+        padding: 15px;
+    }
+    
+    .cinema-nav-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 400px) {
+    .cinema-list li {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .cinema-time {
+        align-self: center;
+    }
+    
+    .yandex-map {
+        height: 200px;
+    }
+}
+
+/* ==================== АНИМАЦИЯ ПРИ ВЫБОРЕ КИНОТЕАТРА ==================== */
+@keyframes cinemaSelect {
+    0% {
+        transform: translateX(0);
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        transform: translateX(10px);
+        box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
+    }
+    100% {
+        transform: translateX(8px);
+        box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
+    }
+}
+
+.cinema-list li.active {
+    animation: cinemaSelect 0.3s ease-out forwards;
+}
+
+/* ==================== ИКОНКИ ДЛЯ ИНФОРМАЦИИ О КИНОТЕАТРЕ ==================== */
+.cinema-info-icons {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.cinema-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #e6e0ff;
+    font-size: 0.95em;
+    background: rgba(147, 112, 219, 0.1);
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid rgba(147, 112, 219, 0.2);
+}
+
+.cinema-icon::before {
+    font-size: 1.1em;
+}
+
+.cinema-icon.time::before {
+    content: '🕒';
+    color: #b19cd9;
+}
+
+.cinema-icon.price::before {
+    content: '💵';
+    color: #ffd700;
+}
+
+.cinema-icon.address::before {
+    content: '📍';
+    color: #9370db;
+}
+
+
+/* ==================== КАСТОМНЫЕ СТИЛИ ДЛЯ БАЛЛУНОВ ==================== */
+.custom-balloon-style {
+    background-color: #9370db !important;
+    border-radius: 15px !important;
+    padding: 20px !important;
+    color: #f7f4f4 !important;
+    font-family: 'Arial', sans-serif !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    max-width: 350px !important;
+    border: 2px solid #7b68ee !important;
+}
+
+.map-balloon-content {
+    color: #f7f4f4;
+    line-height: 1.6;
+}
+
+.map-balloon-content p {
+    margin: 8px 0;
+    color: #e6e0ff;
+}
+
+.map-balloon-content strong {
+    color: #b19cd9;
+}
+
+/* Стили для хвостика балуна */
+.ymaps-balloon__tail {
+    background: #9370db !important;
+}
+
+/* Стили для кнопки закрытия балуна */
+.ymaps-balloon__close-button {
+    background-color: #8b0000 !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 25px !important;
+    height: 25px !important;
+    font-size: 18px !important;
+    line-height: 25px !important;
+    text-align: center !important;
+}
+
+/* Стили для загрузки карты */
+.map-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(45, 27, 71, 0.8);
+    color: #b19cd9;
+    font-style: italic;
+    font-size: 1.1em;
+    border-radius: 10px;
+}
+
+/* Стили для активного кинотеатра в списке */
+.cinema-list li.active {
+    background: rgba(147, 112, 219, 0.3);
+    border-left: 4px solid #b19cd9;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+    transform: translateX(8px);
+    transition: all 0.3s ease;
+}
+
+/* Анимация для переключения кинотеатров */
+@keyframes cinemaSwitch {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.yandex-map {
+    animation: cinemaSwitch 0.3s ease-out;
+}
+
+/* Адаптивность для навигации кинотеатров */
+@media (max-width: 768px) {
+    .cinema-nav-controls {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+    
+    .cinema-nav-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Стили для контейнеров с прокруткой */
+.events-container, .restaurants-container {
+    position: relative;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 10px;
+    margin: 0 -10px;
+}
+
+/* Убираем стандартный скроллбар */
+.events-container::-webkit-scrollbar,
+.restaurants-container::-webkit-scrollbar {
+    display: none;
+}
+
+.events-container,
+.restaurants-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Контейнеры для лент */
+.events-list, .restaurants-list {
+    display: inline-flex;
+    gap: 30px;
+    padding: 10px;
+}
+
+/* Кнопки прокрутки */
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(45, 27, 71, 0.9);
+    color: white;
+    border: 2px solid #9370db;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-btn:hover {
+    background: #7b68ee;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.5);
+}
+
+.scroll-btn:first-child {
+    left: 10px;
+}
+
+.scroll-btn:last-child {
+    right: 10px;
+}
+
+/* Адаптивность кнопок */
+@media (max-width: 768px) {
+    .scroll-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+/* Затемнение краев для наглядности */
+.events-container::before,
+.events-container::after,
+.restaurants-container::before,
+.restaurants-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.events-container::before,
+.restaurants-container::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(30, 0, 60, 0.9), transparent);
+}
+
+.events-container::after,
+.restaurants-container::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
+}

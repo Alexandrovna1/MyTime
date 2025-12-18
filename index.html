@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/css/home.css">
+<script src="https://api-maps.yandex.ru/2.1/?apikey=ac7d90b6-8a36-4460-baa6-67b90381b4ac&lang=ru_RU" type="text/javascript"></script>
+<title>Моё Время - Киров</title>
+</head>
+<body>
+<header class="navbar">
+<div class="logo"><a href="/">Моё Время</a></div>
+<nav>
+<ul>
+<li><a href="/html/index.html">Главная</a></li><li><a href="/html/events.html">Мероприятия</a></li>
+<li><a href="/html/restaurants.html">Рестораны/Кафе</a></li><li><a href="/html/we.html">О нас</a></li>
+</ul>
+</nav>
+</header>
+<!-- Описание сайта -->
+<section class="description">
+<h1>Моё Время</h1>
+<p>Платформа для поиска мероприятий, ресторанов и кафе в городе Кирове.</p>
+</section>
+<!-- Блок фильтров -->
+<div class="filter-menu">
+<div class="filter-buttons">
+<button class="filter-toggle">
+    <span>🔍</span>
+    Фильтровать</button>
+<button class="reset-filters">
+    <span>🔄</span>
+    Сбросить фильтры</button>
+</div>
+<div class="filter-dropdown hidden">
+<form id="filter-form">
+<!-- Фильтры для мероприятий -->
+<label for="event-time">Время:</label>
+<select id="event-time">
+<option value="">Любое</option>
+<option value="morning">Утро</option>
+<option value="afternoon">День</option>
+<option value="evening">Вечер</option>
+</select>
+
+<label for="event-cost">Стоимость:</label>
+<input type="range" id="event-cost" min="0" max="1000" step="100" value="0">
+<span id="cost-value">0 ₽</span>
+<!-- Фильтрация по рейтингу - добавить этот блок -->
+<label for="event-rating">Минимальный рейтинг:</label>
+<select id="event-rating">
+<option value="0">Любой</option>
+<option value="6">6+</option>
+<option value="7">7+</option>
+<option value="8">8+</option>
+<option value="9">9+</option>
+</select>
+
+<label for="event-concept">Концепт события:</label>
+<select id="event-concept">
+<option value="">Все</option>
+<option value="concert">Концерт</option>
+<option value="spektakl">Спектакль</option>
+<option value="cinema">Кино</option>
+<option value="master_class">Мастер класс</option>
+<option value="kvart">Квартирник</option>
+<option value="vstrecha">Встреча</option>
+</select>
+
+<hr />
+<!-- Фильтры для ресторанов -->
+<label for="restaurant-cuisine">Тип кухни:</label>
+<select id="restaurant-cuisine">
+<option value="">Все</option>
+<option value="asian">Азиатская</option>
+<option value="caucasian">Кавказская</option>
+<option value="gruz">Грузинская</option>
+<option value="italian">Итальянская</option>
+<option value="frank">Французская</option>
+<option value="vostochnaya">Восточная</option>
+<option value="russian">Русская</option>
+<option value="sred">Средиземноморская</option>
+<option value="izrail">Израильская</option>
+<option value="smesh">Смешанная</option>
+</select>
+<button type="button" class="apply-filters">Применить фильтры</button>
+</form>
+</div>
+</div>
+
+<section class="events-section">
+<h2>Мероприятия в Кирове</h2>
+<div class="events-container">
+<div class="scroll-controls">
+</div>
+<div class="events-list">
+<!-- Мероприятия -->
+<!-- 1 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Bebur.png" class="active"></div><h3>Андрей Бебуришвили</h3><p>Концерт</p><a href="#bebur-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 2 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/CAGMO.jpg" class="active"></div><h3>Оркестр CAGMO</h3><p>Симфония Queen при свечах</p><a href="#CAGMO-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 3 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Olga.webp" class="active"></div><h3>Ольги Малащенко</h3><p>Концерт</p><a href="#olga-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 4 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Ivan.jpg" class="active"></div><h3>Иван — богатырский сын</h3><p>Спектакль</p><a href="#ivan-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 5 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Master.jpg" class="active"></div><h3>Мастер и Маргарита</h3><p>Спектакль</p><a href="#master-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 6 -->
+<div class="cinema"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Volchok.jpg" class="active"></div><h3>Волчок</h3><p>Кино</p><a href="#volchok-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 7 -->
+<div class="cinema"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Pismo.jpg" class="active"></div><h3>Письмо Деду Морозу</h3><p>Кино</p><a href="#pismo-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 8 -->
+<div class="master_class"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Chekanca.jpg" class="active"></div><h3>Чеканка</h3><p>Мастер-класс</p><a href="#chekanka-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 9 -->
+<div class="vstrecha"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Vstrecha.jpg" class="active"></div><h3>English Club with Mary</h3><p>Встреча</p><a href="#vstrecha-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 10 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Heronwater.jpg" class="active"></div><h3>Heronwater</h3><p>Концерт</p><a href="#Heronwater-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 11 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Piknik.jpg" class="active"></div><h3>Пикник</h3><p>Концерт</p><a href="#picnik-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 12 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Mishel.jpg" class="active"></div><h3>Моя Мишель</h3><p>Концерт</p><a href="#moya-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 13 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Vzroslie.jpeg" class="active"></div><h3>Взрослые игры</h3><p>Спектакль</p><a href="#vzros-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 14 -->
+<div class="cinema"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Semyanin.jpg" class="active"></div><h3>Семьянин</h3><p>Кино</p><a href="#semya-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 15 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/son-in-law.jpeg" class="active"></div><h3>Ни дать, ни зять</h3><p>Спектакль</p><a href="#zyat-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 16 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Zimnie akvareli.webp" class="active"></div><h3>Зимние акварели</h3><p>Концерт</p><a href="#zim-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 17 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Lubim.jpg" class="active"></div><h3>С любимыми не расставайтесь!</h3><p>Спектакль</p><a href="#lub-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 18 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Anna Karenina.jpg" class="active"></div><h3>Анна Каренина</h3><p>Спектакль</p><a href="#anna-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 19 -->
+<div class="concert"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/DS.webp" class="active"></div><h3>DS CREW. Второй сольный концерт</h3><p>Концерт</p><a href="#ds-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 20 -->
+<div class="spektakl"><div class="container"><article class="event-item"><div class="image-slider"><img src="/pictures/Ranevskaya.jpg" class="active"></div><h3>Раневская. Одинокая насмешница</h3><p>Спектакль</p><a href="#rav-details" class="btn-detail">Подробнее →</a></article></div></div>
+</div>
+</div>
+</section>
+
+<section class="restaurants-section">
+<h2>Рестораны и кафе Кирова</h2>
+<div class="restaurants-container">
+<div class="scroll-controls">
+<button class="scroll-btn" data-target="restaurants">‹</button>
+<button class="scroll-btn" data-target="restaurants">›</button>
+</div>
+<div class="restaurants-list">
+<!-- Рестораны -->
+<!-- 1 -->
+<div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Tsarskoye 1.jpg" class="active" /><img src="/pictures/Tsarskoye 2.jpg" /><img src="/pictures/Tsarskoye 3.jpg" /></div><h3>Царское Село</h3><p>Ресторан русской кухни.</p><a href="#tsarskoe-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 2 -->
+<div class="vostochnaya"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Mivan 1.jpg" class="active"><img src="/pictures/Mivan 2.jpg"><img src="/pictures/Mivan 3.jpg"></div><h3>Миван</h3><p>Ресторан восточной кухни.</p><a href="#mivan-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 3 -->
+<div class="gruz"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/MamaToma 1.jpg" class="active"><img src="/pictures/MamaToma 2.jpg"><img src="/pictures/MamaToma 3.jpg"></div><h3>МамаТома</h3><p>Ресторан грузинской кухни.</p><a href="#mamatoma-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 4 -->
+<div class="italian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/MamaRoma 2.jpg" class="active"><img src="/pictures/MamaRoma 2.jpg"><img src="/pictures/MamaRoma 3.jpg"></div><h3>МамаРома</h3><p>Ресторан итальянской кухни</p><a href="#mamaroma-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 5 -->
+<div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Vasnetsov 1.jpg" class="active"><img src="/pictures/Vasnetsov 2.jpg"><img src="/pictures/Vasnetsov 3.jpg"></div><h3>Васнецовъ</h3><p>Ресторан русской кухни.</p><a href="#vasnetsov-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 6 -->
+<div class="frank"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Bliss-Terrace 1.webp" class="active"><img src="/pictures/Bliss-Terrace 2.webp"><img src="/pictures/Bliss-Terrace 3.jpg"></div><h3>Bliss-Terrace</h3><p>Ресторан французской кухни.</p><a href="#bliss-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 7 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Four 1.jpg" class="active"><img src="/pictures/Four 2.jpg"><img src="/pictures/Four 3.webp"></div><h3>Four</h3><p>Ресторан смешанной кухни.</p><a href="#four-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 8 -->
+<div class="vostochnaya"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Kerkema 1.jpg" class="active"><img src="/pictures/Kerkema 2.webp"><img src="/pictures/Kerkema 3.webp"></div><h3>Куркума</h3><p>Ресторан восточной кухни.</p><a href="#kyrkyma-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 9 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Ecumene  1.jpg" class="active"><img src="/pictures/Ecumene  2.jpg"><img src="/pictures/Ecumene 3.webp"></div><h3>Ойкумена</h3><p>Ресторан разнообразной кухни.</p><a href="#oikymena-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 10 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/The first cheese 1.jpg" class="active"><img src="/pictures/The first cheese 2.jpg"><img src="/pictures/The first cheese 3.jpg"></div><h3>Первый сырный бар</h3><p>Бар разнообразной кухни.</p><a href="#sirnii-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 11 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Agata 1.webp" class="active"><img src="/pictures/Agata 2.jpg"><img src="/pictures/Agata 3.jpg"></div><h3>Agata</h3><p>Кафе европейской и японской кухни.</p><a href="#agata-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 12 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/egg 1.webp" class="active"><img src="/pictures/egg 2.jpg"><img src="/pictures/egg 3.webp"></div><h3>Яйцо</h3><p>Кафе разнообразной кухни.</p><a href="#iaico-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 13 -->
+<div class="sred"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Shchedrin 1.jpg" class="active"><img src="/pictures/Shchedrin 2.jpg"><img src="/pictures/Shchedrin 3.jpg"></div><h3>Щедринъ</h3><p>Кафе средиземноморской кухни.</p><a href="#shedrin-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 14 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Adjikueli 1.webp" class="active"><img src="/pictures/Adjikueli 2.jpg"><img src="/pictures/Adjikueli 3.jpg"></div><h3>Аджикуели</h3><p>Ресторан разнообразной кухни.</p><a href="#adjikyeli-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 15 -->
+<div class="smesh"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Oblako  1.jpg" class="active"><img src="/pictures/Oblako 2.webp"><img src="/pictures/Oblako 3.webp"></div><h3>Облако</h3><p>Ресторан разнообразной кухни.</p><a href="#oblako-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 16 -->
+<div class="izrail"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Shalom Berman 1.webp" class="active"><img src="/pictures/Shalom Berman 2.webp"><img src="/pictures/Shalom Berman 3.jpg"></div><h3>Шалом Берман</h3><p>Бистро-бар израильской кухни.</p><a href="#shalom-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 17 -->
+<div class="sred"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Si-mare 1.webp" class="active"><img src="/pictures/Si-mare 2.jpg"><img src="/pictures/Si-mare 3.jpg"></div><h3>Si-mare</h3><p>Ресторан средиземноморской кухни.</p><a href="#si-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 18 -->
+<div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Aromaroomsbar 1.webp" class="active"><img src="/pictures/Aromaroomsbar 2.jpg"><img src="/pictures/Aromaroomsbar 3.jpg"></div><h3>Aroma Rooms Bar</h3><p>Ресторан русской кухни.</p><a href="#aromaroomsbar-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 19 -->
+<div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/pictures/Vasya Lozhkin's 1.webp" class="active"><img src="/pictures/Vasya Lozhkin's 2.webp"><img src="/pictures/Vasya Lozhkin's 3.webp"></div><h3>Бармузей Васи Ложкина</h3><p>Бармузей русской кухни.</p><a href="#vasia-details" class="btn-detail">Подробнее →</a></article></div></div>
+</div>
+</div>
+</section>
+
+<!-- МОДАЛЬНЫЕ ОКНА МЕРОПРИЯТИЙ -->
+<!-- 1 -->
+<div id="bebur-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Андрей Бебуришвили</h2>
+<div class="gallery">
+<img src="/pictures/Bebur.png" class="active">
+</div>
+<p>О событии</p>
+<p>Андрей Бебуришвили представляет стендап программу «Новое и лучшее».
+Смех, дерзость и немного ностальгии — приходите, пока не стало совсем грустно!</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 14 декабря,2025 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 1300-3800 руб </p><p><strong>⭐ Рейтинг:</strong> 8.2 </p>
+</div>
+<div id="map-bebur" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Андрей Бебуришвили" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 2 -->
+<div id="CAGMO-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Оркестр CAGMO</h2>
+<div class="gallery">
+<img src="/pictures/CAGMO.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>CAGMO представляет новую программу со свечами для камерного состава оркестра — «Солисты оркестра CAGMO — Гарри Поттер и Миядзаки».</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 9 апреля,2026 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> Вятская филармония</p>
+<p><strong>💵 Цена:</strong> 1900-5700 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9/5</p>
+</div>
+<div id="map-CAGMO" class="yandex-map" data-lat="58.594119" data-lon="49.684035" data-title="Оркестр CAGMO" data-address="Вятская филармония">
+</div>
+</div>
+</div>
+
+<!-- 3 -->
+<div id="olga-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Ольги Малащенко</h2>
+<div class="gallery">
+<img src="/pictures/Olga.webp" class="active">
+</div>
+<p>О событии</p>
+<p>Концерт известной певицы с авторскими композициями и каверами.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 4 января,2026 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> ДК железнодорожников </p>
+<p><strong>💵 Цена:</strong> 1800-4000 руб </p><p><strong>⭐ Рейтинг:</strong> 7.9 </p>
+</div>
+<div id="map-olga" class="yandex-map" data-lat="58.584246" data-lon="49.665716" data-title="Ольги Малащенко" data-address="ДК железнодорожников">
+</div>
+</div>
+</div>
+
+<!-- 4 -->
+<div id="ivan-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Иван — богатырский сын</h2>
+<div class="gallery">
+<img src="/pictures/Ivan.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Новое время открывает новые возможности. И современный театр даже знакомые всем истории рассказывает актуальным театральным языком.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 8 января,2026 </p><p><strong>🕒 Время:</strong> 11:00 </p><p><strong>📍 Место:</strong> Театр на Спасской </p>
+<p><strong>💵 Цена:</strong> 400-600 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p>
+</div>
+<div id="map-ivan" class="yandex-map" data-lat="58.602307" data-lon="49.681962" data-title="Иван — богатырский сын" data-address="Театр на Спасской">
+</div>
+</div>
+</div>
+
+<!-- 5 -->
+<div id="master-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Мастер и Маргарита</h2>
+<div class="gallery">
+<img src="/pictures/Master.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Аннушка вновь разольет масло...
+Зрителям предстоят новые встречи с романтичным Мастером, преданной Маргаритой, суровым Пилатом, загадочным Воландом и его демонической свитой — Геллой, Фаготом, Бегемотом и Азазелло.
+Потрясающе выглядит решение проблемы мистики на сцене. Как поставить на театральных подмостках булгаковские перемещения во времени, прозрения, перевоплощения шута Бегемота в кота и наоборот?! А-а-а-а-а-а уже интересно? Приходите на спектакль и все увидите собственными глазами.
+Друзья, готовьтесь к новым встречам с любимыми героями — романтичным Мастером, преданной Маргаритой, суровым Пилатом, загадочным Воландом и его демонической свитой — Геллой, Фаготом, Бегемотом и Азазелло. Их истории — такие яркие, такие невероятные, что они заставляют замирать сердца и даже поверить в чудеса. Эти персонажи стали легендами, живут в наших сердцах и не перестают удивлять. Впереди — новые приключения, новые загадки, новые открытия.
+Приготовьтесь к неожиданным поворотам сюжета, эмоциональным взрывам и морю непрерывных эмоций.
+Не пропустите эту невероятную возможность погрузиться в мир магии, чудес и загадок вместе со своими любимыми героями — они ждут вас!
+Мастер и Маргарита — подлинный шедевр искусства театра двадцать первого века.
+В составе исполнителей возможны изменения без дополнительного уведомления.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 3 февраля,2026 </p><p><strong>🕒 Время:</strong> 19:00</p><p><strong>📍 Место:</strong> Дк Родина</p>
+<p><strong>💵 Цена:</strong> 1200-2400 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p>
+</div>
+<div id="map-master" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Мастер и Маргарита" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 6 -->
+<div id="volchok-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Волчок</h2>
+<div class="gallery">
+<img src="/pictures/Volchok.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Российская империя. Рубеж XIX и XX веков. Тринадцатилетний дворянин и сирота Ваня Огарев бежит из Москвы в Нижний Новгород, спасаясь от убийц, подосланных его собственным дядей, решившим завладеть наследством мальчика. Для своей защиты Ваня нанимает случайно подвернувшегося ему кулачного бойца Волчка. Волчок должен помочь Ване добраться в целости и сохранности до Нижнего — там его ждет верный друг отца. Но все мероприятие с самого начала трещит по швам: фантазер, аристократ, эстет Ваня и неотесанный, хмурый мужик Волчок с самого начала едва выносят друг друга. Впереди их ждет опасное путешествие, которое навсегда изменит их обоих.</p>
+<div class="modal-info">
+<p><strong>⭐ Рейтинг:</strong> 8.2 </p><p><strong>📍 Показ в кинотеатрах:</strong></p><p><strong>💵 Цена:</strong> 450-500 руб.</p>
+<ul class="cinema-list">
+    <li data-cinema-id="1" data-lat="58.577981" data-lon="49.626268" data-title="Дружба" data-address="ул. Щорса, 39, Ленинский район">🎬 Кинотеатр "Дружба" - 18:00 (500 ₽)</li>
+    <li data-cinema-id="2" data-lat="58.592970" data-lon="49.654359" data-title="Колизей" data-address="ул. Воровского, 50В">🎬 Кинотеатр "Колизей" - 19:30 (550 ₽)</li>
+    <li data-cinema-id="3" data-lat="58.597536" data-lon="49.605627" data-title="Глобус" data-address="ул. Воровского, 135Б">🎬 Кинотеатр "Глобус" - 20:00 (450 ₽)</li>
+    <li data-cinema-id="4" data-lat="58.617244" data-lon="49.595190" data-title="Колизей Макси" data-address="Луганская ул., 53/2 этаж 2">🎬 Кинотеатр "Колизей Макси" - 21:00 (300 ₽)</li>
+</ul>
+</div><!-- Контейнер для карты -->
+<div id="map-volchok" class="yandex-map"></div>
+</div>
+</div>
+
+<!-- 7 -->
+<div id="pismo-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Письмо Деду Морозу</h2>
+<div class="gallery">
+<img src="/pictures/Pismo.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>В жизни юриста Петра Безуглова нет места фантазиям. Его жизнь — одни сплошные правила, которые он неукоснительно соблюдает. Однажды его сын Ванечка находит письма, которые Петя в детстве писал Деду Морозу, и опускает их в новогодний почтовый ящик. Утром все детские желания Безуглова начинают сбываться и в опасности не только сам Петр, но и его семья и, возможно, весь мир.</p>
+<div class="modal-info">
+<p><strong>⭐ Рейтинг:</strong> 6.3 </p><p><strong>📍 Показ в кинотеатрах:</strong></p><p><strong>💵 Цена:</strong> 450-500 руб.</p>
+<ul class="cinema-list">
+    <li data-cinema-id="1" data-lat="58.577981" data-lon="49.626268" data-title="Дружба" data-address="ул. Щорса, 39, Ленинский район">🎬 Кинотеатр "Дружба" - 18:00 (500 ₽)</li>
+    <li data-cinema-id="2" data-lat="58.592970" data-lon="49.654359" data-title="Колизей" data-address="ул. Воровского, 50В">🎬 Кинотеатр "Колизей" - 19:30 (550 ₽)</li>
+    <li data-cinema-id="3" data-lat="58.597536" data-lon="49.605627" data-title="Глобус" data-address="ул. Воровского, 135Б">🎬 Кинотеатр "Глобус" - 20:00 (450 ₽)</li>
+    <li data-cinema-id="4" data-lat="58.617244" data-lon="49.595190" data-title="Колизей Макси" data-address="Луганская ул., 53/2 этаж 2">🎬 Кинотеатр "Колизей Макси" - 21:00 (300 ₽)</li>
+</ul>
+</div><!-- Контейнер для карты -->
+<div id="map-pismo" class="yandex-map"></div>
+</div>
+</div>
+
+<!-- 8 -->
+<div id="chekanka-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Чеканка</h2>
+<div class="gallery">
+<img src="/pictures/Chekanca.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>~ приглашаем вас на новогодний мастер-класс по чеканке на фольге ✨❄️ на специальной фольге для чеканки каждый участник сделает собственный набор новогодних украшений.
+что вас ждет:
+- выберем и переведем на фольгу праздничные узоры — звёзды, снежинки, ёлочки или зимних зверюшек
+- научимся работать специальными инструментами, создавая тонкий рельеф и фактуру на мягкой металлической поверхности
+- каждый участник сделает 2-3 разных украшения с неповторимым рисунком 
+- в перерыве пьём травяной чай 🍵 </p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 13 декабря 2025 </p><p><strong>🕒 Время:</strong> 13:30 </p><p><strong>📍 Место:</strong> дом Ветра </p>
+<p><strong>💵 Цена:</strong> 800 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9/5 </p>
+</div>
+<div id="map-chekanka" class="yandex-map" data-lat="58.605587" data-lon="49.676065" data-title="Чеканка" data-address="дом Ветра">
+</div>
+</div>
+</div>
+
+<!-- 9 -->
+<div id="vstrecha-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>English Club with Mary</h2>
+<div class="gallery">
+<img src="/pictures/Vstrecha.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>~ English Club with Mary - клуб живого общения на английском, тематические дискуссии с преподавателем Марией Стрелковой, (https://t.me/Maria_Strelkova) которая в профессии 17 лет и точно знает, как создать условия, где хочется говорить. 
+этот клуб для вас, если:
+- вы учите английский, но не хватает практики 
+- вам страшно говорить, но вы хотите это преодолеть
+- вам важно поддерживать форму с помощью регулярного общения
+- вам хочется найти группу единомышленников без давления и оценок</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 13 декабря 2025 </p><p><strong>🕒 Время:</strong> 15:30 </p><p><strong>📍 Место:</strong> дом Ветра </p>
+<p><strong>💵 Цена:</strong> 600 руб </p><p><strong>⭐ Рейтинг:</strong> 4.8/5 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.605587" data-lon="49.676065" data-title="English Club with Mary" data-address="дом Ветра">
+</div>
+</div>
+</div>
+
+<!-- 10 -->
+<div id="Heronwater-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Heronwater</h2>
+<div class="gallery">
+<img src="/pictures/Heronwater.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Heronwater ворвётся в 26 год туром «Вечно молодой». На сцене оживут окутанные дымовой завесой тайны предстоящего альбома и уже известные хиты.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 9 февраля 2026</p><p><strong>🕒 Время:</strong> 20:00</p><p><strong>📍 Место:</strong> Gaudi </p>
+<p><strong>💵 Цена:</strong> 1500-6000 руб.</p><p><strong>⭐ Рейтинг:</strong> 4.8/5</p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.602965" data-lon="49.672068" data-title="Heronwater" data-address="Gaudi">
+</div>
+</div>
+</div>
+
+<!-- 11 -->
+<div id="picnik-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Пикник</h2>
+<div class="gallery">
+<img src="/pictures/Piknik.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Магия цифр. Для многих это словосочетание — лишь красивый оборот речи. Но только не для музыкантов легендарной группы. В 2026 году магия станет яркой реальностью — цифры, подобно планетам, выстроятся в одну линию!</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 12 февраля 2026</p><p><strong>🕒 Время:</strong> 19:00</p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 6500-10000 руб.</p><p><strong>⭐ Рейтинг:</strong> 4.8/5</p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Пикник" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 12 -->
+<div id="moya-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Моя Мишель</h2>
+<div class="gallery">
+<img src="/pictures/Mishel.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Магия цифр. Для многих это словосочетание — лишь красивый оборот речи. Но только не для музыкантов легендарной группы. В 2026 году магия станет яркой реальностью — цифры, подобно планетам, выстроятся в одну линию!</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 12 февраля,2026</p><p><strong>🕒 Время:</strong> 18:00</p><p><strong>📍 Место:</strong> Gaudi </p>
+<p><strong>💵 Цена:</strong> 3200-12000 руб.</p><p><strong>⭐ Рейтинг:</strong> 4.8/5</p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.602965" data-lon="49.672068" data-title="Моя Мишель" data-address="Gaudi">
+</div>
+</div>
+</div>
+
+<!-- 13 -->
+<div id="vzros-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Взрослые игры</h2>
+<div class="gallery">
+<img src="/pictures/Vzroslie.jpeg" class="active">
+</div>
+<p>О событии</p>
+<p>Знаменитый парижский адвокат устраивает званый ужин... Его гости — состоятельные, благополучные мужчины, красивые, сексапильные женщины... Но ни адвокат, ни его жена не являются на приём. Кто же созвал всех этих людей, а главное, зачем? Сентиментальная комедия абсолютно в духе Нила Саймона, интрига, достойная пера Агаты Кристи, и созвездие лучших актёров российского театра сделают незабываемыми два часа, проведённые вами в компании с нашими героями.
+С одним антрактом.
+В состав исполнителей могут быть внесены изменения без дополнительного уведомления.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 20 февраля,2026 </p><p><strong>🕒 Время:</strong> 19:00</p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 2000-4400 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.7 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Взрослые игры" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 14 -->
+<div id="semya-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Семьянин</h2>
+<div class="gallery">
+<img src="/pictures/Semyanin.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Знаменитый парижский адвокат устраивает званый ужин... Его гости — состоятельные, благополучные мужчины, красивые, сексапильные женщины... Но ни адвокат, ни его жена не являются на приём. Кто же созвал всех этих людей, а главное, зачем? Сентиментальная комедия абсолютно в духе Нила Саймона, интрига, достойная пера Агаты Кристи, и созвездие лучших актёров российского театра сделают незабываемыми два часа, проведённые вами в компании с нашими героями.
+С одним антрактом.
+В состав исполнителей могут быть внесены изменения без дополнительного уведомления.</p>
+<div class="modal-info">
+<p><strong>⭐ Рейтинг:</strong> 7.3 </p><p><strong>📍 Показ в кинотеатрах:</strong></p><p><strong>💵 Цена:</strong> 450-500 руб.</p>
+<ul class="cinema-list">
+    <li data-cinema-id="1" data-lat="58.577981" data-lon="49.626268" data-title="Дружба" data-address="ул. Щорса, 39, Ленинский район">🎬 Кинотеатр "Дружба" - 18:00 (500 ₽)</li>
+    <li data-cinema-id="2" data-lat="58.592970" data-lon="49.654359" data-title="Колизей" data-address="ул. Воровского, 50В">🎬 Кинотеатр "Колизей" - 19:30 (550 ₽)</li>
+    <li data-cinema-id="3" data-lat="58.597536" data-lon="49.605627" data-title="Глобус" data-address="ул. Воровского, 135Б">🎬 Кинотеатр "Глобус" - 20:00 (450 ₽)</li>
+    <li data-cinema-id="4" data-lat="58.617244" data-lon="49.595190" data-title="Колизей Макси" data-address="Луганская ул., 53/2 этаж 2">🎬 Кинотеатр "Колизей Макси" - 21:00 (300 ₽)</li>
+</ul>
+</div><!-- Контейнер для карты -->
+<div id="map-semya" class="yandex-map"></div>
+</div>
+</div>
+
+<!-- 15 -->
+<div id="zyat-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Ни дать, ни зять</h2>
+<div class="gallery">
+<img src="/pictures/son-in-law.jpeg" class="active">
+</div>
+<p>О событии</p>
+<p>Спектакль — хит 2025 года!
+Впервые актёры из шоу «Уральские Пельмени» сыграют не в шоу, а в большой уморительной комедии «Ни дать, ни зять!» вместе с известными актёрами Московских театров.
+Невероятно смешная, насыщенная, веселая комедия, основанная на реальных событиях! А главное, здесь много до боли знакомых проблем: квартирный вопрос, отношения родителей и детей, взаимная «любовь» тёщи и зятя. Сюжет полон событий, ярких эмоций и драматических ситуаций. Популярные актёры создадут в зале прекрасную атмосферу, полную любви, слёз и смеха!
+Чтобы получить ипотеку, молодая пара оформляет фиктивный развод. И все идет по плану, пока об этом не узнает теща, для которой развод — идеальный повод избавиться от «никчёмного» зятя.
+Пьеса представляет эпизод из жизни семьи Мухиных, который навсегда изменил взаимоотношения героев. Узнав о фиктивном разводе, который Анатолий и Катерина оформили для получения ипотеки, теща раздувает конфликт такого масштаба, что под угрозой оказываются отношения между всеми членами семьи, а Толя и Катя — на грани реального расставания. А какой будет конец? Интересно? Приходите, узнаете!
+Ждём вас! В составе актёров возможны изменения без предварительного уведомления.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 11 февраля,2026 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 2000-6000 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.1 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Ни дать, ни зять" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 16 -->
+<div id="zim-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Зимние акварели</h2>
+<div class="gallery">
+<img src="/pictures/Zimnie akvareli.webp" class="active">
+</div>
+<p>О событии</p>
+<p>Лауреаты международных конкурсов Людмила Крестьянинова (сопрано), Анна Найденова (сопрано), Анна Завалина (меццо-сопрано), Анна Сандалова (скрипка), Андрей Сандалов (фортепиано)
+12 декабря (пятница) в Малом зале Вятской филармонии состоится показ концертной программы «Зимние акварели», которая будет посвящена волшебному времени года, когда всё вокруг становится похожим на сказку. 
+В музыкальном искусстве красота зимней поры раскрывается через множество граней: от торжественной праздничности до меланхоличной задумчивости. Любимая музыка композиторов разных эпох подарит слушателям чувство сопричастности к притягательной магии зимнего пейзажа, распишет его тончайшими полутонами, словно акварельными красками, и создаст атмосферу ожидания новогоднего волшебства. 
+В исполнении лауреатов международных конкурсов — Людмилы Крестьяниновой (сопрано), Анны Найденовой (сопрано), Анны Завалиной (меццо-сопрано), Анны Сандаловой (скрипка), Андрея Сандалова (фортепиано) — в концерте прозвучат: II часть Концерта «Зима» из цикла «Времена года» А. Вивальди, пьеса «У камелька» из цикла «Времена года», романсы «Пускай зима» (ст. П. Коллена, рус. текст А. Горчаковой)  и «Зима» (ст. А. Плещеева) П. Чайковского, Ария Снегурочки и Третья песня Леля из оперы «Снегурочка» Н. Римского-Корсакова, пьесы «Тройка» и «Вальс» из музыкальных иллюстраций к повести А. Пушкина «Метель» Г. Свиридова, Ария Дуни из оперы «Морозко» М. Красева, русская народная песня «Над полями, да над чистыми», а также «Под дугой колокольчик поёт» М. Николаевского (ст. В. Гарлицкого), «Три белых коня» Е. Крылатова (ст. Ю. Энтина), «А снег идёт» А. Эшпая (ст. Е. Евтушенко).
+Продолжительность 1 час 20 минут, без антракта.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 11 февраля,2026 </p><p><strong>🕒 Время:</strong> 18:30 </p><p><strong>📍 Место:</strong> Вятская филармония </p>
+<p><strong>💵 Цена:</strong> 2000 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.1 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.594119" data-lon="49.684035" data-title="Зимние акварели" data-address="Вятская филармония">
+</div>
+</div>
+</div>
+
+<!-- 17 -->
+<div id="lub-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>С любимыми не расставайтесь!</h2>
+<div class="gallery">
+<img src="/pictures/Lubim.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>В основе постановки лежит сюжет одноимённого фильма кинорежиссёра Павла Арсенова, вышедший на экраны в 1979 году, — история молодой семьи, где ревность и недоверие становятся причиной непоправимых решений. Митя, мучимый сомнениями после позднего возвращения жены Кати, теряет веру в их чувства и решается на развод.
+Главной особенностью спектакля является необычный ракурс повествования — история будет рассказана глазами ребёнка. Пока ещё не родившийся сын Кати и Мити играет в «суд», пытаясь спасти брак своих родителей. Через призму детского восприятия взрослого мира он ищет универсальную формулу любви. Его задача — во что бы то не стало примирить маму и папу. Небольшие главы и ироничные новеллы, из которых соткан спектакль, магическим образом складываются как мозаика в глубокое размышление о природе любви и верности.
+В состав исполнителей могут быть внесены изменения без дополнительного уведомления.
+С одним антрактом.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 4 января,2026 </p><p><strong>🕒 Время:</strong> 18:00 </p><p><strong>📍 Место:</strong> Драматический театр им. Кирова </p>
+<p><strong>💵 Цена:</strong> 500-1500 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.1 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.604605" data-lon="49.667966" data-title="С любимыми не расставайтесь!" data-address="Драматический театр им. Кирова">
+</div>
+</div>
+</div>
+
+<!-- 18 -->
+<div id="anna-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Анна Каренина</h2>
+<div class="gallery">
+<img src="/pictures/Anna Karenina.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Диалектика любви по мотивам романа Л. Н. Толстого
+«Анна Каренина» — истинный шедевр мировой литературы. Сюжет этого прославленного романа Л. Н. Толстого лежал в основе множества театральных постановок и киноэкранизаций.
+Сценическая версия «Анны Карениной» в постановке художественного руководителя Игоря Лысова сохраняет традиционное звучание текста великого классика, но станет поводом для многочисленных размышлений после увиденного... На сцене рождается, разгорается, а затем умирает пламя человеческих жажд и чаяний.
+Главная героиня, молодая и знатная замужняя петербургская дама, столкнувшись с роковой любовной страстью, испытала на себе и сладость, и горечь порока.
+Анна Каренина, в отличие от обычных людей, не прячется от своего греха, а принимает его. Цена запретной любви — её собственная жизнь.
+В состав исполнителей могут быть внесены изменения без дополнительного уведомления.
+С антрактом.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 22 января,2026 </p><p><strong>🕒 Время:</strong> 18:30 </p><p><strong>📍 Место:</strong> Драматический театр им. Кирова </p>
+<p><strong>💵 Цена:</strong> 500-1500 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.1 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.604605" data-lon="49.667966" data-title="Анна Каренина" data-address="Драматический театр им. Кирова">
+</div>
+</div>
+</div>
+
+<!-- 19 -->
+<div id="ds-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>DS CREW. Второй сольный концерт</h2>
+<div class="gallery">
+<img src="/pictures/DS.webp" class="active">
+</div>
+<p>О событии</p>
+<p>DS Crew представляют своё новое шоу «Второй сольный концерт».
+DS Crew — новое слово в мире танцев! Стильные номера и завораживающая хореография, инновационные световые и звуковые эффекты, эксклюзивные визуальные решения, расширяющие границы сознания.
+Став победителями телевизионного проекта «Новые танцы на ТНТ», они моментально влюбили в себя миллионы россиян! Синхронная плавность движений гипнотизирует и вдохновляет, заставляя поклонников снова и снова пересматривать выступления этой невероятной танцевальной команды. За прошедший год DS Crew в рамках своего первого гастрольного тура выступили более чем в ста городах России и ближнего зарубежья, а число посетивших их концерты зрителей перевалило отметку в 100 000 человек.
+DS Crew подготовили для своих поклонников премьеру — шоу-спектакль «Второй сольный концерт» и анонсировали большой гастрольный тур. Уникальная хореография от художественного руководителя и фронтмена команды Дмитрия Ваганова, абсолютно новые номера, увидеть которые можно только на сольном концерте, и нетривиальные режиссёрские ходы от именитого постановщика Алексея Карпенко — в этом шоу команда профессионалов собрала всё то, за что вы так любите DS Crew, и даже немного больше...</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 13 декабря,2026 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 2500-6000 руб.</p><p><strong>⭐ Рейтинг:</strong> 10 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="DS CREW. Второй сольный концерт"data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- 20 -->
+<div id="rav-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Раневская. Одинокая насмешница</h2>
+<div class="gallery">
+<img src="/pictures/Ranevskaya.jpg" class="active">
+</div>
+<p>О событии</p>
+<p>Легендарный спектакль-посвящение, дар Великой актрисе Фаине Раневской! Десятки тысяч восторженных зрителей в разных уголках России и зарубежья.
+Это особая комедия. Главным героем здесь является не только Ф. Г. Раневская, но и её неповторимый юмор, подлинный юмор Фаины Георгиевны, взятый из воспоминаний людей, знавших её, и из книг о ней. Можно ли соединить смешное и забавное со слезинками в глазах? Взрыв смеха с замирающим от страдания сердцем? Можно, если речь идёт о таком человеке как Ф. Г. Раневская.
+Драматическая комедия приглашает зрителя в неповторимый, удивительный мир гениальной актрисы Фаины Раневской. Авторы говорят со сцены её языком и словами — им просто не было необходимости что-то сочинять или в чём-то корректировать великую Раневскую. Поэтому Фаину Георгиевну можно смело назвать полноценным соавтором спектакля.
+Главных героев в постановке два: сама актриса и её тонкое чувство юмора. Фаина Раневская очень разная. Зритель видит её тонкую и ранимую душу с забавными слезинками в глазах и тут же всё меняется, и в зал летят перлы из уст как будто совсем другого человека — гордого, сильного и красивого в своём внутреннем одиночестве. Спектакль сыгран актёрами на одном нерве, на одном дыхании, спектакль-посвящение, спектакль-восхищение, спектакль-дар Великой русской актрисе, с которого зритель уйдёт тихо, бережно прикрыв дверь в её мир, храня в душе трепетное ощущение прикосновения к чему-то глубокому, яркому и неповторимому...
+В составе исполнителей возможны изменения без дополнительного уведомления.
+Спектакль идёт с антрактом.</p>
+<div class="modal-info">
+<p><strong>📅 Дата:</strong> 5 января,2026 </p><p><strong>🕒 Время:</strong> 19:00 </p><p><strong>📍 Место:</strong> Дк Родина </p>
+<p><strong>💵 Цена:</strong> 1400 – 2800 руб.</p><p><strong>⭐ Рейтинг:</strong> 8.8 </p>
+</div>
+<div id="map-vstrecha" class="yandex-map" data-lat="58.627996" data-lon="49.640623" data-title="Раневская. Одинокая насмешница" data-address="Дк Родина">
+</div>
+</div>
+</div>
+
+<!-- МОДАЛЬНЫЕ ОКНА РЕСТОРАНОВ -->
+<!-- 1 -->
+<div id="tsarskoe-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Царское Село</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Tsarskoye 1.jpg" class="active"><img src="/pictures/Tsarskoye 2.jpg"><img src="/pictures/Tsarskoye 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторация русской кухни «Царское село» это излюбленное место гостей и жителей города. Здесь можно отведать традиционные, а также авторские блюда русской и европейской кухни, провести торжественное или деловое мероприятие любого формата и масштаба.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 125 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 40-53-43 </p>
+<p><strong>💵 Средний чек:</strong> 1000-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская, Европейская</p>
+</div>
+<a href="https://m-kyhnia.ru/tsarskoe-selo/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-tsarskoe" class="yandex-map" data-lat="58.599666" data-lon="49.656293" data-title="Царское Село" data-address="Октябрьский просп., 125">
+</div>
+</div>
+</div>
+
+<!-- 2 -->
+<div id="mivan-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Миван</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Mivan 1.jpg" class="active"><img src="/pictures/Mivan 2.jpg"><img src="/pictures/Mivan 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Легенда о Миван
+Высоко высоко в горах… Кавказа, где запредельная красота и грандиозность природы сливаются с глубокими культурными традициями и духовностью и создают свой собственный неповторимый мир, вырос наш Миван.
+Он рос яркой личностью с непреодолимой тягой к знаниям и самообразованию. Путешествия стали неотъемлемой частью жизни повзрослевшего Миван. Он безудержно погружался в атмосферу разных стран, исследовал культуры и обычаи, но при этом никогда не забывал о своих собственных корнях.
+От мамы и бабушки Миван наследовал талант и непреходящую любовь к приготовлению пищи и к традиционным рецептам своего народа. А заложенное культурой воспитание наполняет тщанием, щедростью и заботой встречу любого гостя в его доме.
+Миван готов встретить своих дорогих гостей! Насладить каждого гармоничной смесью традиций Кавказа и впечатлений от путешествий по миру в каждом блюде.
+Добро пожаловать в “Миван”, дом гостеприимства Кавказа. </p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Ленина, 86 • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 21-48-88 </p>
+<p><strong>💵 Средний чек:</strong> 900-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9</p><p><strong>🍽️ Кухня:</strong> Восточная, Кавказская</p>
+</div>
+<a href="https://mivan.rest/?ysclid=mirrnb23vu780750604" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mivan" class="yandex-map" data-lat="58.601402" data-lon="49.681491" data-title="Миван" data-address="ул. Ленина, 86 • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 3 -->
+<div id="mamatoma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>МамаТома</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/MamaToma 1.jpg" class="active"><img src="/pictures/MamaToma 2.jpg"><img src="/pictures/MamaToma 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан, вдохновленный грузинскими легендами о царице Тамар. По всему миру шла молва о красоте царицы, ее богатстве, милосердии и щедрости.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Маклина, 1 • этаж 0 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 903-72-78 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Грузинская</p>
+</div>
+<a href="https://mamatomakirov.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mamatoma" class="yandex-map" data-lat="58.597373" data-lon="49.668170" data-title="МамаТома" data-address="ул. Маклина, 1 • этаж 0">
+</div>
+</div>
+</div>
+
+<!-- 4 -->
+<div id="mamaroma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>МамаРома</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/MamaRoma  1.webp" class="active"><img src="/pictures/MamaRoma 2.jpg"><img src="/pictures/MamaRoma 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан итальянской кухни с неаполитанской пиццей и авторскими блюдами.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 92 </p><p><strong>🕒 Часы работы:</strong> 11:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 41-33-23 (доб. 2) </p>
+<p><strong>💵 Средний чек:</strong> 1200-2500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Итальянская</p>
+</div>
+<a href="https://kirov.mamaroma.ru/pizza" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-mamaroma" class="yandex-map" data-lat="58.596306" data-lon="49.616165" data-title="МамаРома" data-address="ул. Воровского, 92">
+</div>
+</div>
+</div>
+
+<!-- 5 -->
+<div id="vasnetsov-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Васнецовъ</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Vasnetsov 1.jpg" class="active"><img src="/pictures/Vasnetsov 2.jpg"><img src="/pictures/Vasnetsov 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Все блюда ресторана – это авторская кухня, творческое переосмысление «золотого фонда» мирового искусства кулинарии. Вас ждет широкий выбор аперитивов, тонких, насыщенных полнотелых и десертных вин и дижестивов.
+ Каждое блюдо, представленное в «Минью» «Васнецова», отличается не только безупречным вкусом, но и оригинальной подачей. И даже ставший уже традиционным на нашем столе салат «Оливье» откроется вам с необычной, неведомой вам ранее стороны.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 41В • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 11:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (912) 734-18-18 </p>
+<p><strong>💵 Средний чек:</strong> 2500-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская, Авторская</p>
+</div>
+<a href="https://ресторан-васнецов.рф/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-vasnetsov" class="yandex-map" data-lat="58.602073" data-lon="49.672750" data-title="Васнецовъ" data-address="Спасская ул., 41В • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 6 -->
+<div id="bliss-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Bliss-Terrace</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Bliss-Terrace 1.webp" class="active"><img src="/pictures/Bliss-Terrace 2.webp"><img src="/pictures/Bliss-Terrace 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Мы превращаем обычные дни в незабываемые события! Доверьте нам организацию вашего праздника: от тёплого камерного мероприятия для близких до грандиозного банкета.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Профсоюзная ул., 23 этаж 1 </p><p><strong>🕒 Часы работы:</strong> 8:00 - 12:00 </p><p><strong>📞 Телефон:</strong> +7 (800) 301-08-24 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1700 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Французская</p>
+</div>
+<a href="https://bliss-terrace.ru/restaurant/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-bliss" class="yandex-map" data-lat="58.615481" data-lon="49.677484" data-title="Bliss-Terrace" data-address="Профсоюзная ул., 23 этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 7 -->
+<div id="four-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Four</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Four 1.jpg" class="active"><img src="/pictures/Four 2.jpg"><img src="/pictures/Four 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>FOUR - первый и единственный в городе ресторан четырёх кухонь - удобно расположен в самом центре города, на первом этаже отеля Elements Kirov Hotel 5*.
+Вдохновляющий живописный вид на городской парк, открывающийся из панорамных окон и с летней террасы, дополняет атмосферу уюта и тепла. А радушный прием, забота и внимание, оказываемые каждому гостю, позволят вам по достоинству оценить кулинарное искусство поваров, не отвлекаясь на мелочи.
+Меню для ресторана разработал шеф-повар Иван Хонин, и благодаря слаженной работе нашей команды вы можете попробовать интернациональную, русскую, вятскую и сезонную кухню - всё в одном месте!
+Мы рады приветствовать гостей и жителей города круглосуточно каждый день!</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 145, корп. 1 </p><p><strong>🕒 Часы работы:</strong> Круглосуточно </p><p><strong>📞 Телефон:</strong> +7 (8332) 20-93-36 </p>
+<p><strong>💵 Средний чек:</strong> 3000-6000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://four-kirov.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-four" class="yandex-map" data-lat="58.590323" data-lon="49.657531" data-title="Four" data-address="Октябрьский просп., 145, корп. 1">
+</div>
+</div>
+</div>
+
+<!-- 8 -->
+<div id="kyrkyma-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Куркума</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Kerkema 1.jpg" class="active"><img src="/pictures/Kerkema 2.webp"><img src="/pictures/Kerkema 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Ресторан-чайхана Куркума приглашает вас окунуться в атмосферу любимых вкусов.
+В истинных традициях бара для вас приготовили щедрое меню с богатым выбором пива и всевозможными закусками, вкусно дополняющими пенный напиток. Здесь можно выпить с друзьями под ненавязчивую музыку и в целом провести приятный вечер.
+Вы — преданный поклонник жареного мяса? Тогда вам может понравиться выбор блюд в меню Ресторана-чайханы Куркума. Легкая, средняя или сильная прожарка — ароматное лакомство всегда будет радовать глаз, особенно даря яркий фейерверк вкусов. В дополнение к мясным блюдам вам предложат холодные напитки или бокал пенного.
+Помимо вкусной еды здесь можно насладиться винами из разных уголков мира. Искусство сомелье недаром высоко ценят в современном обществе. Умение правильно дегустировать этот напиток часто позволяет полностью раскрыть его вкусовой букет. А дополнить вкус вина помогут незамысловатые закуски.
+Кухня стран Азии примечательна тем, что в ней сочетается огромное число специй, позволяющее составлять новые блюда из, казалось бы, обыденных продуктов. Особую роль здесь играет красный перец, добавляющий блюдам пикантную «остринку». Таким образом еда получается особенно пряной и пикантной. В Ресторане-чайхане Куркума вам предложат знаменитые азиатские блюда от шефа.
+Если вам захотелось перекусить на свежем воздухе, особенно в теплый денек, то здесь открыта удобная терраса. Для летнего периода в заведении имеется специальное меню, которое прекрасно освежает в жаркую погоду. Летние кафе отличаются быстрым приготовлением блюд, что сокращает время ожидания заказа.
+Для вас и вашей компании повара приготовят блюда еврейской, тайской, турецкой, узбекской кухни. Тут же вы можете выбрать бизнес-ланч из отдельного меню, заказать блюда с доставкой на дом.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 67 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 47-02-20 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1400 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Восточная</p>
+</div>
+<a href="https://kurkuma.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-kyrkyma" class="yandex-map" data-lat="58.601824" data-lon="49.660099" data-title="Куркума" data-address="Спасская ул., 67">
+</div>
+</div>
+</div>
+
+<!-- 9 -->
+<div id="oikymena-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Ойкумена</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Ecumene  1.jpg" class="active"><img src="/pictures/Ecumene  2.jpg"><img src="/pictures/Ecumene 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Добро пожаловать в наш уютный мир!
+Мы создали место, где вкусная еда и тёплая атмосфера объединяют людей. Здесь каждый найдёт что-то своё: новые вкусы, знакомства, впечатления и вдохновение. Наш ресторан - это дом странника, где Вы можете почувствовать себя как дома, даже если находитесь далеко от него.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Герцена, 15 </p><p><strong>🕒 Часы работы:</strong> 9:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 663-70-08 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://ojkumena-ulitsa-gertsena.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-oikymena" class="yandex-map" data-lat="58.600381" data-lon="49.676023" data-title="Ойкумена" data-address="ул. Герцена, 15">
+</div>
+</div>
+</div>
+
+<!-- 10 -->
+<div id="sirnii-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Первый сырный бар</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/The first cheese 1.jpg" class="active"><img src="/pictures/The first cheese 2.jpg"><img src="/pictures/The first cheese 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Первый винный бар-сыроварня в городе! Сыры, стейки и вино, своя сыроварня, американская коптильня, витрина с десертами и бонусная программа.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 120 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 900-78-70 </p>
+<p><strong>💵 Средний чек:</strong> 1000-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://pervyj-syrnyj-bar-friends.clients.site/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-sirnii" class="yandex-map" data-lat="58.583848" data-lon="49.659276" data-title="Первый сырный бар" data-address="Октябрьский просп., 120">
+</div>
+</div>
+</div>
+
+<!-- 11 -->
+<div id="agata-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Agata</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Agata 1.webp" class="active"><img src="/pictures/Agata 2.jpg"><img src="/pictures/Agata 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>История кафе «Агата» насчитывает уже 20 лет непрерывной работы. 15 мая 2003 года мы открыли двери легендарного кафе в Кирове!
+Мы открывали Агату для ценителей вкусной кухни, уютной атмосферы и любителей рока. Название было придумано в честь группы «Агата Кристи». Неоднократно в Киров приезжали рок-группы и всегда по достоинству оценивали нашу кухню.
+В конце 2004 года кафе «Агата» познакомило кировчан с японской кухней и культурой потребления восточных блюд. На тот момент это было настоящим прорывом в мире Кировского общепита! Гости впервые пробовали роллы, суши, гунканы, традиционные японские супы.
+Многие жители и гости города посещали нас за это долгое время работы. Агату успели полюбить гости разного возраста и вкусовых пристрастий, так как мы старались готовить блюда на любой вкус от Детского Меню и Вегетарианского до блюд разных кухонь мира. Не осталось в стороне и Обеденное Меню, которое регулярно обновлялось!
+За 20 лет работы кафе «Агата» выросло из небольшого бара в одно из лучших заведений Кирова!
+Сейчас формат кафе изменился и уже ничего не напоминает о роке.
+Всё течёт, меняется, мы не могли больше сохранять старый формат «Агаты», он был уже не актуален. В новом проекте кафе мы воплотили лаконичный современный стиль, уют и неизменно высокое качество кухни!
+Мы много путешествуем, посещаем лучшие рестораны России и Европы, поэтому чётко понимаем, как развивается сфера, в каких интерьерах комфортно находиться, куда хочется возвращаться? Поэтому наш новый проект кафе «AGATA» получился неким синтезом лучших черт современной гастрономии. Сейчас в кафе очень комфортно, много натуральных материалов, живые цветы, красивая посуда и дизайнерская мебель.
+При создании меню мы вдохновлялись творчеством 15 шефов, за которыми мы следим, приезжаем в их рестораны, непосредственно общаемся с ними. Наш шеф-повар Денис Сумароков регулярно повышает квалификацию и уже прошел обучение у 3 именитых шефов, и это не предел. Мы посещаем много ресторанов, изучаем тренды современной кулинарии, а после мы создаем свои блюда. Конечно же, мы чутко прислушиваемся к пожеланиями наших гостей и учитываем их вкусы!
+Одного посещения не хватит, чтобы познакомиться с нашей кухней! С удовольствием приглашаем вас насладиться неповторимым сочетанием кухни, стиля и современной атмосферы!
+</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Маклина, 56 </p><p><strong>🕒 Часы работы:</strong> 10:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (982) 383-14-14 </p>
+<p><strong>💵 Средний чек:</strong> 750-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://кафеагата.рф/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-agata" class="yandex-map" data-lat="58.594863" data-lon="49.642342" data-title="Agata" data-address="ул. Маклина, 56">
+</div>
+</div>
+</div>
+
+<!-- 12 -->
+<div id="iaico-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Яйцо</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/egg 1.webp" class="active"><img src="/pictures/egg 2.jpg"><img src="/pictures/egg 3.webp">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>Завтраки весь день!
+Всё, что вы любите есть на завтрак: каши, более 20 блюд с яйцами, сэндвичи, сырники, сладкие завтраки.
+А ещё горячее, салаты, супы и даже азиатские блюда.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 10 </p><p><strong>🕒 Часы работы:</strong> 08:00 - 20:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 75-43-24 </p>
+<p><strong>💵 Средний чек:</strong> 700-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://eggcafe.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-iaico" class="yandex-map" data-lat="58.593875" data-lon="49.679174" data-title="Яйцо" data-address="ул. Воровского, 10">
+</div>
+</div>
+</div>
+
+<!-- 13 -->
+<div id="shedrin-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Щедринъ</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Shchedrin 1.jpg" class="active"><img src="/pictures/Shchedrin 2.jpg"><img src="/pictures/Shchedrin 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О кафе</p>
+<p>«Щедринъ» — кафе на Спасской, 17, где классика оживает в новых смыслах. Мы вдохновились русской литературой, атмосферой старых гостиных и вкусами, которые не теряют актуальности.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 17 • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 9:00 - 21:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 79-22-52 </p>
+<p><strong>💵 Средний чек:</strong> 600-1200 руб </p><p><strong>⭐ Рейтинг:</strong> 4.7 </p><p><strong>🍽️ Кухня:</strong> Средиземноморская</p>
+</div>
+<a href="https://vk.com/shchedrin.kirov" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-shedrin" class="yandex-map" data-lat="58.602291" data-lon="49.681717" data-title="Щедринъ" data-address="Спасская ул., 17 • этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 14 -->
+<div id="adjikyeli-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Аджикуели</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Adjikueli 1.webp" class="active"><img src="/pictures/Adjikueli 2.jpg"><img src="/pictures/Adjikueli 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>В ресторане «Аджикуели» в Кирове представлены блюда грузинской, европейской, итальянской, кавказской, паназиатской, русской и японской кухни. В меню — шашлык, хинкали, картофель-фри, бельгийские вафли, салаты, хачапури, супы и другие блюда.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Воровского, 78 этаж 1 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 49-03-09 </p>
+<p><strong>💵 Средний чек:</strong> 1400-2200 руб </p><p><strong>⭐ Рейтинг:</strong> 4.7 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://vk.com/adjikueli" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-adjikyeli" class="yandex-map" data-lat="58.592966" data-lon="49.632025" data-title="Аджикуели" data-address="ул. Воровского, 78 этаж 1">
+</div>
+</div>
+</div>
+
+<!-- 15 -->
+<div id="oblako-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Облако</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Oblako  1.jpg" class="active"><img src="/pictures/Oblako 2.webp"><img src="/pictures/Oblako 3.webp"><button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>В кальян-баре «Oblako» царит уютная и расслабляющая атмосфера, которая идеально подходит для свиданий и встреч с друзьями. Гости отмечают стильный и современный интерьер с преобладанием светлых тонов, а также спокойную музыку и приглушенный свет.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Ленина, 89 </p><p><strong>🕒 Часы работы:</strong> 13:00 - 01:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 662-63-33 </p>
+<p><strong>💵 Средний чек:</strong> 1200-2000 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Смешанная</p>
+</div>
+<a href="https://vk.com/oblako_bar" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-oblako" class="yandex-map" data-lat="58.597572" data-lon="49.680989" data-title="Облако" data-address="ул. Ленина, 89">
+</div>
+</div>
+</div>
+
+<!-- 16 -->
+<div id="shalom-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Шалом Берман</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Shalom Berman 1.webp" class="active"><img src="/pictures/Shalom Berman 2.webp"><img src="/pictures/Shalom Berman 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>📍Бистро- бар «Шалом Берман» — уникальное место в объекте культурного наследия «Аптека Берман» с атмосферой истории и современного гастрономического искусства.
+🍴 Нас вдохновляет история здания и нашего города, а наша кухня сочетает традиции разных культур с авторскими решениями.
+🍷 В баре «Аптека» вас ждут фирменные коктейли- рецепты, домашнее вино и настойки.
+🐶 Мы — friendly пространство
+✨ Добро пожаловать разделить душевную атмосферу, вкусную еду и историю с нами! Шалом, любимый гость!</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Горбачёва, 24/81 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 21:00 </p><p><strong>📞 Телефон:</strong> +7 (922) 940-81-24 </p>
+<p><strong>💵 Средний чек:</strong> 1300-2100 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9 </p><p><strong>🍽️ Кухня:</strong> Израильская</p>
+</div>
+<a href="https://shalomberman.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-shalom" class="yandex-map" data-lat="58.599395" data-lon="49.681019" data-title="Шалом Берман" data-address="ул. Горбачёва, 24/81">
+</div>
+</div>
+</div>
+
+<!-- 17 -->
+<div id="si-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Si-mare</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Si-mare 1.webp" class="active"><img src="/pictures/Si-mare 2.jpg"><img src="/pictures/Si-mare 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О ресторане</p>
+<p>Si,mare — ресторан, где каждое «да» обретает вкус и смысл.
+В меню европейская классика: свежие устрицы, пицца с хрустящей корочкой, паста, будто сотканная из солнечных нитей, ароматное вино и традиционные итальянские десерты.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> ул. Свободы, 28 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (912) 734-74-00 </p>
+<p><strong>💵 Средний чек:</strong> 2000-2500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Средиземноморская</p>
+</div>
+<a href="https://si-mare.ru/" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-si" class="yandex-map" data-lat="58.612093" data-lon="49.676389" data-title="Si-mare" data-address="ул. Свободы, 28">
+</div>
+</div>
+</div>
+
+<!-- 18 -->
+<div id="aromaroomsbar-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Aroma Rooms Bar</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Aromaroomsbar 1.webp" class="active"><img src="/pictures/Aromaroomsbar 2.jpg"><img src="/pictures/Aromaroomsbar 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Aroma Rooms Bar в Кирове — заведение, где можно провести время с друзьями или коллегами, завести новые знакомства или расслабиться после тяжёлого рабочего дня.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Октябрьский просп., 92 этаж 3 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 01:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 44-41-70 </p>
+<p><strong>💵 Средний чек:</strong> 1500-1900 руб </p><p><strong>⭐ Рейтинг:</strong> 4.8 </p><p><strong>🍽️ Кухня:</strong> Русская</p>
+</div>
+<a href="https://vk.com/aromaroomsbar" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-aromaroomsbar" class="yandex-map" data-lat="58.592620" data-lon="49.658846" data-title="Aroma Rooms Bar" data-address="Октябрьский просп., 92 этаж 3">
+</div>
+</div>
+</div>
+
+<!-- 19 -->
+<div id="vasia-details" class="modal-details hidden">
+<div class="modal-content">
+<button class="close-modal">×</button>
+<h2>Бармузей Васи Ложкина</h2>
+<div class="gallery">
+<button class="prev-button">‹</button>
+<img src="/pictures/Vasya Lozhkin's 1.webp" class="active"><img src="/pictures/Vasya Lozhkin's 2.webp"><img src="/pictures/Vasnetsov 3.jpg">
+<button class="next-button">›</button>
+</div>
+<p>О баре</p>
+<p>Бармузей? В Кирове? С рыжими котиками художника Васи Ложкина?
+Да, это точно мы 🧡
+Приятная атмосфера и горячие чебуреки.</p>
+<div class="modal-info">
+<p><strong>📍 Адрес:</strong> Спасская ул., 8 Спасская 8, вход с улицы Ленина </p><p><strong>🕒 Часы работы:</strong> 12:00 - 00:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 46-80-80 </p>
+<p><strong>💵 Средний чек:</strong> 500-1500 руб </p><p><strong>⭐ Рейтинг:</strong> 5 </p><p><strong>🍽️ Кухня:</strong> Русская</p>
+</div>
+<a href="https://vk.com/barmuzey_kirov" target="_blank" class="website-link">Официальный сайт →</a>
+<div id="map-vasia"  class="yandex-map" data-lat="58.602006" data-lon="49.680871" data-title="Бармузей Васи Ложкина" data-address="Спасская 8, вход с улицы Ленина">
+</div>
+</div>
+</div>
+
+
+<section class="about">
+<h2>Информация о нас</h2>
+<p>Мы — ваш надежный гид по вкусной жизни в Кирове. Открывайте для себя новые места и мероприятия вместе с нами!</p>
+<div class="about-images">
+<img src="/pictures/Alina.jpg" alt="Алина">
+<img src="/pictures/Alisa.jpg" alt="Алиса">
+<img src="/pictures/Polina.jpg" alt="Полина">
+</div>
+<p>Создатели данного сайта!</p>
+</section>
+
+<footer>
+<p>© 2025 Мое Время | Все права защищены</p>
+</footer>
+<script src="/js/home.js"></script>
+</body>
+</html>
