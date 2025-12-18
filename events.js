@@ -1,5 +1,57 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ Страница мероприятий загружена");
+
+    // ========== ГАМБУРГЕР-МЕНЮ ==========
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    if (hamburger && navMenu) {
+        console.log("🍔 Гамбургер найден:", hamburger);
+        console.log("📋 Меню найдено:", navMenu);
+        
+        // Открытие/закрытие меню
+        hamburger.addEventListener('click', function() {
+            console.log("👉 Гамбургер нажат!");
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            
+            // Блокируем прокрутку при открытом меню
+            if (navMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+                console.log("📱 Меню ОТКРЫТО");
+            } else {
+                document.body.style.overflow = '';
+                console.log("📱 Меню ЗАКРЫТО");
+            }
+        });
+        
+        // Закрыть меню при клике на ссылку
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log("🔗 Меню закрыто по клику на ссылку");
+            });
+        });
+        
+        // Закрыть меню при клике вне его
+        document.addEventListener('click', function(event) {
+            const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
+            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log("👆 Меню закрыто по клику вне его");
+            }
+        });
+        
+        console.log("✅ Гамбургер-меню инициализировано");
+    } else {
+        console.error("❌ Элементы гамбургер-меню не найдены!");
+        console.error("hamburger:", hamburger);
+        console.error("navMenu:", navMenu);
+    }
     
     // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ
     function initFilterSliders() {
