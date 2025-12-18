@@ -130,6 +130,34 @@ nav a:hover::after {
     transform: translateY(-10px) rotate(-45deg);
 }
 
+/* Мобильное меню (скрытое по умолчанию) */
+@media (max-width: 992px) {
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 80px);
+        background: rgba(20, 0, 40, 0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 2em 0;
+        transition: left 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .hamburger {
+        display: flex; /* Показываем гамбургер на мобильных */
+    }
+    
+    /* Остальные стили для мобильной навигации... */
+}
+
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
 .page-header {
     text-align: center;
@@ -164,6 +192,23 @@ nav a:hover::after {
     flex-wrap: wrap;
 }
 
+/* ==================== УПРАВЛЕНИЕ Z-INDEX КНОПОК ФИЛЬТРАЦИИ ==================== */
+/* Нормальный z-index для кнопок */
+.filter-toggle, .reset-filters, .apply-filters {
+    z-index: 999 !important; /* Высокий z-index по умолчанию */
+    position: relative;
+}
+
+/* При открытых модальных окнах уменьшаем z-index кнопок фильтрации */
+.modal-details:not(.hidden) ~ .filter-menu .filter-toggle,
+.modal-details:not(.hidden) ~ .filter-menu .reset-filters,
+.modal-details:not(.hidden) ~ .filter-menu .apply-filters,
+.filter-results-modal.show ~ .filter-menu .filter-toggle,
+.filter-results-modal.show ~ .filter-menu .reset-filters,
+.filter-results-modal.show ~ .filter-menu .apply-filters {
+    z-index: 100 !important; /* Низкий z-index при открытых модалках */
+}
+
 .filter-toggle, .reset-filters {
     background: linear-gradient(135deg, #2d1b47 0%, #4b0082 100%);
     color: white;
@@ -178,7 +223,6 @@ nav a:hover::after {
     align-items: center;
     gap: 12px;
     box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
-    z-index: 1001;
     position: relative;
     overflow: hidden;
 }
@@ -1332,6 +1376,6 @@ nav a:hover::after {
     .yandex-map {
         height: 200px;
     }
-
 }
+
 
