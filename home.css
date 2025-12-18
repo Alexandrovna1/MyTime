@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/pictures/Fon.jpg');
+    background-image: url('/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -2155,4 +2155,5 @@ footer p {
 .restaurants-container::after {
     right: 0;
     background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
+
 }
