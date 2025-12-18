@@ -1,7 +1,7 @@
 // ==================== ПОЛНАЯ ФУНКЦИОНАЛЬНОСТЬ ФИЛЬТРАЦИИ ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log("✅ Страница загружена");
-
+    
     // ========== ГАМБУРГЕР-МЕНЮ ==========
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Вызываем функцию при загрузке
     setActiveNavItem();
     
-    // 1. КНОПКА "ПОДРОБНЕЕ" - ОТКРЫТИЕ МОДАЛЬНОГО ОКНА
+    // ========== КНОПКА "ПОДРОБНЕЕ" - ОТКРЫТИЕ МОДАЛЬНОГО ОКНА ==========
     document.querySelectorAll('.btn-detail').forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // ==================== ФУНКЦИИ ПРОКРУТКИ ЛЕНТ ====================
+    // ========== ФУНКЦИИ ПРОКРУТКИ ЛЕНТ ==========
     function initScrollButtons() {
         console.log("🔄 Инициализация кнопок прокрутки...");
         
@@ -1353,15 +1353,48 @@ style.textContent = `
 
 document.head.appendChild(style);
 
-// Добавьте в ваш общий JS файл
-window.addEventListener('scroll', function() {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-    } else {
-        navbar.classList.remove('scrolled');
-    }
-}); 
-
 console.log("✅ Полная функциональность фильтрации загружена");
 
+// Управление z-index кнопок фильтрации
+function manageFilterButtonsZIndex() {
+    const filterButtons = document.querySelectorAll('.filter-toggle, .apply-filters, .reset-filters');
+    const hasOpenModal = document.querySelector('.modal-details:not(.hidden)') || 
+                         document.querySelector('.filter-results-modal.show');
+    
+    if (hasOpenModal) {
+        // Уменьшаем z-index при открытых модальных окнах
+        filterButtons.forEach(btn => {
+            btn.style.zIndex = '100';
+        });
+    } else {
+        // Восстанавливаем нормальный z-index
+        filterButtons.forEach(btn => {
+            btn.style.zIndex = '999';
+        });
+    }
+}
+
+// Вызываем функцию при открытии/закрытии модальных окон
+document.querySelectorAll('.btn-detail, .close-modal, .filter-results-close').forEach(element => {
+    element.addEventListener('click', function() {
+        setTimeout(manageFilterButtonsZIndex, 100);
+    });
+});
+
+// Также вызываем при изменении DOM
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === 'attributes' && 
+            (mutation.attributeName === 'class')) {
+            manageFilterButtonsZIndex();
+        }
+    });
+});
+
+// Наблюдаем за модальными окнами
+document.querySelectorAll('.modal-details, .filter-results-modal').forEach(modal => {
+    observer.observe(modal, { attributes: true });
+});
+
+// Вызываем при загрузке
+document.addEventListener('DOMContentLoaded', manageFilterButtonsZIndex);
