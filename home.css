@@ -19,44 +19,6 @@ html, body {
     line-height: 1.6;
 }
 
-@media (max-width: 992px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1em 1.5em; /* Было 1.5em, уменьшаем до 1em */
-        text-align: center;
-    }
-    
-    .logo a {
-        font-size: 1.6em; /* Было 1.8em, уменьшаем */
-    }
-    
-    nav ul {
-        flex-direction: column;
-        gap: 0.8em; /* Было 1em, уменьшаем */
-        margin-top: 1em; /* Было 1.5em, уменьшаем */
-        width: 100%;
-    }
-    
-    nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 0.5em 1em; /* Было 0.6em 1.2em, уменьшаем */
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.8em 1em; /* Добавляем меньший padding */
-    }
-}
-
-@media (max-width: 576px) {
-    .navbar {
-        padding: 0.6em 0.8em; /* Еще меньше */
-    }
-}
-
 /* ==================== НАВИГАЦИЯ ==================== */
 .navbar {
     display: flex;
@@ -2241,7 +2203,382 @@ footer p {
 .restaurants-container::after {
     right: 0;
     background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
-
 }
 
+/* ==================== АДАПТИВНОСТЬ ==================== */
+@media (max-width: 1200px) {
+    .container {
+        width: 280px;
+        height: 400px;
+    }
+    
+    .modal-content {
+        padding: 35px;
+        max-width: 900px;
+    }
+}
 
+/* Планшеты и маленькие ноутбуки (992px и меньше) */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 1em 1.5em;
+    }
+    
+    .logo a {
+        font-size: 1.5em;
+    }
+    
+    /* Показываем гамбургер на мобильных */
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Скрываем обычное меню, показываем выдвижное */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        flex-direction: column;
+        background-color: rgba(20, 0, 40, 0.98);
+        width: 100%;
+        height: calc(100vh - 70px);
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding-top: 2em;
+        gap: 0;
+        z-index: 1000;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        margin: 1em 0;
+        width: 100%;
+    }
+    
+    nav a {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+        padding: 1em;
+        font-size: 1.1em;
+        border-radius: 10px;
+    }
+    
+    .description h1 {
+        font-size: 2.8em;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 25px;
+    }
+    
+    .container {
+        width: 260px;
+        height: 380px;
+    }
+    
+    .filter-dropdown {
+        width: 340px;
+    }
+    
+    .btn-detail {
+        padding: 10px 20px;
+        font-size: 0.95em;
+        min-width: 140px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Планшеты (портретная ориентация, 768px и меньше) */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0.8em 1.2em;
+    }
+    
+    .logo a {
+        font-size: 1.4em;
+    }
+    
+    .hamburger {
+        width: 28px;
+        height: 22px;
+    }
+    
+    .nav-menu {
+        top: 60px;
+        height: calc(100vh - 60px);
+    }
+    
+    .description {
+        padding: 4em 1.5em;
+    }
+    
+    .description h1 {
+        font-size: 2.4em;
+    }
+    
+    .description p {
+        font-size: 1.1em;
+    }
+    
+    .events-section h2,
+    .restaurants-section h2,
+    .about h2 {
+        font-size: 2.2em;
+    }
+    
+    .container {
+        width: 240px;
+        height: 360px;
+        padding: 15px;
+    }
+    
+    .image-slider {
+        height: 170px;
+    }
+    
+    .container h3 {
+        font-size: 1.3em;
+        min-height: 55px;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 20px;
+    }
+    
+    .modal-content {
+        padding: 25px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.9em;
+    }
+    
+    .modal-content .gallery {
+        height: 300px;
+    }
+    
+    .filter-dropdown {
+        width: 320px;
+        padding: 2em;
+    }
+    
+    .about-images {
+        gap: 30px;
+    }
+    
+    .about-images img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .prev-button, .next-button {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        padding: 12px;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 12px 24px;
+        font-size: 1.1em;
+    }
+}
+
+/* Мобильные телефоны (576px и меньше) */
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.6em 1em;
+    }
+    
+    .logo a {
+        font-size: 1.2em;
+    }
+    
+    .hamburger {
+        width: 26px;
+        height: 20px;
+    }
+    
+    .hamburger span {
+        height: 2.5px;
+    }
+    
+    .nav-menu {
+        top: 50px;
+        height: calc(100vh - 50px);
+    }
+    
+    nav a {
+        width: 90%;
+        padding: 0.9em;
+        font-size: 1em;
+    }
+    
+    .description h1 {
+        font-size: 2em;
+    }
+    
+    .description p {
+        font-size: 1em;
+    }
+    
+    .events-section h2,
+    .restaurants-section h2,
+    .about h2 {
+        font-size: 1.8em;
+    }
+    
+    .container {
+        width: 220px;
+        height: 340px;
+        padding: 15px;
+    }
+    
+    .image-slider {
+        height: 150px;
+    }
+    
+    .container h3 {
+        font-size: 1.2em;
+        min-height: 50px;
+    }
+    
+    .container p {
+        font-size: 0.95em;
+    }
+    
+    .btn-detail {
+        padding: 9px 18px;
+        font-size: 0.9em;
+        min-width: 130px;
+    }
+    
+    .events-list,
+    .restaurants-list {
+        gap: 15px;
+        padding: 20px 15px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.6em;
+    }
+    
+    .modal-content p {
+        font-size: 1em;
+    }
+    
+    .modal-content .gallery {
+        height: 250px;
+    }
+    
+    .modal-content iframe {
+        height: 250px;
+    }
+    
+    .filter-dropdown {
+        width: 300px;
+        padding: 1.5em;
+    }
+    
+    .about-images {
+        gap: 25px;
+    }
+    
+    .about-images img {
+        width: 130px;
+        height: 130px;
+    }
+    
+    .about p {
+        font-size: 1.1em;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    
+    .prev-button, .next-button {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        padding: 10px;
+    }
+    
+    .close-modal {
+        width: 40px;
+        height: 40px;
+        padding: 10px;
+        font-size: 1em;
+    }
+}
+
+/* Маленькие мобильные телефоны (400px и меньше) */
+@media (max-width: 400px) {
+    .navbar {
+        padding: 0.5em 0.8em;
+    }
+    
+    .logo a {
+        font-size: 1.1em;
+    }
+    
+    .hamburger {
+        width: 24px;
+        height: 18px;
+    }
+    
+    .nav-menu {
+        top: 45px;
+        height: calc(100vh - 45px);
+    }
+    
+    nav a {
+        padding: 0.8em;
+        font-size: 0.95em;
+    }
+    
+    .container {
+        width: 200px;
+        height: 320px;
+        padding: 12px;
+    }
+    
+    .filter-dropdown {
+        width: 280px;
+        padding: 1.5em 1em;
+    }
+    
+    .modal-content {
+        padding: 15px;
+    }
+    
+    .btn-detail {
+        padding: 8px 16px;
+        font-size: 0.85em;
+        min-width: 120px;
+    }
+    
+    .filter-toggle,
+    .reset-filters {
+        padding: 10px 18px;
+        font-size: 0.95em;
+    }
+}
