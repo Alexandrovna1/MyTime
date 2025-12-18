@@ -7,18 +7,22 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.getElementById('nav-menu');
     
     if (hamburger && navMenu) {
+        console.log("🍔 Гамбургер найден:", hamburger);
+        console.log("📋 Меню найдено:", navMenu);
+        
         // Открытие/закрытие меню
         hamburger.addEventListener('click', function() {
+            console.log("👉 Гамбургер нажат!");
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
             
             // Блокируем прокрутку при открытом меню
             if (navMenu.classList.contains('active')) {
                 document.body.style.overflow = 'hidden';
-                console.log("🍔 Меню открыто");
+                console.log("📱 Меню ОТКРЫТО");
             } else {
                 document.body.style.overflow = '';
-                console.log("🍔 Меню закрыто");
+                console.log("📱 Меню ЗАКРЫТО");
             }
         });
         
@@ -43,19 +47,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
         
-        // Закрыть меню при нажатии Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape' && navMenu.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-                console.log("⎋ Меню закрыто по клавише Escape");
-            }
-        });
-        
         console.log("✅ Гамбургер-меню инициализировано");
     } else {
-        console.warn("⚠️ Элементы гамбургер-меню не найдены");
+        console.error("❌ Элементы гамбургер-меню не найдены!");
+        console.error("hamburger:", hamburger);
+        console.error("navMenu:", navMenu);
     }
     
     // ========== АНИМАЦИИ ПРИ СКРОЛЛЕ ==========
@@ -69,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                console.log(`🎯 Секция "${entry.target.className}" появилась в поле зрения`);
             }
         });
     }, observerOptions);
@@ -122,8 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 700 + index * 100);
     });
 
-    // ========== ИНТЕРАКТИВНОСТЬ ==========
-    // Анимация для кнопки
+    // Интерактивность для кнопки
     const contactButton = document.querySelector('.contact-button');
     if (contactButton) {
         contactButton.addEventListener('mouseenter', function() {
@@ -134,66 +128,24 @@ document.addEventListener('DOMContentLoaded', function() {
             this.style.transform = 'translateY(0) scale(1)';
         });
     }
-    
-    // Анимация для карточек при наведении
-    const interactiveCards = document.querySelectorAll('.team-member, .feature, .principle-item');
-    interactiveCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transition = 'transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease';
-        });
-    });
 
-    // ========== АКТИВНЫЕ ССЫЛКИ НАВИГАЦИИ ==========
+    // Добавляем класс активной странице в навигации
     function setActiveNavItem() {
-        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const currentPage = window.location.pathname.split('/').pop();
         const navLinks = document.querySelectorAll('.navbar nav ul li a');
         
         navLinks.forEach(link => {
             const linkPage = link.getAttribute('href').split('/').pop();
-            if (linkPage === currentPage || (currentPage === 'index.html' && linkPage === '')) {
+            if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
             }
         });
-        
-        console.log(`📍 Активная страница: ${currentPage}`);
     }
 
     // Вызываем функцию при загрузке
     setActiveNavItem();
-
-    // ========== АДАПТИВНОСТЬ ==========
-    // Проверяем ширину экрана при загрузке
-    function checkMobileView() {
-        if (window.innerWidth <= 992) {
-            console.log("📱 Мобильный вид активирован");
-            // Здесь можно добавить дополнительные действия для мобильного вида
-        } else {
-            console.log("💻 Десктопный вид активирован");
-            // Убедимся, что меню закрыто на десктопе
-            if (navMenu) {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('active');
-                document.body.style.overflow = '';
-            }
-        }
-    }
-    
-    // Проверяем при загрузке и изменении размера
-    checkMobileView();
-    window.addEventListener('resize', checkMobileView);
-    
-    // ========== ОБРАБОТЧИК ЗАГРУЗКИ ==========
-    // Показываем контент после загрузки всех стилей
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-        document.body.style.transition = 'opacity 0.5s ease';
-    }, 100);
 
     // Логирование для отладки
     console.log(`🔄 Анимировано элементов:
@@ -201,41 +153,11 @@ document.addEventListener('DOMContentLoaded', function() {
     - Члены команды: ${teamCards.length}
     - Фичи: ${features.length}
     - Принципы: ${principles.length}
-    - Интерактивные карточки: ${interactiveCards.length}
     `);
-    
-    console.log("🎉 Все анимации инициализированы успешно!");
 });
 
-// ========== ГЛОБАЛЬНЫЕ ОБРАБОТЧИКИ ==========
-// Обработчик ошибок
-window.addEventListener('error', function(e) {
-    console.error('❌ Ошибка на странице "О нас":', e.message, e.filename, e.lineno);
-});
-
-// Обработчик завершения загрузки страницы
-window.addEventListener('load', function() {
-    console.log("🚀 Страница полностью загружена");
-    
-    // Плавное появление всего контента
-    document.body.style.opacity = '0';
-    document.body.style.transition = 'opacity 0.5s ease';
-    
-    setTimeout(() => {
-        document.body.style.opacity = '1';
-    }, 100);
-});
-
-// Обработчик ухода со страницы
-window.addEventListener('beforeunload', function() {
-    // Сохраняем состояние меню (опционально)
-    const navMenu = document.getElementById('nav-menu');
-    if (navMenu && navMenu.classList.contains('active')) {
-        console.log("👋 Меню было открыто при уходе со страницы");
-    }
-});
 // Обработчик ошибок
 window.addEventListener('error', function(e) {
     console.error('❌ Ошибка на странице "О нас":', e.message);
-
 });
+
