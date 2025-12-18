@@ -5,12 +5,15 @@ document.addEventListener("DOMContentLoaded", function() {
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
 
+    // Проверяем, что элементы существуют
+    console.log("🍔 Гамбургер элемент:", hamburger);
+    console.log("📋 Меню элемент:", navMenu);
+    
     if (hamburger && navMenu) {
-        console.log("🍔 Гамбургер найден:", hamburger);
-        console.log("📋 Меню найдено:", navMenu);
+        console.log("✅ Гамбургер и меню найдены");
         
-        // Открытие/закрытие меню
-        hamburger.addEventListener('click', function() {
+        // Функция для открытия/закрытия меню
+        function toggleMenu() {
             console.log("👉 Гамбургер нажат!");
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
@@ -23,34 +26,62 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.body.style.overflow = '';
                 console.log("📱 Меню ЗАКРЫТО");
             }
+        }
+        
+        // Открытие/закрытие меню по клику на гамбургер
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleMenu();
         });
         
         // Закрыть меню при клике на ссылку
         document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+                console.log("🔗 Меню закрыто по клику на ссылку");
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                console.log("🔗 Меню закрыто по клику на ссылку");
             });
         });
         
         // Закрыть меню при клике вне его
         document.addEventListener('click', function(event) {
-            const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
-            if (!isClickInsideNav && navMenu.classList.contains('active')) {
+            // Проверяем, что меню открыто
+            if (navMenu.classList.contains('active')) {
+                // Проверяем, был ли клик внутри меню или на гамбургере
+                const isClickInsideMenu = navMenu.contains(event.target);
+                const isClickOnHamburger = hamburger.contains(event.target);
+                
+                // Если клик был вне меню и не на гамбургере
+                if (!isClickInsideMenu && !isClickOnHamburger) {
+                    console.log("👆 Меню закрыто по клику вне его");
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+        
+        // Закрыть меню при нажатии клавиши ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                console.log("⎋ Меню закрыто по клавише ESC");
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
                 document.body.style.overflow = '';
-                console.log("👆 Меню закрыто по клику вне его");
             }
         });
         
         console.log("✅ Гамбургер-меню инициализировано");
+        
     } else {
         console.error("❌ Элементы гамбургер-меню не найдены!");
-        console.error("hamburger:", hamburger);
-        console.error("navMenu:", navMenu);
+        // Попробуем найти элементы по классу
+        const hamburgerByClass = document.querySelector('.hamburger');
+        const navMenuByClass = document.querySelector('.nav-menu');
+        console.log("Поиск по классам:", hamburgerByClass, navMenuByClass);
     }
     
     // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ
@@ -1216,3 +1247,4 @@ eventStyle.textContent = `
 document.head.appendChild(eventStyle);
 
 console.log("✅ Функциональность мероприятий загружена");
+
