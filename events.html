@@ -9,11 +9,24 @@
 <body>
     <!-- Навигационная панель -->
     <header class="navbar">
-        <div class="logo"><a href="/">Мое Время</a></div>
-        <nav>
-            <ul>
-                <li><a href="/index.html">Главная</a></li><li><a href="/events.html">Мероприятия</a></li>
-                <li><a href="/restaurants.html">Рестораны/Кафе</a></li><li><a href="/we.html">О нас</a></li>
+        <div class="logo">
+            <a href="/">Моё Время</a>
+        </div>
+        
+        <!-- Кнопка гамбургера (скрыта на десктопе) -->
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <!-- Меню навигации -->
+        <nav class="nav-container">
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="/index.html">Главная</a></li>
+                <li><a href="/events.html">Мероприятия</a></li>
+                <li><a href="/restaurants.html">Рестораны/Кафе</a></li>
+                <li><a href="/we.html" class="active">О нас</a></li>
             </ul>
         </nav>
     </header>
@@ -576,3 +589,4 @@
 </body>
 
 </html>
+
