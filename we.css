@@ -45,7 +45,14 @@ html, body {
     transform: scale(1.05);
 }
 
-nav ul {
+/* Контейнер для навигации */
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Основное меню для десктопа */
+.nav-menu {
     list-style-type: none;
     display: flex;
     gap: 2em;
@@ -86,6 +93,41 @@ nav a::after {
 
 nav a:hover::after {
     width: 80%;
+}
+
+/* ==================== ГАМБУРГЕР-МЕНЮ ==================== */
+.hamburger {
+    display: none; /* Скрыт на десктопе по умолчанию */
+    flex-direction: column;
+    cursor: pointer;
+    width: 30px;
+    height: 24px;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #b19cd9;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 /* ==================== ШАПКА СТРАНИЦЫ ==================== */
@@ -505,6 +547,17 @@ footer p {
     }
 }
 
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-10px); }
@@ -548,24 +601,54 @@ footer p {
     }
 }
 
+/* Планшеты и маленькие ноутбуки (включаем гамбургер) */
 @media (max-width: 992px) {
     .navbar {
-        flex-direction: column;
-        padding: 1.5em;
-        text-align: center;
+        padding: 1em 1.5em;
     }
     
-    nav ul {
+    .logo a {
+        font-size: 1.5em;
+    }
+    
+    /* Показываем гамбургер на мобильных */
+    .hamburger {
+        display: flex;
+    }
+    
+    /* Скрываем обычное меню, показываем выдвижное */
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        left: -100%;
         flex-direction: column;
-        gap: 1em;
-        margin-top: 1.5em;
+        background-color: rgba(20, 0, 40, 0.98);
+        width: 100%;
+        height: calc(100vh - 70px);
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding-top: 2em;
+        gap: 0;
+        z-index: 1000;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        margin: 1em 0;
         width: 100%;
     }
     
     nav a {
         display: block;
-        width: 100%;
-        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        padding: 1em;
+        font-size: 1.1em;
+        border-radius: 10px;
     }
     
     .page-header h1 {
@@ -584,173 +667,24 @@ footer p {
     }
 }
 
+/* Планшеты (портретная ориентация) */
 @media (max-width: 768px) {
-    .page-header {
-        padding: 4em 1.5em;
-    }
-    
-    .page-header h1 {
-        font-size: 2.4em;
-    }
-    
-    .page-header .tagline {
-        font-size: 1.2em;
-    }
-    
-    .page-header .subtitle {
-        font-size: 1.1em;
-    }
-    
-    .team-section h2,
-    .principles-section h2,
-    .contact-section h2 {
-        font-size: 2.2em;
-    }
-    
-    .mission-section,
-    .principles-section,
-    .contact-section {
-        padding: 25px;
-    }
-    
-    .team-member {
-        padding: 25px;
-    }
-    
-    .contact-button {
-        padding: 14px 30px;
-        font-size: 1em;
-    }
-}
-
-@media (max-width: 576px) {
-    .page-header h1 {
-        font-size: 2em;
-    }
-    
-    .page-header .tagline {
-        font-size: 1.1em;
-    }
-    
-    .page-header .subtitle {
-        font-size: 1em;
-    }
-    
-    .team-section h2,
-    .principles-section h2,
-    .contact-section h2 {
-        font-size: 1.8em;
-    }
-    
-    .team-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .principles-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .platform-features {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-button {
-        padding: 12px 25px;
-        font-size: 0.95em;
-    }
-    
-    .member-photo {
-        width: 100px;
-        height: 100px;
-        font-size: 2em;
-    }
-}
-
-@media (max-width: 400px) {
-    .mission-section,
-    .principles-section,
-    .contact-section {
-        padding: 20px;
-    }
-    
-    .team-member {
-        padding: 20px;
-    }
-    
-    .contact-button {
-        padding: 10px 20px;
-        font-size: 0.9em;
-    }
-}
-
-/* ==================== АДАПТИВНОСТЬ ==================== */
-@media (max-width: 1200px) {
-    .page-container {
-        max-width: 900px;
-    }
-}
-
-@media (max-width: 992px) {
     .navbar {
-        flex-direction: column;
-        padding: 1em 1.5em; /* УМЕНЬШЕНО */
-        text-align: center;
-        min-height: auto; /* Добавляем */
+        padding: 0.8em 1.2em;
     }
     
     .logo a {
-        font-size: 1.6em; /* УМЕНЬШЕНО */
-        margin-bottom: 0.5em; /* Добавляем */
+        font-size: 1.4em;
     }
     
-    nav ul {
-        flex-direction: column;
-        gap: 0.8em; /* УМЕНЬШЕНО */
-        margin-top: 1.2em; /* УМЕНЬШЕНО */
-        width: 100%;
+    .hamburger {
+        width: 28px;
+        height: 22px;
     }
     
-    nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding: 0.8em 1em; /* УМЕНЬШЕНО */
-        font-size: 0.95em; /* УМЕНЬШЕНО */
-    }
-    
-    .page-header h1 {
-        font-size: 2.8em;
-    }
-    
-    .mission-section,
-    .principles-section,
-    .contact-section {
-        padding: 35px;
-    }
-    
-    .team-grid {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 25px;
-    }
-}
-
-@media (max-width: 768px) {
-    .navbar {
-        padding: 0.8em 1.2em; /* ДОБАВЬТЕ ЭТО */
-    }
-    
-    .logo a {
-        font-size: 1.4em; /* ДОБАВЬТЕ ЭТО */
-    }
-    
-    nav ul {
-        gap: 0.6em; /* ДОБАВЬТЕ ЭТО */
-        margin-top: 1em; /* ДОБАВЬТЕ ЭТО */
-    }
-    
-    nav a {
-        padding: 0.7em 0.9em; /* ДОБАВЬТЕ ЭТО */
-        font-size: 0.9em; /* ДОБАВЬТЕ ЭТО */
+    .nav-menu {
+        top: 60px;
+        height: calc(100vh - 60px);
     }
     
     .page-header {
@@ -791,25 +725,34 @@ footer p {
     }
 }
 
+/* Мобильные телефоны */
 @media (max-width: 576px) {
     .navbar {
-        padding: 0.7em 1em; /* ДОБАВЬТЕ ЭТО */
+        padding: 0.6em 1em;
     }
     
     .logo a {
-        font-size: 1.2em; /* ДОБАВЬТЕ ЭТО */
-        margin-bottom: 0.4em; /* ДОБАВЬТЕ ЭТО */
+        font-size: 1.2em;
     }
     
-    nav ul {
-        gap: 0.5em; /* ДОБАВЬТЕ ЭТО */
-        margin-top: 0.8em; /* ДОБАВЬТЕ ЭТО */
+    .hamburger {
+        width: 26px;
+        height: 20px;
+    }
+    
+    .hamburger span {
+        height: 2.5px;
+    }
+    
+    .nav-menu {
+        top: 50px;
+        height: calc(100vh - 50px);
     }
     
     nav a {
-        padding: 0.6em 0.8em; /* ДОБАВЬТЕ ЭТО */
-        font-size: 0.85em; /* ДОБАВЬТЕ ЭТО */
-        border-radius: 4px; /* ДОБАВЬТЕ ЭТО */
+        width: 90%;
+        padding: 0.9em;
+        font-size: 1em;
     }
     
     .page-header h1 {
@@ -854,18 +797,29 @@ footer p {
     }
 }
 
+/* Маленькие мобильные телефоны */
 @media (max-width: 400px) {
     .navbar {
-        padding: 0.6em 0.8em; /* ДОБАВЬТЕ ЭТО */
+        padding: 0.5em 0.8em;
     }
     
     .logo a {
-        font-size: 1.1em; /* ДОБАВЬТЕ ЭТО */
+        font-size: 1.1em;
+    }
+    
+    .hamburger {
+        width: 24px;
+        height: 18px;
+    }
+    
+    .nav-menu {
+        top: 45px;
+        height: calc(100vh - 45px);
     }
     
     nav a {
-        padding: 0.5em 0.7em; /* ДОБАВЬТЕ ЭТО */
-        font-size: 0.8em; /* ДОБАВЬТЕ ЭТО */
+        padding: 0.8em;
+        font-size: 0.95em;
     }
     
     .mission-section,
@@ -897,4 +851,5 @@ footer p {
     transform: scale(1.05);
     box-shadow: 0 10px 25px rgba(147, 112, 219, 0.4);
 }
+
 
