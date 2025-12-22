@@ -9,10 +9,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("🍔 Гамбургер найден:", hamburger);
         console.log("📋 Меню найдено:", navMenu);
         
-        // Проверяем, находится ли гамбургер в видимой области
-        console.log("Гамбургер видимый:", hamburger.offsetParent !== null);
-        console.log("Display стиль:", window.getComputedStyle(hamburger).display);
-        
         // Открытие/закрытие меню
         hamburger.addEventListener('click', function() {
             console.log("👉 Гамбургер нажат!");
@@ -49,17 +45,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log("👆 Меню закрыто по клику вне его");
             }
         });
-        
-        // Проверяем размер экрана и состояние гамбургера
-        function checkHamburgerVisibility() {
-            const displayStyle = window.getComputedStyle(hamburger).display;
-            const isMobile = window.innerWidth <= 992;
-            console.log(`Ширина экрана: ${window.innerWidth}px, Гамбургер display: "${displayStyle}", Мобильный: ${isMobile}`);
-        }
-        
-        // Проверяем при загрузке и изменении размера
-        checkHamburgerVisibility();
-        window.addEventListener('resize', checkHamburgerVisibility);
         
         console.log("✅ Гамбургер-меню инициализировано");
     } else {
@@ -1231,3 +1216,4 @@ eventStyle.textContent = `
 document.head.appendChild(eventStyle);
 
 console.log("✅ Функциональность мероприятий загружена");
+
