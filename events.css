@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/Fon.jpg');
+    background-image: url('/pictures/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -30,11 +30,7 @@ html, body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 15px rgba(75, 0, 130, 0.4);
-}
-
-/* Заголовок в левом углу для мобильных */
-.logo {
-    flex: 1;
+    min-height: 70px;
 }
 
 .logo a {
@@ -43,20 +39,22 @@ html, body {
     color: #b19cd9;
     text-decoration: none;
     transition: all 0.3s ease;
-    display: inline-block;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .logo a:hover {
     color: #fff;
-    transform: scale(1.05);
+    transform: translateY(-50%) scale(1.05);
 }
 
 /* Контейнер для навигации */
 .nav-container {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    flex: 0;
+    width: 100%;
 }
 
 /* Основное меню для десктопа */
@@ -64,6 +62,7 @@ html, body {
     list-style-type: none;
     display: flex;
     gap: 2em;
+    margin-left: auto;
 }
 
 nav a {
@@ -105,7 +104,7 @@ nav a:hover::after {
 
 /* ==================== ГАМБУРГЕР-МЕНЮ ==================== */
 .hamburger {
-    display: none; /* Скрыт на десктопе по умолчанию */
+    display: none;
     flex-direction: column;
     cursor: pointer;
     width: 30px;
@@ -115,7 +114,10 @@ nav a:hover::after {
     border: none;
     padding: 0;
     z-index: 1001;
-    margin-left: auto;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .hamburger span {
@@ -173,23 +175,6 @@ nav a:hover::after {
     flex-wrap: wrap;
 }
 
-/* ==================== УПРАВЛЕНИЕ Z-INDEX КНОПОК ФИЛЬТРАЦИИ ==================== */
-/* Нормальный z-index для кнопок */
-.filter-toggle, .reset-filters, .apply-filters {
-    z-index: 999 !important; /* Высокий z-index по умолчанию */
-    position: relative;
-}
-
-/* При открытых модальных окнах уменьшаем z-index кнопок фильтрации */
-.modal-details:not(.hidden) ~ .filter-menu .filter-toggle,
-.modal-details:not(.hidden) ~ .filter-menu .reset-filters,
-.modal-details:not(.hidden) ~ .filter-menu .apply-filters,
-.filter-results-modal.show ~ .filter-menu .filter-toggle,
-.filter-results-modal.show ~ .filter-menu .reset-filters,
-.filter-results-modal.show ~ .filter-menu .apply-filters {
-    z-index: 100 !important; /* Низкий z-index при открытых модалках */
-}
-
 .filter-toggle, .reset-filters {
     background: linear-gradient(135deg, #2d1b47 0%, #4b0082 100%);
     color: white;
@@ -206,6 +191,7 @@ nav a:hover::after {
     box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
     position: relative;
     overflow: hidden;
+    z-index: 100 !important;
 }
 
 .reset-filters {
@@ -244,28 +230,29 @@ nav a:hover::after {
 }
 
 .filter-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-20px);
-    background: rgba(45, 27, 71, 0.95);
-    backdrop-filter: blur(10px);
-    padding: 2.5em;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(75, 0, 130, 0.3);
-    width: 380px;
-    z-index: 1002;
-    margin-top: 15px;
+    display: none;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid rgba(147, 112, 219, 0.3);
+    transition: all 0.3s ease;
 }
 
 .filter-dropdown.show {
+    display: block;
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(45, 27, 71, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 20px 40px rgba(75, 0, 130, 0.4);
+    width: 350px;
+    z-index: 1002;
+    margin-top: 10px;
+    border: 2px solid #9370db;
 }
 
 .filter-group {
@@ -278,14 +265,14 @@ nav a:hover::after {
     margin-bottom: 8px;
     color: #e6e0ff;
     font-weight: 600;
-    font-size: 1.1em;
+    font-size: 1em;
 }
 
 .filter-group select {
     width: 100%;
-    padding: 14px;
+    padding: 10px;
     border: 2px solid #7b68ee;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 1em;
     transition: all 0.3s ease;
     background: rgba(30, 0, 60, 0.8);
@@ -302,8 +289,8 @@ nav a:hover::after {
 .filter-group input[type="range"] {
     width: 100%;
     margin: 10px 0;
-    height: 8px;
-    border-radius: 4px;
+    height: 6px;
+    border-radius: 3px;
     background: #7b68ee;
     outline: none;
     -webkit-appearance: none;
@@ -314,24 +301,24 @@ nav a:hover::after {
 .filter-group input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: #9370db;
     cursor: pointer;
-    border: 3px solid #e6e0ff;
-    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.5);
+    border: 2px solid #e6e0ff;
+    box-shadow: 0 2px 6px rgba(75, 0, 130, 0.5);
 }
 
 #cost-value, #rating-value {
     display: inline-block;
-    margin-left: 12px;
+    margin-left: 10px;
     font-weight: bold;
-    color: #e6e0ff;
-    font-size: 1.1em;
-    padding: 4px 12px;
+    color: #b19cd9;
+    font-size: 1em;
+    padding: 3px 8px;
     background: rgba(147, 112, 219, 0.2);
-    border-radius: 6px;
+    border-radius: 5px;
     border: 1px solid #9370db;
 }
 
@@ -339,27 +326,27 @@ nav a:hover::after {
     background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
     color: white;
     border: none;
-    padding: 16px 32px;
+    padding: 14px 28px;
     cursor: pointer;
     font-weight: bold;
-    border-radius: 10px;
+    border-radius: 8px;
     width: 100%;
-    font-size: 1.2em;
+    font-size: 1.1em;
     transition: all 0.3s ease;
-    margin-top: 20px;
-    letter-spacing: 1px;
+    margin-top: 15px;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
+    z-index: 100 !important;
 }
 
 .apply-filters:hover {
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(123, 104, 238, 0.5);
+    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.4);
     background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
 }
 
-/* ==================== СЕТКА МЕРОПРИЯТИЙ (4 В СТРОКУ) ==================== */
+/* ==================== СЕТКА МЕРОПРИЯТИЙ (ОТ 1 ДО 4 КАРТОЧЕК) ==================== */
 .events-list {
     max-width: 1400px;
     margin: 0 auto;
@@ -387,7 +374,7 @@ nav a:hover::after {
     background: linear-gradient(90deg, transparent, #9370db, transparent);
 }
 
-/* СЕТКА 4 КАРТОЧКИ В РЯДУ */
+/* АДАПТИВНАЯ СЕТКА ОТ 1 ДО 4 КАРТОЧЕК */
 .event-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -552,11 +539,11 @@ nav a:hover::after {
 
 .modal-content {
     background: rgba(45, 27, 71, 0.98);
-    padding: 40px;
-    border-radius: 25px;
+    padding: 30px;
+    border-radius: 20px;
     box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
     width: 95%;
-    max-width: 1000px;
+    max-width: 900px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
@@ -577,14 +564,14 @@ nav a:hover::after {
 
 .modal-content h2 {
     color: #b19cd9;
-    margin-bottom: 25px;
-    font-size: 2.3em;
+    margin-bottom: 20px;
+    font-size: 2em;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .modal-content p {
-    margin: 20px 0;
+    margin: 15px 0;
     line-height: 1.8;
     font-size: 1.1em;
     color: #e6e0ff;
@@ -593,15 +580,15 @@ nav a:hover::after {
 /* Информация о мероприятии в модальном окне */
 .modal-info {
     background: rgba(30, 0, 60, 0.8);
-    padding: 25px;
-    border-radius: 15px;
-    margin: 25px 0;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
     border-left: 5px solid #9370db;
     box-shadow: 0 5px 15px rgba(75, 0, 130, 0.3);
 }
 
 .modal-info p {
-    margin: 12px 0;
+    margin: 10px 0;
     font-size: 1.1em;
     color: #e6e0ff;
     line-height: 1.6;
@@ -616,9 +603,9 @@ nav a:hover::after {
 .modal-content .gallery {
     position: relative;
     width: 100%;
-    height: 400px;
-    margin: 25px 0;
-    border-radius: 15px;
+    height: 350px;
+    margin: 20px 0;
+    border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
@@ -646,14 +633,14 @@ nav a:hover::after {
     background: rgba(45, 27, 71, 0.9);
     color: white;
     border: none;
-    font-size: 28px;
-    padding: 15px;
+    font-size: 24px;
+    padding: 12px;
     cursor: pointer;
     z-index: 10;
     transition: all 0.3s ease;
     border-radius: 50%;
-    width: 55px;
-    height: 55px;
+    width: 50px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -667,21 +654,21 @@ nav a:hover::after {
 }
 
 .prev-button {
-    left: 20px;
+    left: 15px;
 }
 
 .next-button {
-    right: 20px;
+    right: 15px;
 }
 
 /* Карта Яндекс */
 .yandex-map {
     width: 100%;
-    height: 400px;
-    border-radius: 15px;
+    height: 350px;
+    border-radius: 12px;
     overflow: hidden;
-    margin: 25px 0;
-    border: 2px solid #9370db;
+    margin: 20px 0;
+    border: 2px solid #121212;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     background: rgba(30, 0, 60, 0.8);
     position: relative;
@@ -699,94 +686,43 @@ nav a:hover::after {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Список кинотеатров */
-.cinema-list {
-    list-style: none;
-    padding: 0;
-    margin: 20px 0;
-    max-height: 250px;
-    overflow-y: auto;
-    background: rgba(45, 27, 71, 0.6);
-    border-radius: 10px;
-    padding: 15px;
-    border: 1px solid rgba(147, 112, 219, 0.3);
-}
-
-.cinema-list li {
-    padding: 15px 20px;
-    margin: 12px 0;
-    background: rgba(30, 0, 60, 0.9);
-    border-radius: 10px;
-    border-left: 4px solid #7b68ee;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    font-size: 1.05em;
-    color: #e6e0ff;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-}
-
-.cinema-list li:hover {
-    background: rgba(123, 104, 238, 0.2);
-    transform: translateX(8px);
-    box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
-}
-
-.cinema-list li.active {
-    background: rgba(147, 112, 219, 0.3);
-    border-left: 4px solid #b19cd9;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
-}
-
-.cinema-list li::before {
-    content: '🎬';
-    font-size: 1.2em;
-    margin-right: 10px;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
-}
-
 /* Кнопка закрытия */
 .close-modal {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #8b0000;
+    top: 15px;
+    right: 15px;
+    background: #3b2093;
     color: white;
     border: none;
-    padding: 12px 18px;
+    padding: 10px 15px;
     cursor: pointer;
     border-radius: 50%;
     font-weight: bold;
     font-size: 1.2em;
     transition: all 0.3s ease;
     z-index: 10;
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
+    box-shadow: 0 5px 15px rgba(206, 205, 205, 0.4);
 }
 
 .close-modal:hover {
-    background: #b22222;
+    background: #7d78c1;
     transform: rotate(90deg) scale(1.1);
 }
 
 /* ==================== МОДАЛЬНОЕ ОКНО РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ ==================== */
-.filter-results {
+.filter-results-modal {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background: rgba(20, 0, 40, 0.97);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -797,13 +733,12 @@ nav a:hover::after {
     backdrop-filter: blur(5px);
 }
 
-.filter-results.show {
-    display: flex;
+.filter-results-modal.show {
     opacity: 1;
     visibility: visible;
 }
 
-.results-content {
+.filter-results-content {
     background: rgba(45, 27, 71, 0.98);
     padding: 40px;
     border-radius: 25px;
@@ -817,121 +752,128 @@ nav a:hover::after {
     animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.results-content h3 {
+.filter-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #7b68ee;
+}
+
+.filter-results-header h2 {
     color: #b19cd9;
     font-size: 2.3em;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-    margin: 0 0 20px 0;
-    text-align: center;
+    margin: 0;
 }
 
-.results-grid {
+.filter-results-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
     margin-top: 20px;
 }
 
-.result-card {
+.filter-result-item {
     background: rgba(30, 0, 60, 0.8);
     border-radius: 15px;
     overflow: hidden;
     transition: all 0.3s ease;
     border: 1px solid rgba(147, 112, 219, 0.3);
     cursor: pointer;
-    padding: 15px;
 }
 
-.result-card:hover {
+.filter-result-item:hover {
     transform: translateY(-5px);
     box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
     border-color: #9370db;
 }
 
-.no-results {
-    text-align: center;
-    padding: 50px;
-    color: #e6e0ff;
-    font-size: 1.2em;
-    grid-column: 1 / -1;
+.filter-result-image {
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
 }
 
-.close-results {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+.filter-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.filter-result-item:hover .filter-result-image img {
+    transform: scale(1.05);
+}
+
+.filter-result-info {
+    padding: 15px;
+}
+
+.filter-result-info h3 {
+    color: #b19cd9;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    min-height: auto;
+}
+
+.filter-result-info p {
+    color: #e6e0ff;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.filter-result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(147, 112, 219, 0.2);
+    gap: 8px;
+}
+
+.filter-result-price {
+    color: #9370db;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.filter-result-rating {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.filter-results-close {
     background: #8b0000;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 24px;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 8px;
     font-weight: bold;
     font-size: 1em;
     transition: all 0.3s ease;
-    width: 40px;
-    height: 40px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: center;
+    gap: 8px;
 }
 
-.close-results:hover {
+.filter-results-close:hover {
     background: #b22222;
-    transform: rotate(90deg) scale(1.1);
+    transform: scale(1.05);
 }
 
-/* Анимация для модального окна */
-@keyframes modalAppear {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-/* ==================== СТИЛИ ДЛЯ БАЛЛУНОВ ==================== */
-.ymaps-balloon__content {
-    background-color: #9370db !important;
-    color: #f7f4f4 !important;
-    font-family: 'Arial', sans-serif !important;
-    border-radius: 15px !important;
-    padding: 20px !important;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
-    max-width: 350px !important;
-    line-height: 1.6 !important;
-    border: 2px solid #7b68ee !important;
-}
-
-.ymaps-balloon__tail {
-    background-color: #9370db !important;
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.5) !important;
-}
-
-.map-balloon-title {
-    color: #f7f4f4;
-    font-size: 1.3em;
-    font-weight: bold;
-    margin-bottom: 12px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.map-balloon-content {
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
     color: #e6e0ff;
-    line-height: 1.5;
-}
-
-.map-balloon-content p {
-    margin: 8px 0;
-    color: #e6e0ff;
-}
-
-.map-balloon-content strong {
-    color: #b19cd9;
+    font-size: 1.1em;
 }
 
 /* ==================== АНИМАЦИИ ==================== */
@@ -946,114 +888,42 @@ nav a:hover::after {
     }
 }
 
-@keyframes ripple {
-    0% {
-        transform: scale(0, 0);
-        opacity: 1;
-    }
-    20% {
-        transform: scale(25, 25);
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-        transform: scale(40, 40);
-    }
-}
-
 .page-header, .events-list {
     animation: fadeIn 1s ease-out;
 }
 
-/* ==================== СКРОЛЛБАР ==================== */
-::-webkit-scrollbar {
-    width: 10px;
-}
+/* ==================== АДАПТИВНОСТЬ ==================== */
 
-::-webkit-scrollbar-track {
-    background: rgba(30, 0, 60, 0.3);
-    border-radius: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(#7b68ee, #9370db);
-    border-radius: 6px;
-    border: 2px solid rgba(30, 0, 60, 0.3);
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(#9370db, #7b68ee);
-}
-
-.cinema-list::-webkit-scrollbar {
-    width: 8px;
-}
-
-.cinema-list::-webkit-scrollbar-track {
-    background: rgba(30, 0, 60, 0.3);
-    border-radius: 4px;
-}
-
-.cinema-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(#7b68ee, #9370db);
-    border-radius: 4px;
-}
-
-/* ==================== ДОСТУПНОСТЬ ==================== */
-*:focus {
-    outline: 3px solid #9370db;
-    outline-offset: 3px;
-}
-
-/* ==================== АДАПТИВНОСТЬ ДЛЯ 4 КАРТОЧЕК ==================== */
-/* Таблетки и маленькие ноутбуки */
-@media (max-width: 1400px) {
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-    
-    .container {
-        height: 380px;
-    }
-    
-    .image-slider {
-        height: 170px;
-    }
-}
-
+/* Для средних экранов */
 @media (max-width: 1200px) {
-    .events-list {
-        max-width: 1000px;
-    }
-    
     .event-list {
         grid-template-columns: repeat(3, 1fr);
     }
     
-    .container {
-        height: 380px;
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     }
 }
 
-/* Мобильные устройства */
+/* Для планшетов */
 @media (max-width: 992px) {
     .navbar {
-        padding: 1em 1.5em;
+        padding: 1em;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
         text-align: left;
         min-height: 60px;
+        position: relative;
     }
     
-    /* Логотип в левом углу */
     .logo {
-        flex: 0 0 auto;
-        margin: 0;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 1.3em;
         white-space: nowrap;
-        order: 1;
     }
     
     .logo a {
@@ -1061,17 +931,19 @@ nav a:hover::after {
     }
     
     .nav-container {
-        flex: 0;
+        flex: 1;
         display: flex;
         justify-content: flex-end;
-        order: 2;
         width: auto;
     }
     
     .hamburger {
-        display: flex !important;
-        margin: 0;
-        order: 2;
+        display: flex;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
     }
     
     .nav-menu {
@@ -1087,10 +959,18 @@ nav a:hover::after {
         transition: left 0.4s ease;
         z-index: 999;
         overflow-y: auto;
+        justify-content: flex-start;
+        margin-left: 0;
     }
     
     .nav-menu.active {
         left: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
     }
     
     nav a {
@@ -1106,7 +986,6 @@ nav a:hover::after {
         font-size: 2.5em;
     }
     
-    /* 3 карточки в строке на мобильных */
     .event-list {
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
@@ -1114,37 +993,50 @@ nav a:hover::after {
     
     .container {
         height: 380px;
-        padding: 15px;
     }
     
     .image-slider {
-        height: 150px;
-    }
-    
-    .filter-dropdown {
-        width: 340px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    
-    .btn-detail {
-        min-width: 140px;
+        height: 170px;
     }
     
     .filter-buttons {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .filter-toggle, .reset-filters, .apply-filters {
+        padding: 12px 20px;
+        font-size: 1em;
+        z-index: 100 !important;
+    }
+    
+    .filter-dropdown.show {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        z-index: 1002;
     }
     
     .yandex-map {
-        height: 350px;
+        height: 300px;
     }
     
-    .results-content .results-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
+    .filter-results-content {
+        padding: 25px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
     }
 }
 
+/* Для мобильных */
 @media (max-width: 768px) {
     .page-header {
         padding: 3em 1.5em 1.5em;
@@ -1158,7 +1050,6 @@ nav a:hover::after {
         font-size: 2.2em;
     }
     
-    /* 2 карточки в строке на очень маленьких экранах */
     .event-list {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
@@ -1166,11 +1057,11 @@ nav a:hover::after {
     
     .container {
         height: 350px;
-        padding: 12px;
+        padding: 15px;
     }
     
     .image-slider {
-        height: 140px;
+        height: 150px;
     }
     
     .container h3 {
@@ -1178,42 +1069,50 @@ nav a:hover::after {
         min-height: 50px;
     }
     
-    .container p {
-        font-size: 0.9em;
-    }
-    
     .modal-content {
-        padding: 30px;
+        padding: 20px;
     }
     
     .modal-content h2 {
-        font-size: 1.9em;
+        font-size: 1.8em;
     }
     
     .modal-content .gallery {
-        height: 300px;
-    }
-    
-    .filter-dropdown {
-        width: 320px;
-        padding: 2em;
+        height: 250px;
     }
     
     .yandex-map {
-        height: 300px;
+        height: 250px;
     }
     
-    .cinema-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+    .filter-dropdown.show {
+        width: 95%;
+        padding: 20px;
     }
     
-    .results-content .results-grid {
-        grid-template-columns: 1fr !important;
+    .filter-results-content {
+        padding: 20px;
+    }
+    
+    .filter-results-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .filter-result-image {
+        height: 140px;
+    }
+    
+    .filter-result-info h3 {
+        font-size: 1.1em;
     }
 }
 
+/* Для маленьких мобильных */
 @media (max-width: 576px) {
     .page-header h1 {
         font-size: 1.8em;
@@ -1223,25 +1122,34 @@ nav a:hover::after {
         font-size: 1.8em;
     }
     
-    /* 2 карточки в строке */
     .event-list {
         grid-template-columns: repeat(2, 1fr);
-        max-width: 500px;
-        margin: 0 auto;
+        gap: 12px;
     }
     
     .container {
         height: 320px;
-        max-width: 100%;
-        margin: 0 auto;
+        max-width: none;
+        margin: 0;
     }
     
     .image-slider {
         height: 130px;
     }
     
+    .container h3 {
+        font-size: 1.1em;
+        min-height: 45px;
+    }
+    
+    .btn-detail {
+        padding: 10px 16px;
+        font-size: 0.9em;
+        min-width: 120px;
+    }
+    
     .modal-content {
-        padding: 20px;
+        padding: 15px;
     }
     
     .modal-content h2 {
@@ -1253,84 +1161,168 @@ nav a:hover::after {
     }
     
     .modal-content .gallery {
-        height: 250px;
-    }
-    
-    .yandex-map {
-        height: 250px;
-    }
-    
-    .filter-dropdown {
-        width: 300px;
-        padding: 1.5em;
-    }
-    
-    .filter-toggle, .reset-filters {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    
-    .cinema-list {
-        max-height: 180px;
-        padding: 10px;
-    }
-    
-    .cinema-list li {
-        padding: 10px 12px;
-        font-size: 0.95em;
-    }
-}
-
-@media (max-width: 480px) {
-    .navbar {
-        padding: 0.8em 1em;
-    }
-    
-    /* Логотип в левом углу, гамбургер в правом */
-    .logo a {
-        font-size: 1.2em;
-        margin-left: 0;
-    }
-    
-    .hamburger {
-        width: 30px;
-        height: 24px;
-        margin-right: 0;
-    }
-    
-    .hamburger span {
-        height: 3px;
-    }
-    
-    /* 1 карточка в строке на самых маленьких экранах */
-    .event-list {
-        grid-template-columns: 1fr;
-        max-width: 320px;
-    }
-    
-    .container {
-        height: 340px;
-        max-width: 320px;
-    }
-    
-    .btn-detail {
-        padding: 8px 16px;
-        font-size: 0.85em;
-        min-width: 120px;
-    }
-    
-    .filter-toggle, .reset-filters {
-        padding: 10px 18px;
-        font-size: 0.95em;
+        height: 200px;
     }
     
     .yandex-map {
         height: 200px;
     }
     
-    .filter-dropdown {
-        width: 280px;
-        padding: 1.5em 1em;
+    .filter-toggle, .reset-filters {
+        padding: 10px 16px;
+        font-size: 0.95em;
+        width: 48%;
+    }
+    
+    .apply-filters {
+        padding: 12px;
+        font-size: 1em;
+    }
+    
+    .filter-dropdown.show {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    .filter-results-content {
+        padding: 15px;
+    }
+    
+    .filter-results-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .filter-result-image {
+        height: 120px;
+    }
+    
+    .filter-result-info {
+        padding: 10px;
     }
 }
 
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8em 1em;
+        height: 60px;
+    }
+    
+    .logo {
+        left: 15px;
+    }
+    
+    .logo a {
+        font-size: 1.1em;
+    }
+    
+    .hamburger {
+        right: 15px;
+        width: 25px;
+        height: 20px;
+    }
+    
+    .hamburger span {
+        height: 2.5px;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .container {
+        height: 300px;
+        padding: 12px;
+    }
+    
+    .image-slider {
+        height: 120px;
+    }
+    
+    .container h3 {
+        font-size: 1em;
+        min-height: 40px;
+    }
+    
+    .btn-detail {
+        padding: 8px 14px;
+        font-size: 0.85em;
+        min-width: 110px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .filter-toggle, .reset-filters {
+        width: 100%;
+        max-width: 280px;
+        padding: 10px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Для экранов с шириной более 480px но менее 768px - показываем 3 карточки */
+@media (min-width: 481px) and (max-width: 768px) {
+    .event-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 768px но менее 992px - показываем 3-4 карточки */
+@media (min-width: 769px) and (max-width: 992px) {
+    .event-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Исправление z-index для модальных окон */
+.modal-details,
+.filter-results-modal {
+    z-index: 2000;
+}
+
+.filter-dropdown.show {
+    z-index: 1002;
+}
+
+.hamburger {
+    z-index: 1001;
+}
+
+.nav-menu {
+    z-index: 1000;
+}
