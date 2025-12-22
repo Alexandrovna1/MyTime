@@ -1216,4 +1216,3 @@ eventStyle.textContent = `
 document.head.appendChild(eventStyle);
 
 console.log("✅ Функциональность мероприятий загружена");
-
