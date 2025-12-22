@@ -424,7 +424,6 @@ hr {
     text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
     position: relative;
     padding-bottom: 20px;
-    z-index: 10;
 }
 
 .events-section h2::after,
@@ -437,6 +436,32 @@ hr {
     width: 100px;
     height: 4px;
     background: linear-gradient(90deg, transparent, #9370db, transparent);
+}
+
+/* Затемнение краев - ФИКСИРУЕМ НА SECTION */
+.events-section::before,
+.events-section::after,
+.restaurants-section::before,
+.restaurants-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.events-section::before,
+.restaurants-section::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(30, 0, 60, 0.95), transparent);
+}
+
+.events-section::after,
+.restaurants-section::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(30, 0, 60, 0.95), transparent);
 }
 
 /* Контейнеры с прокруткой */
@@ -454,32 +479,6 @@ hr {
     scrollbar-width: none;
 }
 
-/* Затемнение краев - ТОЛЬКО ДЛЯ КОНТЕЙНЕРОВ С КАРТОЧКАМИ */
-.events-container::before,
-.events-container::after,
-.restaurants-container::before,
-.restaurants-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100px;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.events-container::before,
-.restaurants-container::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(30, 0, 60, 0.95), transparent);
-}
-
-.events-container::after,
-.restaurants-container::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(30, 0, 60, 0.95), transparent);
-}
-
 /* Убираем стандартный скроллбар */
 .events-container::-webkit-scrollbar,
 .restaurants-container::-webkit-scrollbar {
@@ -495,12 +494,11 @@ hr {
 .restaurants-list {
     display: inline-flex;
     gap: 30px;
-    padding: 0 40px;
+    padding: 0 20px;
     animation-duration: 60s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     width: max-content;
-    position: relative;
 }
 
 .events-list {
@@ -1556,10 +1554,10 @@ footer p {
         max-width: 900px;
     }
     
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         width: 80px;
     }
 }
@@ -1643,10 +1641,10 @@ footer p {
         align-items: center;
     }
     
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         width: 60px;
     }
     
@@ -1752,15 +1750,16 @@ footer p {
         font-size: 1.1em;
     }
     
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         width: 40px;
         background: linear-gradient(to right, rgba(30, 0, 60, 0.98), transparent);
     }
     
-    .restaurants-container::after {
+    .restaurants-section::before,
+    .restaurants-section::after {
         background: linear-gradient(to left, rgba(30, 0, 60, 0.98), transparent);
     }
     
@@ -1780,11 +1779,6 @@ footer p {
     .cinema-nav-btn {
         padding: 10px 20px;
         font-size: 0.95em;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        padding: 0 30px;
     }
 }
 
@@ -1860,7 +1854,7 @@ footer p {
     .events-list,
     .restaurants-list {
         gap: 15px;
-        padding: 0 25px;
+        padding: 0 15px;
     }
     
     .modal-content {
@@ -1921,10 +1915,10 @@ footer p {
         font-size: 1em;
     }
     
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         width: 30px;
     }
     
@@ -2009,10 +2003,10 @@ footer p {
         font-size: 0.95em;
     }
     
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         width: 20px;
     }
     
@@ -2028,11 +2022,6 @@ footer p {
     
     .cinema-time {
         align-self: center;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        padding: 0 20px;
     }
 }
 
@@ -2069,10 +2058,10 @@ footer p {
 
 /* Фикс для затемнения на очень маленьких экранах */
 @media (max-width: 320px) {
-    .events-container::before,
-    .events-container::after,
-    .restaurants-container::before,
-    .restaurants-container::after {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
         display: none;
     }
     
@@ -2100,10 +2089,4 @@ footer p {
         font-size: 0.8em;
         min-width: 100px;
     }
-    
-    .events-list,
-    .restaurants-list {
-        padding: 0 15px;
-    }
 }
-
