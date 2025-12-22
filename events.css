@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/Fon.jpg');
+    background-image: url('/pictures/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -132,12 +132,74 @@ nav a:hover::after {
 
 /* Мобильное меню (скрытое по умолчанию) */
 @media (max-width: 992px) {
+    .navbar {
+        padding: 1em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        min-height: 60px;
+    }
+    
+    .logo {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 1.3em;
+        white-space: nowrap;
+        order: 1;
+    }
+    
+    .logo a {
+        font-size: 1.3em;
+    }
+    
+    .nav-container {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
+    }
+    
+    /* Исправляем отображение гамбургера */
+    .hamburger {
+        display: flex !important;
+        margin: 0;
+        order: 2;
+        width: 30px;
+        height: 24px;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    
+    /* Исправляем полосочки гамбургера */
+    .hamburger span {
+        display: block !important;
+        width: 100% !important;
+        height: 3px !important;
+        background-color: #b19cd9 !important;
+        border-radius: 2px !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(10px) rotate(45deg) !important;
+    }
+    
+    .hamburger.active span:nth-child(2) {
+        opacity: 0 !important;
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg) !important;
+    }
+    
     .nav-menu {
         position: fixed;
-        top: 80px;
+        top: 60px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 60px);
         background: rgba(20, 0, 40, 0.98);
         flex-direction: column;
         align-items: center;
@@ -151,11 +213,47 @@ nav a:hover::after {
         left: 0;
     }
     
-    .hamburger {
-        display: flex; /* Показываем гамбургер на мобильных */
+    nav a {
+        display: block;
+        width: 80%;
+        margin: 0.5em auto;
+        padding: 1em;
+        text-align: center;
+        font-size: 1.1em;
     }
     
-    /* Остальные стили для мобильной навигации... */
+    .page-header h1 {
+        font-size: 2.5em;
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .container {
+        height: 420px;
+    }
+    
+    .image-slider {
+        height: 200px;
+    }
+    
+    .filter-dropdown {
+        width: 340px;
+    }
+    
+    .btn-detail {
+        min-width: 140px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .yandex-map {
+        height: 350px;
+    }
 }
 
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
@@ -1168,25 +1266,6 @@ nav a:hover::after {
 }
 
 @media (max-width: 992px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1.5em;
-        text-align: center;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        gap: 1em;
-        margin-top: 1.5em;
-        width: 100%;
-    }
-    
-    nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-    
     .page-header h1 {
         font-size: 2.5em;
     }
@@ -1378,4 +1457,66 @@ nav a:hover::after {
     }
 }
 
+/* Важное исправление для гамбургер-меню */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    width: 30px;
+    height: 24px;
+    justify-content: space-between;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001;
+}
 
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #b19cd9;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
+}
+
+/* Специальный медиа-запрос для мобильных */
+@media (max-width: 992px) {
+    .hamburger {
+        display: flex !important;
+        position: relative;
+        z-index: 1001;
+    }
+}
+
+/* Исправление для очень маленьких экранов */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8em 1em;
+    }
+    
+    .logo a {
+        font-size: 1.2em;
+    }
+    
+    .hamburger {
+        width: 30px;
+        height: 24px;
+    }
+    
+    .hamburger span {
+        height: 3px;
+    }
+}
