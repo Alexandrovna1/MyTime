@@ -144,10 +144,8 @@ document.addEventListener("DOMContentLoaded", function() {
             
             if (modalDetails) {
                 console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
-                modalDetails.style.display = 'flex';
-                setTimeout(() => {
-                    modalDetails.classList.add('visible');
-                }, 10);
+                modalDetails.classList.remove('hidden');
+                modalDetails.classList.add('visible');
                 document.body.style.overflow = 'hidden';
                 
                 // Инициализация галереи
@@ -283,26 +281,24 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    // Функция закрытия модального окна
-    function closeModal(modal) {
-        if (modal) {
-            modal.classList.remove('visible');
-            setTimeout(() => {
-                modal.style.display = 'none';
-            }, 400);
-            document.body.style.overflow = 'auto';
-            console.log("📱 Модальное окно закрыто");
-        }
-    }
-    
     // 8. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ ВНЕ ОКНА
     document.querySelectorAll('.modal-details').forEach(modal => {
         modal.addEventListener('click', function(event) {
-            if (event.target === this) {
+            if (event.target === this && (this.classList.contains('visible') || !this.classList.contains('hidden'))) {
                 closeModal(this);
             }
         });
     });
+    
+    // Функция закрытия модального окна
+    function closeModal(modal) {
+        if (modal) {
+            modal.classList.remove('visible');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+            console.log("📱 Модальное окно закрыто");
+        }
+    }
     
     // 9. ОБРАБОТКА КЛАВИШИ ESC ДЛЯ ЗАКРЫТИЯ МОДАЛЬНЫХ ОКОН
     document.addEventListener('keydown', function(e) {
@@ -313,7 +309,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
             
             // Также закрываем окно результатов фильтрации
-            const resultsModal = document.querySelector('.filter-results.show');
+            const resultsModal = document.querySelector('.filter-results-modal.show');
             if (resultsModal) {
                 resultsModal.classList.remove('show');
                 document.body.style.overflow = 'auto';
@@ -379,7 +375,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 // Скрыть модальное окно результатов
-                const resultsModal = document.querySelector('.filter-results.show');
+                const resultsModal = document.querySelector('.filter-results-modal');
                 if (resultsModal) {
                     resultsModal.classList.remove('show');
                     document.body.style.overflow = 'auto';
@@ -509,26 +505,23 @@ document.addEventListener("DOMContentLoaded", function() {
     
     // 17. ФУНКЦИЯ ПОКАЗА РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ В МОДАЛЬНОМ ОКНЕ
     function showFilterResults(results, title, filterType) {
-        let resultsModal = document.querySelector('.filter-results');
+        let resultsModal = document.querySelector('.filter-results-modal');
         
         if (!resultsModal) {
             resultsModal = document.createElement('div');
-            resultsModal.className = 'filter-results';
+            resultsModal.className = 'filter-results-modal';
             
             const resultsContent = document.createElement('div');
-            resultsContent.className = 'results-content';
+            resultsContent.className = 'filter-results-content';
             
             const header = document.createElement('div');
-            header.style.marginBottom = '20px';
+            header.className = 'filter-results-header';
             
-            const titleElem = document.createElement('h3');
-            titleElem.style.textAlign = 'center';
-            titleElem.style.color = '#b19cd9';
-            titleElem.style.marginBottom = '15px';
+            const titleElem = document.createElement('h2');
             
             const closeBtn = document.createElement('button');
-            closeBtn.className = 'close-results';
-            closeBtn.innerHTML = '✕';
+            closeBtn.className = 'filter-results-close';
+            closeBtn.innerHTML = '✕ Закрыть';
             
             closeBtn.addEventListener('click', () => {
                 resultsModal.classList.remove('show');
@@ -539,12 +532,8 @@ document.addEventListener("DOMContentLoaded", function() {
             header.appendChild(closeBtn);
             
             const grid = document.createElement('div');
-            grid.className = 'results-grid';
-            grid.id = 'results-grid';
-            grid.style.display = 'grid';
-            grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-            grid.style.gap = '20px';
-            grid.style.marginTop = '20px';
+            grid.className = 'filter-results-grid';
+            grid.id = 'filter-results-grid';
             
             resultsContent.appendChild(header);
             resultsContent.appendChild(grid);
@@ -561,9 +550,9 @@ document.addEventListener("DOMContentLoaded", function() {
         }
         
         const countText = results.length === 0 ? 'ничего не найдено' : `найдено ${results.length}`;
-        resultsModal.querySelector('h3').textContent = `${title} (${countText})`;
+        resultsModal.querySelector('h2').textContent = `${title} (${countText})`;
         
-        const grid = resultsModal.querySelector('#results-grid');
+        const grid = resultsModal.querySelector('#filter-results-grid');
         grid.innerHTML = '';
         
         if (results.length === 0) {
@@ -616,67 +605,77 @@ document.addEventListener("DOMContentLoaded", function() {
     // 19. ФУНКЦИЯ СОЗДАНИЯ ЭЛЕМЕНТА РЕЗУЛЬТАТА
     function createResultItem(result) {
         const item = document.createElement('div');
-        item.className = 'result-card';
-        item.style.cursor = 'pointer';
-        item.style.transition = 'all 0.3s ease';
+        item.className = 'filter-result-item';
         
-        const title = document.createElement('h4');
+        const imageDiv = document.createElement('div');
+        imageDiv.className = 'filter-result-image';
+        
+        const img = document.createElement('img');
+        img.src = result.image;
+        img.alt = result.title;
+        img.onerror = function() {
+            this.src = 'https://via.placeholder.com/400x300/2d1b47/9370db?text=Мероприятие';
+        };
+        imageDiv.appendChild(img);
+        
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'filter-result-info';
+        
+        const title = document.createElement('h3');
         title.textContent = result.title;
-        title.style.color = '#b19cd9';
-        title.style.marginBottom = '10px';
-        title.style.fontSize = '1.2em';
         
         const description = document.createElement('p');
         description.textContent = result.description;
-        description.style.color = '#e6e0ff';
-        description.style.marginBottom = '10px';
-        description.style.fontSize = '0.95em';
         
         const metaDiv = document.createElement('div');
-        metaDiv.style.display = 'flex';
-        metaDiv.style.flexWrap = 'wrap';
-        metaDiv.style.gap = '10px';
-        metaDiv.style.marginTop = '10px';
-        metaDiv.style.fontSize = '0.9em';
+        metaDiv.className = 'filter-result-meta';
         
-        const typeBadge = document.createElement('span');
+        const typeBadge = document.createElement('div');
+        typeBadge.className = 'filter-result-type';
         typeBadge.textContent = getTypeEmoji(result.type) + ' ' + getTypeName(result.type);
-        typeBadge.style.background = 'rgba(147, 112, 219, 0.2)';
-        typeBadge.style.color = '#b19cd9';
-        typeBadge.style.padding = '4px 8px';
-        typeBadge.style.borderRadius = '4px';
-        typeBadge.style.border = '1px solid rgba(147, 112, 219, 0.3)';
         
-        const price = document.createElement('span');
+        const price = document.createElement('div');
+        price.className = 'filter-result-price';
         price.textContent = result.price;
-        price.style.color = '#9370db';
-        price.style.fontWeight = 'bold';
         
-        const rating = document.createElement('span');
+        const rating = document.createElement('div');
+        rating.className = 'filter-result-rating';
         rating.textContent = result.rating;
-        rating.style.color = '#ffd700';
-        rating.style.fontWeight = 'bold';
+        
+        // Добавляем время проведения
+        const eventTime = getEventTime(result.modalId);
+        if (eventTime) {
+            const timeDiv = document.createElement('div');
+            timeDiv.className = 'filter-result-time';
+            timeDiv.textContent = `🕒 ${eventTime}`;
+            timeDiv.style.color = '#b19cd9';
+            timeDiv.style.fontSize = '0.9em';
+            metaDiv.appendChild(timeDiv);
+        }
         
         metaDiv.appendChild(typeBadge);
         metaDiv.appendChild(price);
         metaDiv.appendChild(rating);
         
-        item.appendChild(title);
-        item.appendChild(description);
-        item.appendChild(metaDiv);
+        infoDiv.appendChild(title);
+        infoDiv.appendChild(description);
+        infoDiv.appendChild(metaDiv);
+        
+        item.appendChild(imageDiv);
+        item.appendChild(infoDiv);
         
         // При клике на результат открываем модальное окно мероприятия
         item.addEventListener('click', () => {
             if (result.modalId) {
-                resultsModal.classList.remove('show');
-                document.body.style.overflow = 'auto';
-                
                 const modal = document.getElementById(result.modalId);
                 if (modal) {
-                    modal.style.display = 'flex';
-                    setTimeout(() => {
-                        modal.classList.add('visible');
-                    }, 10);
+                    const resultsModal = document.querySelector('.filter-results-modal');
+                    if (resultsModal) {
+                        resultsModal.classList.remove('show');
+                    }
+                    
+                    modal.classList.remove('hidden');
+                    modal.classList.add('visible');
                     document.body.style.overflow = 'hidden';
                     
                     const gallery = modal.querySelector('.gallery');
@@ -1054,6 +1053,163 @@ eventStyle.textContent = `
     
     .event-list .container {
         animation: fadeIn 0.5s ease;
+    }
+    
+    /* Стили для модального окна результатов фильтрации */
+    .filter-results-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(20, 0, 40, 0.97);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s ease;
+        padding: 20px;
+        backdrop-filter: blur(5px);
+    }
+    
+    .filter-results-modal.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .filter-results-content {
+        background: rgba(45, 27, 71, 0.98);
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+        width: 95%;
+        max-width: 1200px;
+        max-height: 85vh;
+        overflow-y: auto;
+        position: relative;
+        border: 2px solid #9370db;
+    }
+    
+    .filter-results-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #7b68ee;
+    }
+    
+    .filter-results-header h2 {
+        color: #b19cd9;
+        font-size: 2em;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        margin: 0;
+    }
+    
+    .filter-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 25px;
+        margin-top: 20px;
+    }
+    
+    .filter-result-item {
+        background: rgba(30, 0, 60, 0.8);
+        border-radius: 15px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(147, 112, 219, 0.3);
+        cursor: pointer;
+    }
+    
+    .filter-result-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
+        border-color: #9370db;
+    }
+    
+    .filter-result-image {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+    
+    .filter-result-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+    
+    .filter-result-item:hover .filter-result-image img {
+        transform: scale(1.05);
+    }
+    
+    .filter-result-info {
+        padding: 20px;
+    }
+    
+    .filter-result-info h3 {
+        color: #b19cd9;
+        margin-bottom: 10px;
+        font-size: 1.4em;
+    }
+    
+    .filter-result-info p {
+        color: #e6e0ff;
+        margin-bottom: 15px;
+        font-size: 1em;
+        line-height: 1.5;
+    }
+    
+    .filter-result-meta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(147, 112, 219, 0.2);
+        gap: 10px;
+    }
+    
+    .filter-result-price {
+        color: #9370db;
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+    
+    .filter-result-rating {
+        color: #ffd700;
+        font-weight: bold;
+    }
+    
+    .filter-result-time {
+        color: #b19cd9;
+        font-size: 0.9em;
+        margin-left: auto;
+    }
+    
+    .filter-results-close {
+        background: #8b0000;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1em;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .filter-results-close:hover {
+        background: #b22222;
+        transform: scale(1.05);
     }
 `;
 
