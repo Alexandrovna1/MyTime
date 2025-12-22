@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/Fon.jpg');
+    background-image: url('/pictures/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -107,6 +107,9 @@ nav a:hover::after {
     border: none;
     padding: 0;
     z-index: 1001;
+    position: absolute;
+    right: 20px;
+    top: 18px;
 }
 
 .hamburger span {
@@ -1543,55 +1546,66 @@ footer p {
 }
 
 /* ==================== АДАПТИВНОСТЬ ==================== */
-@media (max-width: 1200px) {
-    .container {
-        width: 280px;
-        height: 400px;
-    }
-    
-    .modal-content {
-        padding: 35px;
-        max-width: 900px;
-    }
-    
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 80px;
-    }
-}
 
-/* Планшеты и маленькие ноутбуки (992px и меньше) */
+/* Для планшетов */
 @media (max-width: 992px) {
     .navbar {
-        padding: 1em 1.5em;
+        padding: 1em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        min-height: 60px;
+        position: relative;
+    }
+    
+    .logo {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 1.3em;
+        white-space: nowrap;
+        order: 1;
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
     }
     
     .logo a {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
     
-    /* Показываем гамбургер на мобильных */
-    .hamburger {
+    .nav-container {
+        flex: 1;
         display: flex;
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
     }
     
-    /* Скрываем обычное меню, показываем выдвижное */
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+    }
+    
     .nav-menu {
         position: fixed;
-        top: 70px;
+        top: 60px;
         left: -100%;
-        flex-direction: column;
-        background-color: rgba(20, 0, 40, 0.98);
         width: 100%;
-        height: calc(100vh - 70px);
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding-top: 2em;
-        gap: 0;
-        z-index: 1000;
+        height: calc(100vh - 60px);
+        background: rgba(20, 0, 40, 0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 2em 0;
+        transition: left 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+        justify-content: flex-start;
     }
     
     .nav-menu.active {
@@ -1599,17 +1613,18 @@ footer p {
     }
     
     .nav-menu li {
-        margin: 1em 0;
         width: 100%;
+        text-align: center;
+        margin: 0;
     }
     
     nav a {
         display: block;
         width: 80%;
-        margin: 0 auto;
+        margin: 0.5em auto;
         padding: 1em;
+        text-align: center;
         font-size: 1.1em;
-        border-radius: 10px;
     }
     
     .description h1 {
@@ -1637,15 +1652,17 @@ footer p {
     }
     
     .filter-buttons {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
     }
     
     .events-section::before,
     .events-section::after,
     .restaurants-section::before,
     .restaurants-section::after {
-        width: 60px;
+        width: 80px;
     }
     
     .scroll-btn {
@@ -1653,19 +1670,39 @@ footer p {
     }
 }
 
-/* Планшеты (портретная ориентация, 768px и меньше) */
+@media (max-width: 1200px) {
+    .container {
+        width: 280px;
+        height: 400px;
+    }
+    
+    .modal-content {
+        padding: 35px;
+        max-width: 900px;
+    }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 80px;
+    }
+}
+
+/* Для мобильных */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0.8em 1.2em;
+        padding: 0.8em 1em;
     }
     
     .logo a {
-        font-size: 1.4em;
+        font-size: 1.2em;
     }
     
     .hamburger {
         width: 28px;
         height: 22px;
+        right: 15px;
     }
     
     .nav-menu {
@@ -1754,7 +1791,7 @@ footer p {
     .events-section::after,
     .restaurants-section::before,
     .restaurants-section::after {
-        width: 40px;
+        width: 60px;
         background: linear-gradient(to right, rgba(30, 0, 60, 0.98), transparent);
     }
     
@@ -1782,28 +1819,42 @@ footer p {
     }
 }
 
-/* Мобильные телефоны (576px и меньше) */
+/* Для маленьких мобильных */
 @media (max-width: 576px) {
     .navbar {
         padding: 0.6em 1em;
+        height: 60px;
+    }
+    
+    .logo {
+        left: 15px;
     }
     
     .logo a {
-        font-size: 1.2em;
+        font-size: 1.1em;
     }
     
     .hamburger {
-        width: 26px;
+        width: 25px;
         height: 20px;
+        right: 15px;
     }
     
     .hamburger span {
         height: 2.5px;
     }
     
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
     .nav-menu {
-        top: 50px;
-        height: calc(100vh - 50px);
+        top: 60px;
+        height: calc(100vh - 60px);
     }
     
     nav a {
@@ -1919,7 +1970,7 @@ footer p {
     .events-section::after,
     .restaurants-section::before,
     .restaurants-section::after {
-        width: 30px;
+        width: 40px;
     }
     
     .yandex-map {
@@ -1951,10 +2002,15 @@ footer p {
     }
 }
 
-/* Маленькие мобильные телефоны (400px и меньше) */
-@media (max-width: 400px) {
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
     .navbar {
-        padding: 0.5em 0.8em;
+        padding: 0.8em 1em;
+        height: 60px;
+    }
+    
+    .logo {
+        left: 15px;
     }
     
     .logo a {
@@ -1962,16 +2018,22 @@ footer p {
     }
     
     .hamburger {
-        width: 24px;
-        height: 18px;
+        right: 15px;
+        width: 25px;
+        height: 20px;
+    }
+    
+    .hamburger span {
+        height: 2.5px;
     }
     
     .nav-menu {
-        top: 45px;
-        height: calc(100vh - 45px);
+        top: 60px;
+        height: calc(100vh - 60px);
     }
     
     nav a {
+        width: 90%;
         padding: 0.8em;
         font-size: 0.95em;
     }
@@ -2007,7 +2069,7 @@ footer p {
     .events-section::after,
     .restaurants-section::before,
     .restaurants-section::after {
-        width: 20px;
+        width: 30px;
     }
     
     .yandex-map {
@@ -2022,6 +2084,33 @@ footer p {
     
     .cinema-time {
         align-self: center;
+    }
+}
+
+/* Для экстремально маленьких экранов */
+@media (max-width: 360px) {
+    .navbar {
+        padding: 0.5em 0.8em;
+    }
+    
+    .logo a {
+        font-size: 1em;
+    }
+    
+    .hamburger {
+        width: 24px;
+        height: 18px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .filter-toggle, .reset-filters {
+        width: 100%;
+        max-width: 280px;
     }
 }
 
@@ -2091,3 +2180,20 @@ footer p {
     }
 }
 
+/* Исправление z-index для модальных окон */
+.modal-details,
+.filter-results-modal {
+    z-index: 2000;
+}
+
+.filter-dropdown.show {
+    z-index: 1002;
+}
+
+.hamburger {
+    z-index: 1001;
+}
+
+.nav-menu {
+    z-index: 1000;
+}
