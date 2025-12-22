@@ -32,12 +32,18 @@ html, body {
     box-shadow: 0 2px 15px rgba(75, 0, 130, 0.4);
 }
 
+/* Заголовок в левом углу для мобильных */
+.logo {
+    flex: 1;
+}
+
 .logo a {
     font-size: 1.8em;
     font-weight: bold;
     color: #b19cd9;
     text-decoration: none;
     transition: all 0.3s ease;
+    display: inline-block;
 }
 
 .logo a:hover {
@@ -49,6 +55,8 @@ html, body {
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    flex: 0;
 }
 
 /* Основное меню для десктопа */
@@ -107,6 +115,7 @@ nav a:hover::after {
     border: none;
     padding: 0;
     z-index: 1001;
+    margin-left: auto;
 }
 
 .hamburger span {
@@ -128,108 +137,6 @@ nav a:hover::after {
 
 .hamburger.active span:nth-child(3) {
     transform: translateY(-10px) rotate(-45deg);
-}
-
-/* Мобильное меню (скрытое по умолчанию) */
-@media (max-width: 992px) {
-    .navbar {
-        padding: 1em;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        text-align: left;
-        min-height: 60px;
-    }
-    
-    .logo {
-        flex: 0 0 auto;
-        margin: 0;
-        font-size: 1.3em;
-        white-space: nowrap;
-        order: 1;
-    }
-    
-    .logo a {
-        font-size: 1.3em;
-    }
-    
-    .nav-container {
-        flex: 1;
-        display: flex;
-        justify-content: flex-end;
-        order: 2;
-        width: auto;
-    }
-    
-    .hamburger {
-        display: flex !important;
-        margin: 0;
-        order: 2;
-    }
-    
-    .nav-menu {
-        position: fixed;
-        top: 60px;
-        left: -100%;
-        width: 100%;
-        height: calc(100vh - 60px);
-        background: rgba(20, 0, 40, 0.98);
-        flex-direction: column;
-        align-items: center;
-        padding: 2em 0;
-        transition: left 0.4s ease;
-        z-index: 999;
-        overflow-y: auto;
-        justify-content: flex-start;
-    }
-    
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .nav-menu li {
-        width: 100%;
-        text-align: center;
-        margin: 0;
-    }
-    
-    nav a {
-        display: block;
-        width: 80%;
-        margin: 0.5em auto;
-        padding: 1em;
-        text-align: center;
-        font-size: 1.1em;
-    }
-    
-    .page-header h1 {
-        font-size: 2.5em;
-    }
-    
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .container {
-        height: 420px;
-    }
-    
-    .image-slider {
-        height: 200px;
-    }
-    
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .yandex-map {
-        height: 300px;
-    }
-    
-    .filter-dropdown {
-        width: 320px;
-    }
 }
 
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
@@ -349,12 +256,26 @@ nav a:hover::after {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(45, 27, 71, 0.98);
+    backdrop-filter: blur(10px);
+    padding: 2.5em;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(75, 0, 130, 0.3);
+    width: 380px;
+    z-index: 1002;
+    margin-top: 15px;
+    border: 1px solid rgba(147, 112, 219, 0.3);
 }
 
 .filter-dropdown.show {
     display: block;
     opacity: 1;
     visibility: visible;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* Группы фильтров */
@@ -1063,6 +984,7 @@ footer p {
 }
 
 /* ==================== АДАПТИВНОСТЬ ==================== */
+/* Таблетки и маленькие ноутбуки */
 @media (max-width: 1400px) {
     .event-list {
         grid-template-columns: repeat(3, 1fr);
@@ -1075,21 +997,96 @@ footer p {
     }
 }
 
+/* Мобильные устройства */
 @media (max-width: 992px) {
+    .navbar {
+        padding: 1em 1.5em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        min-height: 60px;
+    }
+    
+    /* Логотип в левом углу */
+    .logo {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 1.3em;
+        white-space: nowrap;
+        order: 1;
+    }
+    
+    .logo a {
+        font-size: 1.3em;
+    }
+    
+    .nav-container {
+        flex: 0;
+        display: flex;
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
+    }
+    
+    .hamburger {
+        display: flex !important;
+        margin: 0;
+        order: 2;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 60px);
+        background: rgba(20, 0, 40, 0.98);
+        flex-direction: column;
+        align-items: center;
+        padding: 2em 0;
+        transition: left 0.4s ease;
+        z-index: 999;
+        overflow-y: auto;
+        justify-content: flex-start;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+    
+    nav a {
+        display: block;
+        width: 80%;
+        margin: 0.5em auto;
+        padding: 1em;
+        text-align: center;
+        font-size: 1.1em;
+    }
+    
     .page-header h1 {
         font-size: 2.5em;
     }
     
+    /* 3 карточки в строке на мобильных */
     .event-list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .container {
-        height: 420px;
+        height: 380px;
+        padding: 15px;
     }
     
     .image-slider {
-        height: 200px;
+        height: 150px;
     }
     
     .filter-buttons {
@@ -1102,7 +1099,13 @@ footer p {
     }
     
     .filter-dropdown {
-        width: 320px;
+        width: 340px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .results-content .results-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
     }
 }
 
@@ -1119,23 +1122,28 @@ footer p {
         font-size: 2.2em;
     }
     
+    /* 2 карточки в строке на очень маленьких экранах */
     .event-list {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 15px;
     }
     
     .container {
-        height: 380px;
-        padding: 15px;
+        height: 350px;
+        padding: 12px;
     }
     
     .image-slider {
-        height: 180px;
+        height: 140px;
     }
     
     .container h3 {
-        font-size: 1.3em;
-        min-height: 55px;
+        font-size: 1.2em;
+        min-height: 50px;
+    }
+    
+    .container p {
+        font-size: 0.9em;
     }
     
     .modal-content {
@@ -1155,8 +1163,12 @@ footer p {
     }
     
     .filter-dropdown {
-        width: 300px;
+        width: 320px;
         padding: 20px;
+    }
+    
+    .results-content .results-grid {
+        grid-template-columns: 1fr !important;
     }
 }
 
@@ -1169,20 +1181,21 @@ footer p {
         font-size: 1.8em;
     }
     
+    /* 2 карточки в строке */
     .event-list {
-        grid-template-columns: 1fr;
-        max-width: 400px;
+        grid-template-columns: repeat(2, 1fr);
+        max-width: 500px;
         margin: 0 auto;
     }
     
     .container {
-        height: 360px;
-        max-width: 350px;
+        height: 320px;
+        max-width: 100%;
         margin: 0 auto;
     }
     
     .image-slider {
-        height: 170px;
+        height: 130px;
     }
     
     .modal-content {
@@ -1211,14 +1224,41 @@ footer p {
     }
     
     .filter-dropdown {
-        width: 280px;
+        width: 300px;
         padding: 15px;
     }
 }
 
-@media (max-width: 400px) {
-    .modal-content {
-        padding: 15px;
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8em 1em;
+    }
+    
+    /* Логотип в левом углу, гамбургер в правом */
+    .logo a {
+        font-size: 1.2em;
+        margin-left: 0;
+    }
+    
+    .hamburger {
+        width: 30px;
+        height: 24px;
+        margin-right: 0;
+    }
+    
+    .hamburger span {
+        height: 3px;
+    }
+    
+    /* 1 карточка в строке на самых маленьких экранах */
+    .event-list {
+        grid-template-columns: 1fr;
+        max-width: 320px;
+    }
+    
+    .container {
+        height: 340px;
+        max-width: 320px;
     }
     
     .btn-detail {
@@ -1232,37 +1272,12 @@ footer p {
         font-size: 0.95em;
     }
     
-    .container {
-        height: 340px;
-        max-width: 320px;
-    }
-    
     .yandex-map {
         height: 180px;
     }
     
     .filter-dropdown {
-        width: 260px;
+        width: 280px;
         padding: 15px 10px;
-    }
-}
-
-/* Исправление для очень маленьких экранов */
-@media (max-width: 480px) {
-    .navbar {
-        padding: 0.8em 1em;
-    }
-    
-    .logo a {
-        font-size: 1.2em;
-    }
-    
-    .hamburger {
-        width: 30px;
-        height: 24px;
-    }
-    
-    .hamburger span {
-        height: 3px;
     }
 }
