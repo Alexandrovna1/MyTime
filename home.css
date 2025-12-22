@@ -415,10 +415,6 @@ hr {
     padding: 2em 0;
 }
 
-.events-list.paused,
-.restaurants-list.paused {
-    animation: none !important;
-}
 .events-section h2,
 .restaurants-section h2 {
     text-align: center;
@@ -442,48 +438,67 @@ hr {
     background: linear-gradient(90deg, transparent, #9370db, transparent);
 }
 
-.events-container, .restaurants-container {
-    position: relative; 
-    width: 100%;
-    overflow: hidden;
-    margin-bottom: 30px; 
-}
-
-/* Затемнение краев для плавного перехода */
-.events-container::before,
-.events-container::after,
-.restaurants-container::before,
-.restaurants-container::after {
+/* Затемнение краев - ФИКСИРУЕМ НА SECTION */
+.events-section::before,
+.events-section::after,
+.restaurants-section::before,
+.restaurants-section::after {
     content: '';
     position: absolute;
     top: 0;
-    width: 150px;
+    width: 100px;
     height: 100%;
-    z-index: 2;
+    z-index: 5;
     pointer-events: none;
 }
 
-.events-container::before,
-.restaurants-container::before {
+.events-section::before,
+.restaurants-section::before {
     left: 0;
-    background: linear-gradient(to right, rgba(30, 0, 60, 0.9), transparent);
+    background: linear-gradient(to right, rgba(30, 0, 60, 0.95), transparent);
 }
 
-.events-container::after,
-.restaurants-container::after {
+.events-section::after,
+.restaurants-section::after {
     right: 0;
-    background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
+    background: linear-gradient(to left, rgba(30, 0, 60, 0.95), transparent);
+}
+
+/* Контейнеры с прокруткой */
+.events-container, .restaurants-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 0;
+    margin: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Убираем стандартный скроллбар */
+.events-container::-webkit-scrollbar,
+.restaurants-container::-webkit-scrollbar {
+    display: none;
+}
+
+.events-list.paused,
+.restaurants-list.paused {
+    animation: none !important;
 }
 
 .events-list,
 .restaurants-list {
-    display: flex;
+    display: inline-flex;
     gap: 30px;
+    padding: 0 20px;
     animation-duration: 60s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     width: max-content;
-    padding: 30px 20px;
 }
 
 .events-list {
@@ -520,20 +535,21 @@ hr {
 
 /* ==================== КАРТОЧКИ ==================== */
 .container {
+    display: inline-block;
     background: rgba(45, 27, 71, 0.95);
     padding: 20px;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(75, 0, 130, 0.4);
     color: #f7f4f4;
-    width: 300px; 
-    flex-shrink: 0;
+    width: 300px;
+    height: 420px;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    height: 420px; 
-    display: flex;
-    flex-direction: column;
     border: 1px solid rgba(147, 112, 219, 0.2);
     position: relative;
     overflow: hidden;
+    white-space: normal;
+    vertical-align: top;
+    flex-shrink: 0;
 }
 
 .container::before {
@@ -547,7 +563,7 @@ hr {
 }
 
 .container:hover {
-    transform: translateY(-12px) scale(1.02); 
+    transform: translateY(-12px) scale(1.02);
     box-shadow: 0 20px 40px rgba(123, 104, 238, 0.3);
     border-color: rgba(147, 112, 219, 0.4);
 }
@@ -556,7 +572,7 @@ hr {
 .image-slider {
     position: relative;
     width: 100%;
-    height: 200px; 
+    height: 200px;
     border-radius: 15px;
     overflow: hidden;
     margin-bottom: 15px;
@@ -583,7 +599,7 @@ hr {
     margin: 12px 0 8px 0;
     font-size: 1.4em;
     color: #b19cd9;
-    min-height: 60px; 
+    min-height: 60px;
     display: flex;
     align-items: center;
     font-weight: 600;
@@ -602,7 +618,7 @@ hr {
 .btn-detail {
     display: inline-block;
     text-align: center;
-    padding: 12px 24px; /* Уменьшил padding */
+    padding: 12px 24px;
     background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
     color: white;
     text-decoration: none;
@@ -612,14 +628,14 @@ hr {
     transition: all 0.3s ease;
     border: 2px solid transparent;
     margin-top: auto;
-    font-size: 1em; 
+    font-size: 1em;
     letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
     z-index: 1;
-    width: fit-content; 
-    align-self: center; 
-    min-width: 160px; 
+    width: fit-content;
+    align-self: center;
+    min-width: 160px;
 }
 
 .btn-detail::before {
@@ -992,283 +1008,6 @@ footer p {
     outline-offset: 3px;
 }
 
-/* ==================== АДАПТИВНОСТЬ ==================== */
-@media (max-width: 1200px) {
-    .container {
-        width: 280px;
-        height: 400px;
-    }
-    
-    .modal-content {
-        padding: 35px;
-        max-width: 900px;
-    }
-}
-
-@media (max-width: 992px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1.5em;
-        text-align: center;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        gap: 1em;
-        margin-top: 1.5em;
-        width: 100%;
-    }
-    
-    nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-    
-    .description h1 {
-        font-size: 2.8em;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        gap: 25px;
-    }
-    
-    .container {
-        width: 260px;
-        height: 380px;
-    }
-    
-    .filter-dropdown {
-        width: 340px;
-    }
-    
-    .btn-detail {
-        padding: 10px 20px;
-        font-size: 0.95em;
-        min-width: 140px;
-    }
-    
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-@media (max-width: 768px) {
-    .description {
-        padding: 4em 1.5em;
-    }
-    
-    .description h1 {
-        font-size: 2.4em;
-    }
-    
-    .description p {
-        font-size: 1.1em;
-    }
-    
-    .events-section h2,
-    .restaurants-section h2,
-    .about h2 {
-        font-size: 2.2em;
-    }
-    
-    .container {
-        width: 240px;
-        height: 360px;
-        padding: 15px;
-    }
-    
-    .image-slider {
-        height: 170px;
-    }
-    
-    .container h3 {
-        font-size: 1.3em;
-        min-height: 55px;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        gap: 20px;
-    }
-    
-    .modal-content {
-        padding: 25px;
-    }
-    
-    .modal-content h2 {
-        font-size: 1.9em;
-    }
-    
-    .modal-content .gallery {
-        height: 300px;
-    }
-    
-    .filter-dropdown {
-        width: 320px;
-        padding: 2em;
-    }
-    
-    .about-images {
-        gap: 30px;
-    }
-    
-    .about-images img {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .prev-button, .next-button {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        padding: 12px;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 12px 24px;
-        font-size: 1.1em;
-    }
-}
-
-@media (max-width: 576px) {
-    .description h1 {
-        font-size: 2em;
-    }
-    
-    .description p {
-        font-size: 1em;
-    }
-    
-    .events-section h2,
-    .restaurants-section h2,
-    .about h2 {
-        font-size: 1.8em;
-    }
-    
-    .container {
-        width: 220px;
-        height: 340px;
-        padding: 15px;
-    }
-    
-    .image-slider {
-        height: 150px;
-    }
-    
-    .container h3 {
-        font-size: 1.2em;
-        min-height: 50px;
-    }
-    
-    .container p {
-        font-size: 0.95em;
-    }
-    
-    .btn-detail {
-        padding: 9px 18px;
-        font-size: 0.9em;
-        min-width: 130px;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        gap: 15px;
-        padding: 20px 15px;
-    }
-    
-    .modal-content {
-        padding: 20px;
-    }
-    
-    .modal-content h2 {
-        font-size: 1.6em;
-    }
-    
-    .modal-content p {
-        font-size: 1em;
-    }
-    
-    .modal-content .gallery {
-        height: 250px;
-    }
-    
-    .modal-content iframe {
-        height: 250px;
-    }
-    
-    .filter-dropdown {
-        width: 300px;
-        padding: 1.5em;
-    }
-    
-    .about-images {
-        gap: 25px;
-    }
-    
-    .about-images img {
-        width: 130px;
-        height: 130px;
-    }
-    
-    .about p {
-        font-size: 1.1em;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    
-    .prev-button, .next-button {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-        padding: 10px;
-    }
-    
-    .close-modal {
-        width: 40px;
-        height: 40px;
-        padding: 10px;
-        font-size: 1em;
-    }
-}
-
-/* Для очень маленьких экранов */
-@media (max-width: 400px) {
-    .container {
-        width: 200px;
-        height: 320px;
-        padding: 12px;
-    }
-    
-    .filter-dropdown {
-        width: 280px;
-        padding: 1.5em 1em;
-    }
-    
-    .modal-content {
-        padding: 15px;
-    }
-    
-    .btn-detail {
-        padding: 8px 16px;
-        font-size: 0.85em;
-        min-width: 120px;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 10px 18px;
-        font-size: 0.95em;
-    }
-}
-
 /* ==================== РЕЗУЛЬТАТЫ ФИЛЬТРАЦИИ ==================== */
 .filter-results-modal {
     position: fixed;
@@ -1428,45 +1167,6 @@ footer p {
     transform: scale(1.05);
 }
 
-/* Адаптивность для результатов фильтрации */
-@media (max-width: 992px) {
-    .filter-results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 25px;
-    }
-}
-
-@media (max-width: 768px) {
-    .filter-results-content {
-        padding: 30px;
-    }
-    
-    .filter-results-header h2 {
-        font-size: 1.8em;
-    }
-    
-    .filter-results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-}
-
-@media (max-width: 576px) {
-    .filter-results-content {
-        padding: 20px;
-    }
-    
-    .filter-results-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .filter-results-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* ==================== КНОПКИ ПРОЛИСТЫВАНИЯ ЛЕНТ ==================== */
 .scroll-controls {
     position: absolute;
@@ -1477,7 +1177,7 @@ footer p {
     display: flex;
     justify-content: space-between;
     padding: 0 20px;
-    z-index: 3;
+    z-index: 10;
     pointer-events: none;
 }
 
@@ -1497,7 +1197,7 @@ footer p {
     align-items: center;
     justify-content: center;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    z-index: 4;
+    z-index: 11;
 }
 
 .scroll-btn:hover {
@@ -1539,31 +1239,6 @@ footer p {
     transform: scale(1.2);
 }
 
-/* Адаптивность для кнопок прокрутки */
-@media (max-width: 768px) {
-    .scroll-btn {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-    }
-    
-    .scroll-controls {
-        padding: 0 15px;
-    }
-}
-
-@media (max-width: 576px) {
-    .scroll-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 18px;
-    }
-    
-    .scroll-controls {
-        padding: 0 10px;
-    }
-}
-
 /* ==================== СТИЛИ ДЛЯ ЯНДЕКС КАРТ (API v3) ==================== */
 .yandex-map {
     width: 100%;
@@ -1575,34 +1250,6 @@ footer p {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     background: rgba(30, 0, 60, 0.8);
     position: relative;
-}
-
-/* Адаптивность для карт */
-@media (max-width: 768px) {
-    .yandex-map {
-        height: 300px;
-    }
-}
-
-@media (max-width: 576px) {
-    .yandex-map {
-        height: 250px;
-    }
-}
-
-.scroll-controls {
-    z-index: 100 !important;
-}
-
-.events-container::before,
-.events-container::after,
-.restaurants-container::before,
-.restaurants-container::after {
-    z-index: 2;
-}
-
-.scroll-btn {
-    z-index: 101 !important;
 }
 
 /* ==================== СПИСОК КИНОТЕАТРОВ В МОДАЛЬНЫХ ОКНАХ ==================== */
@@ -1737,31 +1384,6 @@ footer p {
     font-size: 1.2em;
 }
 
-/* ==================== СТИЛИ ДЛЯ КАРТ ЯНДЕКС С КИНОТЕАТРАМИ ==================== */
-.yandex-map {
-    width: 100%;
-    height: 400px;
-    border-radius: 15px;
-    overflow: hidden;
-    margin: 25px 0;
-    border: 2px solid #9370db;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-    background: rgba(30, 0, 60, 0.8);
-    position: relative;
-}
-
-.yandex-map::before {
-    content: 'Загрузка карты...';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: #b19cd9;
-    font-style: italic;
-    font-size: 1.1em;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-}
-
 /* ==================== КНОПКИ НАВИГАЦИИ МЕЖДУ КИНОТЕАТРАМИ ==================== */
 .cinema-nav-controls {
     display: flex;
@@ -1819,10 +1441,10 @@ footer p {
 /* ==================== СТИЛИ ДЛЯ БАЛЛУНОВ ВСЕХ ТИПОВ ==================== */
 /* Стили для содержимого балунов (текст и фон) */
 .ymaps-balloon__content {
-    background-color: #9370db !important; /* Основной цвет фона, как у Колизея */
-    color: #f7f4f4 !important; /* Цвет текста */
+    background-color: #9370db !important;
+    color: #f7f4f4 !important;
     font-family: 'Arial', sans-serif !important;
-    border-radius: 15px !important; /* Закругленные углы */
+    border-radius: 15px !important;
     padding: 20px !important;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
     max-width: 350px !important;
@@ -1831,8 +1453,8 @@ footer p {
 
 /* Стили для рамки (хвостика) балуна */
 .ymaps-balloon__tail {
-    background-color: #9370db !important; /* Цвет хвостика */
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.5) !important; /* Тень для хвостика */
+    background-color: #9370db !important;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Универсальный класс для стилизации заголовка внутри балуна */
@@ -1852,160 +1474,7 @@ footer p {
     line-height: 1.5;
 }
 
-/* Адаптивность для балунов */
-@media (max-width: 768px) {
-    .ymaps-balloon__content {
-        max-width: 280px !important;
-        padding: 15px !important;
-    }
-}
-
-/* ==================== АДАПТИВНОСТЬ ДЛЯ КИНОТЕАТРОВ ==================== */
-@media (max-width: 992px) {
-    .cinema-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-    
-    .cinema-time {
-        margin-left: 0;
-        align-self: flex-start;
-    }
-    
-    .cinema-nav-controls {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .yandex-map {
-        height: 350px;
-    }
-}
-
-@media (max-width: 768px) {
-    .cinema-list {
-        max-height: 200px;
-    }
-    
-    .cinema-list li {
-        padding: 12px 15px;
-        font-size: 1em;
-    }
-    
-    .yandex-map {
-        height: 300px;
-    }
-    
-    .cinema-nav-btn {
-        padding: 10px 20px;
-        font-size: 0.95em;
-    }
-}
-
-@media (max-width: 576px) {
-    .cinema-list {
-        max-height: 180px;
-        padding: 10px;
-    }
-    
-    .cinema-list li {
-        padding: 10px 12px;
-        font-size: 0.95em;
-    }
-    
-    .yandex-map {
-        height: 250px;
-    }
-    
-    .cinema-nav-controls {
-        padding: 15px;
-    }
-    
-    .cinema-nav-btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
-    }
-}
-
-/* Для очень маленьких экранов */
-@media (max-width: 400px) {
-    .cinema-list li {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-    }
-    
-    .cinema-time {
-        align-self: center;
-    }
-    
-    .yandex-map {
-        height: 200px;
-    }
-}
-
-/* ==================== АНИМАЦИЯ ПРИ ВЫБОРЕ КИНОТЕАТРА ==================== */
-@keyframes cinemaSelect {
-    0% {
-        transform: translateX(0);
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-    }
-    50% {
-        transform: translateX(10px);
-        box-shadow: 0 8px 20px rgba(147, 112, 219, 0.4);
-    }
-    100% {
-        transform: translateX(8px);
-        box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
-    }
-}
-
-.cinema-list li.active {
-    animation: cinemaSelect 0.3s ease-out forwards;
-}
-
-/* ==================== ИКОНКИ ДЛЯ ИНФОРМАЦИИ О КИНОТЕАТРЕ ==================== */
-.cinema-info-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-    flex-wrap: wrap;
-}
-
-.cinema-icon {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #e6e0ff;
-    font-size: 0.95em;
-    background: rgba(147, 112, 219, 0.1);
-    padding: 6px 12px;
-    border-radius: 6px;
-    border: 1px solid rgba(147, 112, 219, 0.2);
-}
-
-.cinema-icon::before {
-    font-size: 1.1em;
-}
-
-.cinema-icon.time::before {
-    content: '🕒';
-    color: #b19cd9;
-}
-
-.cinema-icon.price::before {
-    content: '💵';
-    color: #ffd700;
-}
-
-.cinema-icon.address::before {
-    content: '📍';
-    color: #9370db;
-}
-
-
-/* ==================== КАСТОМНЫЕ СТИЛИ ДЛЯ БАЛЛУНОВ ==================== */
+/* КАСТОМНЫЕ СТИЛИ ДЛЯ БАЛЛУНОВ */
 .custom-balloon-style {
     background-color: #9370db !important;
     border-radius: 15px !important;
@@ -2029,11 +1498,6 @@ footer p {
 
 .map-balloon-content strong {
     color: #b19cd9;
-}
-
-/* Стили для хвостика балуна */
-.ymaps-balloon__tail {
-    background: #9370db !important;
 }
 
 /* Стили для кнопки закрытия балуна */
@@ -2062,17 +1526,6 @@ footer p {
     border-radius: 10px;
 }
 
-/* Стили для активного кинотеатра в списке */
-.cinema-list li.active {
-    background: rgba(147, 112, 219, 0.3);
-    border-left: 4px solid #b19cd9;
-    font-weight: bold;
-    color: #fff;
-    box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
-    transform: translateX(8px);
-    transition: all 0.3s ease;
-}
-
 /* Анимация для переключения кинотеатров */
 @keyframes cinemaSwitch {
     from {
@@ -2089,122 +1542,6 @@ footer p {
     animation: cinemaSwitch 0.3s ease-out;
 }
 
-/* Адаптивность для навигации кинотеатров */
-@media (max-width: 768px) {
-    .cinema-nav-controls {
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-    
-    .cinema-nav-btn {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/* Стили для контейнеров с прокруткой */
-.events-container, .restaurants-container {
-    position: relative;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-    padding: 20px 10px;
-    margin: 0 -10px;
-}
-
-/* Убираем стандартный скроллбар */
-.events-container::-webkit-scrollbar,
-.restaurants-container::-webkit-scrollbar {
-    display: none;
-}
-
-.events-container,
-.restaurants-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
-/* Контейнеры для лент */
-.events-list, .restaurants-list {
-    display: inline-flex;
-    gap: 30px;
-    padding: 10px;
-}
-
-/* Кнопки прокрутки */
-.scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(45, 27, 71, 0.9);
-    color: white;
-    border: 2px solid #9370db;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    font-size: 24px;
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 10;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.scroll-btn:hover {
-    background: #7b68ee;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.5);
-}
-
-.scroll-btn:first-child {
-    left: 10px;
-}
-
-.scroll-btn:last-child {
-    right: 10px;
-}
-
-/* Адаптивность кнопок */
-@media (max-width: 768px) {
-    .scroll-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 20px;
-    }
-}
-
-/* Затемнение краев для наглядности */
-.events-container::before,
-.events-container::after,
-.restaurants-container::before,
-.restaurants-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    width: 100px;
-    height: 100%;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.events-container::before,
-.restaurants-container::before {
-    left: 0;
-    background: linear-gradient(to right, rgba(30, 0, 60, 0.9), transparent);
-}
-
-.events-container::after,
-.restaurants-container::after {
-    right: 0;
-    background: linear-gradient(to left, rgba(30, 0, 60, 0.9), transparent);
-}
-
 /* ==================== АДАПТИВНОСТЬ ==================== */
 @media (max-width: 1200px) {
     .container {
@@ -2215,6 +1552,13 @@ footer p {
     .modal-content {
         padding: 35px;
         max-width: 900px;
+    }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 80px;
     }
 }
 
@@ -2295,6 +1639,17 @@ footer p {
     .filter-buttons {
         flex-direction: column;
         align-items: center;
+    }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 60px;
+    }
+    
+    .scroll-btn {
+        display: none;
     }
 }
 
@@ -2394,6 +1749,37 @@ footer p {
         padding: 12px 24px;
         font-size: 1.1em;
     }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 40px;
+        background: linear-gradient(to right, rgba(30, 0, 60, 0.98), transparent);
+    }
+    
+    .restaurants-section::before,
+    .restaurants-section::after {
+        background: linear-gradient(to left, rgba(30, 0, 60, 0.98), transparent);
+    }
+    
+    .yandex-map {
+        height: 350px;
+    }
+    
+    .cinema-list {
+        max-height: 200px;
+    }
+    
+    .cinema-list li {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+    
+    .cinema-nav-btn {
+        padding: 10px 20px;
+        font-size: 0.95em;
+    }
 }
 
 /* Мобильные телефоны (576px и меньше) */
@@ -2468,7 +1854,7 @@ footer p {
     .events-list,
     .restaurants-list {
         gap: 15px;
-        padding: 20px 15px;
+        padding: 0 15px;
     }
     
     .modal-content {
@@ -2528,6 +1914,41 @@ footer p {
         padding: 10px;
         font-size: 1em;
     }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 30px;
+    }
+    
+    .yandex-map {
+        height: 300px;
+    }
+    
+    .cinema-list {
+        max-height: 180px;
+        padding: 10px;
+    }
+    
+    .cinema-list li {
+        padding: 10px 12px;
+        font-size: 0.95em;
+    }
+    
+    .cinema-nav-controls {
+        padding: 15px;
+    }
+    
+    .cinema-nav-btn {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+    
+    .ymaps-balloon__content {
+        max-width: 280px !important;
+        padding: 15px !important;
+    }
 }
 
 /* Маленькие мобильные телефоны (400px и меньше) */
@@ -2580,5 +2001,92 @@ footer p {
     .reset-filters {
         padding: 10px 18px;
         font-size: 0.95em;
+    }
+    
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        width: 20px;
+    }
+    
+    .yandex-map {
+        height: 250px;
+    }
+    
+    .cinema-list li {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+    
+    .cinema-time {
+        align-self: center;
+    }
+}
+
+/* ==================== ДОПОЛНИТЕЛЬНЫЕ ФИКСЫ ==================== */
+/* Убираем анимацию на мобильных для лучшей производительности */
+@media (max-width: 768px) {
+    .events-list,
+    .restaurants-list {
+        animation: none !important;
+    }
+    
+    .events-container,
+    .restaurants-container {
+        scroll-behavior: auto;
+    }
+}
+
+/* Фикс для touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .container:hover {
+        transform: none;
+    }
+    
+    .btn-detail:hover {
+        transform: none;
+    }
+    
+    .filter-toggle:hover,
+    .reset-filters:hover,
+    .apply-filters:hover {
+        transform: none;
+    }
+}
+
+/* Фикс для затемнения на очень маленьких экранах */
+@media (max-width: 320px) {
+    .events-section::before,
+    .events-section::after,
+    .restaurants-section::before,
+    .restaurants-section::after {
+        display: none;
+    }
+    
+    .container {
+        width: 180px;
+        height: 300px;
+        padding: 10px;
+    }
+    
+    .image-slider {
+        height: 120px;
+    }
+    
+    .container h3 {
+        font-size: 1.1em;
+        min-height: 40px;
+    }
+    
+    .container p {
+        font-size: 0.85em;
+    }
+    
+    .btn-detail {
+        padding: 6px 12px;
+        font-size: 0.8em;
+        min-width: 100px;
     }
 }
