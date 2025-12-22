@@ -9,7 +9,7 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('/Fon.jpg');
+    background-image: url('/pictures/Fon.jpg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -132,12 +132,47 @@ nav a:hover::after {
 
 /* Мобильное меню (скрытое по умолчанию) */
 @media (max-width: 992px) {
+    .navbar {
+        padding: 1em;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        min-height: 60px;
+    }
+    
+    .logo {
+        flex: 0 0 auto;
+        margin: 0;
+        font-size: 1.3em;
+        white-space: nowrap;
+        order: 1;
+    }
+    
+    .logo a {
+        font-size: 1.3em;
+    }
+    
+    .nav-container {
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
+    }
+    
+    .hamburger {
+        display: flex !important;
+        margin: 0;
+        order: 2;
+    }
+    
     .nav-menu {
         position: fixed;
-        top: 80px;
+        top: 60px;
         left: -100%;
         width: 100%;
-        height: calc(100vh - 80px);
+        height: calc(100vh - 60px);
         background: rgba(20, 0, 40, 0.98);
         flex-direction: column;
         align-items: center;
@@ -145,16 +180,56 @@ nav a:hover::after {
         transition: left 0.4s ease;
         z-index: 999;
         overflow-y: auto;
+        justify-content: flex-start;
     }
     
     .nav-menu.active {
         left: 0;
     }
     
-    .hamburger {
-        display: flex; /* Показываем гамбургер на мобильных */
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
     }
     
+    nav a {
+        display: block;
+        width: 80%;
+        margin: 0.5em auto;
+        padding: 1em;
+        text-align: center;
+        font-size: 1.1em;
+    }
+    
+    .page-header h1 {
+        font-size: 2.5em;
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .container {
+        height: 420px;
+    }
+    
+    .image-slider {
+        height: 200px;
+    }
+    
+    .filter-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .yandex-map {
+        height: 300px;
+    }
+    
+    .filter-dropdown {
+        width: 320px;
+    }
 }
 
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
@@ -1001,25 +1076,6 @@ footer p {
 }
 
 @media (max-width: 992px) {
-    .navbar {
-        flex-direction: column;
-        padding: 1.5em;
-        text-align: center;
-    }
-    
-    nav ul {
-        flex-direction: column;
-        gap: 1em;
-        margin-top: 1.5em;
-        width: 100%;
-    }
-    
-    nav a {
-        display: block;
-        width: 100%;
-        text-align: center;
-    }
-    
     .page-header h1 {
         font-size: 2.5em;
     }
@@ -1191,5 +1247,22 @@ footer p {
     }
 }
 
-
-
+/* Исправление для очень маленьких экранов */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8em 1em;
+    }
+    
+    .logo a {
+        font-size: 1.2em;
+    }
+    
+    .hamburger {
+        width: 30px;
+        height: 24px;
+    }
+    
+    .hamburger span {
+        height: 3px;
+    }
+}
