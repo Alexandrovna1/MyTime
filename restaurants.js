@@ -228,13 +228,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // ==================== 2. ФИЛЬТРАЦИЯ (ИСПРАВЛЕННАЯ) ====================
+    // ==================== 2. ФИЛЬТРАЦИЯ (ПОЛНОСТЬЮ ПЕРЕРАБОТАННАЯ) ====================
     
-    // 2.0 ДАННЫЕ О РЕСТОРАНАХ
+    // 2.0 ДАННЫЕ О РЕСТОРАНАХ (добавляем недостающую информацию)
     const restaurantsData = {
         'tsarskoe-details': {
             cuisine: 'russian',
-            price: 2000,
+            price: 2000, // среднее значение
             rating: 5,
             workingHours: '12:00 - 23:00',
             workingHoursType: 'afternoon,evening'
@@ -400,6 +400,26 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 filterDropdown.classList.add('show');
                 console.log('📋 Меню фильтров открыто');
+                
+                // Убедимся что меню видимо
+                filterDropdown.style.cssText = `
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    position: absolute !important;
+                    top: 100% !important;
+                    left: 50% !important;
+                    transform: translateX(-50%) translateY(0) !important;
+                    background: rgba(45, 27, 71, 0.98) !important;
+                    backdrop-filter: blur(10px) !important;
+                    padding: 25px !important;
+                    border-radius: 15px !important;
+                    box-shadow: 0 20px 40px rgba(75, 0, 130, 0.4) !important;
+                    width: 350px !important;
+                    z-index: 1002 !important;
+                    margin-top: 10px !important;
+                    border: 2px solid #9370db !important;
+                `;
             }
         });
         
@@ -444,8 +464,11 @@ document.addEventListener("DOMContentLoaded", function() {
             applyBtn.addEventListener('click', function() {
                 console.log('🔍 Применяем фильтры...');
                 
-                // Закрываем меню фильтров
+                // Закрываем меню фильтров - УСИЛЕННАЯ ВЕРСИЯ
                 filterDropdown.classList.remove('show');
+                filterDropdown.style.display = 'none';
+                filterDropdown.style.opacity = '0';
+                filterDropdown.style.visibility = 'hidden';
                 
                 // Получаем значения
                 const workingHours = workingHoursSelect ? workingHoursSelect.value : '';
@@ -486,11 +509,22 @@ document.addEventListener("DOMContentLoaded", function() {
                     costValue.textContent = '5000 ₽';
                 }
                 
-                // Закрываем меню фильтров
+                // Закрываем меню фильтров - УСИЛЕННАЯ ВЕРСИЯ
                 filterDropdown.classList.remove('show');
+                filterDropdown.style.display = 'none';
+                filterDropdown.style.opacity = '0';
+                filterDropdown.style.visibility = 'hidden';
+                
+                // Показываем все рестораны
+                document.querySelectorAll('.event-list > div').forEach(item => {
+                    item.style.display = 'block';
+                });
+                
+                // Показываем уведомление в правом верхнем углу (как у мероприятий)
+                showSimpleMessage('Фильтры ресторанов сброшены');
                 
                 // Закрываем окно результатов если открыто
-                const resultsModal = document.querySelector('.filter-results.show');
+                const resultsModal = document.querySelector('.filter-results-modal.show');
                 if (resultsModal) {
                     resultsModal.classList.remove('show');
                     document.body.style.overflow = 'auto';
@@ -638,26 +672,23 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // 2.8 ФУНКЦИЯ ПОКАЗА МОДАЛЬНОГО ОКНА С РЕЗУЛЬТАТАМИ
         function showFilterResultsModal(results, title) {
-            let resultsModal = document.querySelector('.filter-results');
+            let resultsModal = document.querySelector('.filter-results-modal');
             
             if (!resultsModal) {
                 resultsModal = document.createElement('div');
-                resultsModal.className = 'filter-results';
+                resultsModal.className = 'filter-results-modal';
                 
                 const resultsContent = document.createElement('div');
-                resultsContent.className = 'results-content';
+                resultsContent.className = 'filter-results-content';
                 
                 const header = document.createElement('div');
-                header.style.marginBottom = '20px';
+                header.className = 'filter-results-header';
                 
-                const titleElem = document.createElement('h3');
-                titleElem.style.textAlign = 'center';
-                titleElem.style.color = '#b19cd9';
-                titleElem.style.marginBottom = '15px';
+                const titleElem = document.createElement('h2');
                 
                 const closeBtn = document.createElement('button');
-                closeBtn.className = 'close-results';
-                closeBtn.innerHTML = '✕';
+                closeBtn.className = 'filter-results-close';
+                closeBtn.innerHTML = '✕ Закрыть';
                 
                 closeBtn.addEventListener('click', () => {
                     resultsModal.classList.remove('show');
@@ -668,12 +699,8 @@ document.addEventListener("DOMContentLoaded", function() {
                 header.appendChild(closeBtn);
                 
                 const grid = document.createElement('div');
-                grid.className = 'results-grid';
-                grid.id = 'results-grid';
-                grid.style.display = 'grid';
-                grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(300px, 1fr))';
-                grid.style.gap = '20px';
-                grid.style.marginTop = '20px';
+                grid.className = 'filter-results-grid';
+                grid.id = 'filter-results-grid';
                 
                 resultsContent.appendChild(header);
                 resultsContent.appendChild(grid);
@@ -687,12 +714,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 });
                 
                 document.body.appendChild(resultsModal);
+                
+                // Добавляем стили
+                addFilterResultsStyles();
             }
             
             const countText = results.length === 0 ? 'ничего не найдено' : `найдено ${results.length}`;
-            resultsModal.querySelector('h3').textContent = `${title} (${countText})`;
+            resultsModal.querySelector('h2').textContent = `${title} (${countText})`;
             
-            const grid = resultsModal.querySelector('#results-grid');
+            const grid = resultsModal.querySelector('#filter-results-grid');
             grid.innerHTML = '';
             
             if (results.length === 0) {
@@ -725,60 +755,72 @@ document.addEventListener("DOMContentLoaded", function() {
         // 2.9 ФУНКЦИЯ СОЗДАНИЯ ЭЛЕМЕНТА РЕЗУЛЬТАТА
         function createResultItem(result) {
             const item = document.createElement('div');
-            item.className = 'result-card';
-            item.style.cursor = 'pointer';
-            item.style.transition = 'all 0.3s ease';
+            item.className = 'filter-result-item';
             
-            const title = document.createElement('h4');
+            const imageDiv = document.createElement('div');
+            imageDiv.className = 'filter-result-image';
+            
+            const img = document.createElement('img');
+            img.src = result.image;
+            img.alt = result.title;
+            img.onerror = function() {
+                this.src = 'https://via.placeholder.com/400x300/2d1b47/9370db?text=Ресторан';
+            };
+            imageDiv.appendChild(img);
+            
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'filter-result-info';
+            
+            const title = document.createElement('h3');
             title.textContent = result.title;
-            title.style.color = '#b19cd9';
-            title.style.marginBottom = '10px';
-            title.style.fontSize = '1.2em';
             
             const description = document.createElement('p');
             description.textContent = result.description;
-            description.style.color = '#e6e0ff';
-            description.style.marginBottom = '10px';
-            description.style.fontSize = '0.95em';
             
             const metaDiv = document.createElement('div');
-            metaDiv.style.display = 'flex';
-            metaDiv.style.flexWrap = 'wrap';
-            metaDiv.style.gap = '10px';
-            metaDiv.style.marginTop = '10px';
-            metaDiv.style.fontSize = '0.9em';
+            metaDiv.className = 'filter-result-meta';
             
-            const cuisineBadge = document.createElement('span');
+            const cuisineBadge = document.createElement('div');
+            cuisineBadge.className = 'filter-result-type';
             cuisineBadge.textContent = '🍽️ ' + result.cuisine;
-            cuisineBadge.style.background = 'rgba(147, 112, 219, 0.2)';
-            cuisineBadge.style.color = '#b19cd9';
-            cuisineBadge.style.padding = '4px 8px';
-            cuisineBadge.style.borderRadius = '4px';
-            cuisineBadge.style.border = '1px solid rgba(147, 112, 219, 0.3)';
             
-            const price = document.createElement('span');
+            const price = document.createElement('div');
+            price.className = 'filter-result-price';
             price.textContent = result.price;
-            price.style.color = '#9370db';
-            price.style.fontWeight = 'bold';
             
-            const rating = document.createElement('span');
+            const rating = document.createElement('div');
+            rating.className = 'filter-result-rating';
             rating.textContent = result.rating;
-            rating.style.color = '#ffd700';
-            rating.style.fontWeight = 'bold';
+            
+            // Добавляем время работы
+            if (result.workingHours) {
+                const timeDiv = document.createElement('div');
+                timeDiv.className = 'filter-result-time';
+                timeDiv.textContent = `🕒 ${result.workingHours}`;
+                timeDiv.style.color = '#b19cd9';
+                timeDiv.style.fontSize = '0.9em';
+                metaDiv.appendChild(timeDiv);
+            }
             
             metaDiv.appendChild(cuisineBadge);
             metaDiv.appendChild(price);
             metaDiv.appendChild(rating);
             
-            item.appendChild(title);
-            item.appendChild(description);
-            item.appendChild(metaDiv);
+            infoDiv.appendChild(title);
+            infoDiv.appendChild(description);
+            infoDiv.appendChild(metaDiv);
+            
+            item.appendChild(imageDiv);
+            item.appendChild(infoDiv);
             
             // При клике на результат открываем модальное окно ресторана
             item.addEventListener('click', () => {
                 if (result.modalId) {
-                    resultsModal.classList.remove('show');
-                    document.body.style.overflow = 'auto';
+                    const resultsModal = document.querySelector('.filter-results-modal');
+                    if (resultsModal) {
+                        resultsModal.classList.remove('show');
+                        document.body.style.overflow = 'auto';
+                    }
                     
                     openModal(result.modalId);
                 }
@@ -825,7 +867,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return '';
         }
         
-        // 2.11 ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ
+        // 2.11 ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ (в правом верхнем углу)
         function showSimpleMessage(text) {
             // Удаляем старое уведомление если есть
             const oldNotification = document.querySelector('.restaurant-info-message');
@@ -903,6 +945,189 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }, 3000);
         }
+        
+        // 2.12 ФУНКЦИЯ ДОБАВЛЕНИЯ СТИЛЕЙ ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ
+        function addFilterResultsStyles() {
+            if (document.querySelector('#filter-results-styles')) return;
+            
+            const style = document.createElement('style');
+            style.id = 'filter-results-styles';
+            style.textContent = `
+                /* Стили для модального окна результатов фильтрации */
+                .filter-results-modal {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(20, 0, 40, 0.97);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 2000;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: all 0.4s ease;
+                    padding: 20px;
+                    backdrop-filter: blur(5px);
+                }
+                
+                .filter-results-modal.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+                
+                .filter-results-content {
+                    background: rgba(45, 27, 71, 0.98);
+                    padding: 40px;
+                    border-radius: 25px;
+                    box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+                    width: 95%;
+                    max-width: 1200px;
+                    max-height: 85vh;
+                    overflow-y: auto;
+                    position: relative;
+                    border: 2px solid #9370db;
+                }
+                
+                .filter-results-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 30px;
+                    padding-bottom: 20px;
+                    border-bottom: 2px solid #7b68ee;
+                }
+                
+                .filter-results-header h2 {
+                    color: #b19cd9;
+                    font-size: 2em;
+                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                    margin: 0;
+                }
+                
+                .filter-results-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                    gap: 25px;
+                    margin-top: 20px;
+                }
+                
+                .filter-result-item {
+                    background: rgba(30, 0, 60, 0.8);
+                    border-radius: 15px;
+                    overflow: hidden;
+                    transition: all 0.3s ease;
+                    border: 1px solid rgba(147, 112, 219, 0.3);
+                    cursor: pointer;
+                }
+                
+                .filter-result-item:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
+                    border-color: #9370db;
+                }
+                
+                .filter-result-image {
+                    width: 100%;
+                    height: 200px;
+                    overflow: hidden;
+                }
+                
+                .filter-result-image img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+                
+                .filter-result-item:hover .filter-result-image img {
+                    transform: scale(1.05);
+                }
+                
+                .filter-result-info {
+                    padding: 20px;
+                }
+                
+                .filter-result-info h3 {
+                    color: #b19cd9;
+                    margin-bottom: 10px;
+                    font-size: 1.4em;
+                }
+                
+                .filter-result-info p {
+                    color: #e6e0ff;
+                    margin-bottom: 15px;
+                    font-size: 1em;
+                    line-height: 1.5;
+                }
+                
+                .filter-result-meta {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-top: 15px;
+                    padding-top: 15px;
+                    border-top: 1px solid rgba(147, 112, 219, 0.2);
+                    gap: 10px;
+                }
+                
+                .filter-result-type {
+                    background: rgba(147, 112, 219, 0.2);
+                    color: #b19cd9;
+                    padding: 5px 10px;
+                    border-radius: 20px;
+                    font-size: 0.9em;
+                    border: 1px solid rgba(147, 112, 219, 0.5);
+                }
+                
+                .filter-result-price {
+                    color: #9370db;
+                    font-weight: bold;
+                    font-size: 1.1em;
+                }
+                
+                .filter-result-rating {
+                    color: #ffd700;
+                    font-weight: bold;
+                }
+                
+                .filter-result-time {
+                    color: #b19cd9;
+                    font-size = '0.9em';
+                    margin-left: auto;
+                }
+                
+                .filter-results-close {
+                    background: #8b0000;
+                    color: white;
+                    border: none;
+                    padding: 12px 24px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    font-weight: bold;
+                    font-size: 1em;
+                    transition: all 0.3s ease;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                }
+                
+                .filter-results-close:hover {
+                    background: #b22222;
+                    transform: scale(1.05);
+                }
+                
+                .no-results {
+                    grid-column: 1 / -1;
+                    text-align: center;
+                    padding: 40px;
+                }
+            `;
+            
+            document.head.appendChild(style);
+        }
     }
     
     // ==================== 3. ОБРАБОТЧИКИ СОБЫТИЙ ====================
@@ -921,7 +1146,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         // Клик по карточке ресторана
-        document.querySelectorAll('.container').forEach(item => {
+        document.querySelectorAll('.restaurant-item').forEach(item => {
             item.addEventListener('click', function(e) {
                 if (!e.target.closest('.btn-detail') && !e.target.closest('img')) {
                     const detailBtn = this.querySelector('.btn-detail');
@@ -970,7 +1195,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 // Закрываем окно результатов фильтрации
-                const resultsModal = document.querySelector('.filter-results.show');
+                const resultsModal = document.querySelector('.filter-results-modal.show');
                 if (resultsModal) {
                     resultsModal.classList.remove('show');
                     document.body.style.overflow = 'auto';
