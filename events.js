@@ -1,59 +1,70 @@
 document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ Страница мероприятий загружена");
 
-    // ========== ГАМБУРГЕР-МЕНЮ ==========
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
+    // ========== ГАМБУРГЕР-МЕНЮ (УЛУЧШЕННЫЙ ДЛЯ МОБИЛЬНЫХ) ==========
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
 
-    if (hamburger && navMenu) {
-        console.log("🍔 Гамбургер найден:", hamburger);
-        console.log("📋 Меню найдено:", navMenu);
-        
-        // Открытие/закрытие меню
-        hamburger.addEventListener('click', function() {
-            console.log("👉 Гамбургер нажат!");
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        if (hamburger && navMenu) {
+            console.log("🍔 Гамбургер найден:", hamburger);
+            console.log("📋 Меню найдено:", navMenu);
             
-            // Блокируем прокрутку при открытом меню
-            if (navMenu.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-                console.log("📱 Меню ОТКРЫТО");
-            } else {
-                document.body.style.overflow = '';
-                console.log("📱 Меню ЗАКРЫТО");
-            }
-        });
-        
-        // Закрыть меню при клике на ссылку
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-                console.log("🔗 Меню закрыто по клику на ссылку");
+            // Для мобильных устройств используем touchstart вместо click
+            const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+            
+            // Открытие/закрытие меню
+            hamburger.addEventListener(clickEvent, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("👉 Гамбургер нажат!");
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Блокируем прокрутку при открытом меню
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    console.log("📱 Меню ОТКРЫТО");
+                } else {
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    console.log("📱 Меню ЗАКРЫТО");
+                }
             });
-        });
-        
-        // Закрыть меню при клике вне его
-        document.addEventListener('click', function(event) {
-            const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
-            if (!isClickInsideNav && navMenu.classList.contains('active')) {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-                document.body.style.overflow = '';
-                console.log("👆 Меню закрыто по клику вне его");
-            }
-        });
-        
-        console.log("✅ Гамбургер-меню инициализировано");
-    } else {
-        console.error("❌ Элементы гамбургер-меню не найдены!");
-        console.error("hamburger:", hamburger);
-        console.error("navMenu:", navMenu);
+            
+            // Закрыть меню при клике на ссылку
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener(clickEvent, function(e) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    console.log("🔗 Меню закрыто по клику на ссылку");
+                });
+            });
+            
+            // Закрыть меню при клике вне его
+            document.addEventListener(clickEvent, function(event) {
+                const isClickInsideNav = navMenu.contains(event.target) || hamburger.contains(event.target);
+                if (!isClickInsideNav && navMenu.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.body.style.position = '';
+                    console.log("👆 Меню закрыто по клику вне его");
+                }
+            });
+            
+            console.log("✅ Гамбургер-меню инициализировано");
+        } else {
+            console.error("❌ Элементы гамбургер-меню не найдены!");
+            console.error("hamburger:", hamburger);
+            console.error("navMenu:", navMenu);
+        }
     }
     
-    // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ
+    // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ (С УЧЕТОМ МОБИЛЬНЫХ)
     function initFilterSliders() {
         // Слайдер стоимости
         const costSlider = document.getElementById('cost');
@@ -66,7 +77,10 @@ document.addEventListener("DOMContentLoaded", function() {
             };
             
             costValue.textContent = formatPrice(costSlider.value);
-            costSlider.addEventListener('input', function() {
+            
+            // Для мобильных используем touch events
+            const sliderEvent = ('ontouchstart' in window) ? 'touchmove' : 'input';
+            costSlider.addEventListener(sliderEvent, function() {
                 costValue.textContent = formatPrice(this.value);
             });
         }
@@ -77,7 +91,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (ratingSlider && ratingValue) {
             ratingValue.textContent = ratingSlider.value === '0' ? 'Любой' : ratingSlider.value + '+';
-            ratingSlider.addEventListener('input', function() {
+            
+            const sliderEvent = ('ontouchstart' in window) ? 'touchmove' : 'input';
+            ratingSlider.addEventListener(sliderEvent, function() {
                 ratingValue.textContent = this.value === '0' ? 'Любой' : this.value + '+';
             });
         }
@@ -132,46 +148,61 @@ document.addEventListener("DOMContentLoaded", function() {
         return null;
     }
     
-    // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ
-    document.querySelectorAll('.btn-detail').forEach(btn => {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            const modalId = this.getAttribute('href');
-            if (!modalId || modalId === '#') return;
-            
-            const fullModalId = modalId.startsWith('#') ? modalId.substring(1) : modalId;
-            const modalDetails = document.getElementById(fullModalId);
-            
-            if (modalDetails) {
-                console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
-                modalDetails.classList.remove('hidden');
-                modalDetails.classList.add('visible');
-                document.body.style.overflow = 'hidden';
+    // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ (ДЛЯ МОБИЛЬНЫХ)
+    function initDetailButtons() {
+        const detailButtons = document.querySelectorAll('.btn-detail');
+        console.log(`🔘 Найдено кнопок "Подробнее": ${detailButtons.length}`);
+        
+        // Для мобильных используем touchstart
+        const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+        
+        detailButtons.forEach(btn => {
+            btn.addEventListener(clickEvent, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log("👉 Кнопка 'Подробнее' нажата");
                 
-                // Инициализация галереи
-                const gallery = modalDetails.querySelector('.gallery');
-                if (gallery) {
-                    initGallery(gallery);
+                const modalId = this.getAttribute('href');
+                if (!modalId || modalId === '#') {
+                    console.error("❌ Нет ID модального окна");
+                    return;
                 }
                 
-                // Инициализация Яндекс Карт
-                setTimeout(() => {
-                    const mapElement = modalDetails.querySelector('.yandex-map');
-                    if (mapElement && !mapElement.dataset.initialized) {
-                        initYandexMap(mapElement);
+                const fullModalId = modalId.startsWith('#') ? modalId.substring(1) : modalId;
+                const modalDetails = document.getElementById(fullModalId);
+                
+                if (modalDetails) {
+                    console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
+                    modalDetails.classList.remove('hidden');
+                    modalDetails.classList.add('visible');
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    
+                    // Инициализация галереи
+                    const gallery = modalDetails.querySelector('.gallery');
+                    if (gallery) {
+                        initGallery(gallery);
                     }
-                }, 100);
-                
-                // Обработка кинотеатров
-                const cinemaList = modalDetails.querySelector('.cinema-list');
-                if (cinemaList) {
-                    initCinemaList(cinemaList);
+                    
+                    // Инициализация Яндекс Карт
+                    setTimeout(() => {
+                        const mapElement = modalDetails.querySelector('.yandex-map');
+                        if (mapElement && !mapElement.dataset.initialized) {
+                            initYandexMap(mapElement);
+                        }
+                    }, 100);
+                    
+                    // Обработка кинотеатров
+                    const cinemaList = modalDetails.querySelector('.cinema-list');
+                    if (cinemaList) {
+                        initCinemaList(cinemaList);
+                    }
+                } else {
+                    console.error('❌ Нет соответствующего модального окна:', fullModalId);
                 }
-            } else {
-                console.error('❌ Нет соответствующего модального окна:', fullModalId);
-            }
+            });
         });
-    });
+    }
     
     // 5. ИНИЦИАЛИЗАЦИЯ СПИСКА КИНОТЕАТРОВ
     function initCinemaList(cinemaList) {
@@ -180,8 +211,11 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (!mapElement) return;
         
+        // Для мобильных используем touchstart
+        const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+        
         listItems.forEach(item => {
-            item.addEventListener('click', function() {
+            item.addEventListener(clickEvent, function() {
                 // Удаляем активный класс у всех элементов
                 listItems.forEach(li => li.classList.remove('active'));
                 
@@ -274,21 +308,26 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // 7. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
-    document.querySelectorAll('.close-modal').forEach(button => {
-        button.addEventListener('click', function() {
-            const modal = this.closest('.modal-details');
-            closeModal(modal);
+    function initModalClose() {
+        const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+        
+        document.querySelectorAll('.close-modal').forEach(button => {
+            button.addEventListener(clickEvent, function(e) {
+                e.stopPropagation();
+                const modal = this.closest('.modal-details');
+                closeModal(modal);
+            });
         });
-    });
-    
-    // 8. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ ВНЕ ОКНА
-    document.querySelectorAll('.modal-details').forEach(modal => {
-        modal.addEventListener('click', function(event) {
-            if (event.target === this && (this.classList.contains('visible') || !this.classList.contains('hidden'))) {
-                closeModal(this);
-            }
+        
+        // 8. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ ВНЕ ОКНА
+        document.querySelectorAll('.modal-details').forEach(modal => {
+            modal.addEventListener(clickEvent, function(event) {
+                if (event.target === this && (this.classList.contains('visible') || !this.classList.contains('hidden'))) {
+                    closeModal(this);
+                }
+            });
         });
-    });
+    }
     
     // Функция закрытия модального окна
     function closeModal(modal) {
@@ -296,6 +335,7 @@ document.addEventListener("DOMContentLoaded", function() {
             modal.classList.remove('visible');
             modal.classList.add('hidden');
             document.body.style.overflow = 'auto';
+            document.body.style.position = '';
             console.log("📱 Модальное окно закрыто");
         }
     }
@@ -313,24 +353,36 @@ document.addEventListener("DOMContentLoaded", function() {
             if (resultsModal) {
                 resultsModal.classList.remove('show');
                 document.body.style.overflow = 'auto';
+                document.body.style.position = '';
             }
         }
     });
     
-    // 10. ФИЛЬТРАЦИЯ МЕРОПРИЯТИЙ
-    const filterToggle = document.querySelector('.filter-toggle');
-    const filterDropdown = document.querySelector('.filter-dropdown');
-    
-    if (filterToggle && filterDropdown) {
+    // 10. ФИЛЬТРАЦИЯ МЕРОПРИЯТИЙ (УЛУЧШЕННАЯ ДЛЯ МОБИЛЬНЫХ)
+    function initFilters() {
+        const filterToggle = document.querySelector('.filter-toggle');
+        const filterDropdown = document.querySelector('.filter-dropdown');
+        
+        if (!filterToggle || !filterDropdown) {
+            console.error("❌ Элементы фильтров не найдены!");
+            return;
+        }
+        
+        console.log("✅ Фильтры найдены");
+        
+        // Для мобильных используем touchstart
+        const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+        
         // Переключение видимости фильтров
-        filterToggle.addEventListener('click', function(e) {
+        filterToggle.addEventListener(clickEvent, function(e) {
+            e.preventDefault();
             e.stopPropagation();
             filterDropdown.classList.toggle('show');
             console.log('📋 Фильтры мероприятий ' + (filterDropdown.classList.contains('show') ? 'открыты' : 'закрыты'));
         });
         
         // Закрытие фильтров при клике вне
-        document.addEventListener('click', function(e) {
+        document.addEventListener(clickEvent, function(e) {
             if (filterDropdown && !filterDropdown.contains(e.target) && 
                 !filterToggle.contains(e.target) && 
                 filterDropdown.classList.contains('show')) {
@@ -341,7 +393,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Кнопка применения фильтров
         const applyFilters = document.querySelector('.apply-filters');
         if (applyFilters) {
-            applyFilters.addEventListener('click', function() {
+            applyFilters.addEventListener(clickEvent, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 console.log('🔘 Применение фильтров мероприятий');
                 applyEventFilters();
                 filterDropdown.classList.remove('show');
@@ -351,7 +405,9 @@ document.addEventListener("DOMContentLoaded", function() {
         // Кнопка сброса фильтров
         const resetFilters = document.querySelector('.reset-filters');
         if (resetFilters) {
-            resetFilters.addEventListener('click', function() {
+            resetFilters.addEventListener(clickEvent, function(e) {
+                e.preventDefault();
+                e.stopPropagation();
                 console.log('🔄 Сброс фильтров мероприятий');
                 
                 // Сброс значений фильтров
@@ -379,12 +435,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (resultsModal) {
                     resultsModal.classList.remove('show');
                     document.body.style.overflow = 'auto';
+                    document.body.style.position = '';
                 }
                 
                 filterDropdown.classList.remove('show');
                 showSimpleMessage('Фильтры мероприятий сброшены');
             });
         }
+        
+        // Предотвращаем закрытие при клике внутри фильтров
+        filterDropdown.addEventListener(clickEvent, function(e) {
+            e.stopPropagation();
+        });
     }
     
     // 11. ФУНКЦИЯ ФИЛЬТРАЦИИ МЕРОПРИЯТИЙ
@@ -523,9 +585,11 @@ document.addEventListener("DOMContentLoaded", function() {
             closeBtn.className = 'filter-results-close';
             closeBtn.innerHTML = '✕ Закрыть';
             
-            closeBtn.addEventListener('click', () => {
+            const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+            closeBtn.addEventListener(clickEvent, () => {
                 resultsModal.classList.remove('show');
                 document.body.style.overflow = 'auto';
+                document.body.style.position = '';
             });
             
             header.appendChild(titleElem);
@@ -539,10 +603,11 @@ document.addEventListener("DOMContentLoaded", function() {
             resultsContent.appendChild(grid);
             resultsModal.appendChild(resultsContent);
             
-            resultsModal.addEventListener('click', function(e) {
+            resultsModal.addEventListener(clickEvent, function(e) {
                 if (e.target === this) {
                     this.classList.remove('show');
                     document.body.style.overflow = 'auto';
+                    document.body.style.position = '';
                 }
             });
             
@@ -580,6 +645,7 @@ document.addEventListener("DOMContentLoaded", function() {
         
         resultsModal.classList.add('show');
         document.body.style.overflow = 'hidden';
+        document.body.style.position = 'fixed';
     }
     
     // 18. ФУНКЦИЯ СОЗДАНИЯ ЗАГОЛОВКА ДЛЯ ФИЛЬТРАЦИИ
@@ -665,18 +731,22 @@ document.addEventListener("DOMContentLoaded", function() {
         item.appendChild(infoDiv);
         
         // При клике на результат открываем модальное окно мероприятия
-        item.addEventListener('click', () => {
+        const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+        item.addEventListener(clickEvent, () => {
             if (result.modalId) {
                 const modal = document.getElementById(result.modalId);
                 if (modal) {
                     const resultsModal = document.querySelector('.filter-results-modal');
                     if (resultsModal) {
                         resultsModal.classList.remove('show');
+                        document.body.style.overflow = 'auto';
+                        document.body.style.position = '';
                     }
                     
                     modal.classList.remove('hidden');
                     modal.classList.add('visible');
                     document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
                     
                     const gallery = modal.querySelector('.gallery');
                     if (gallery) {
@@ -844,6 +914,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 cursor: pointer;
                 font-size: 24px;
                 z-index: 10;
+                touch-action: manipulation;
             `;
             
             const nextButton = document.createElement('button');
@@ -863,6 +934,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 cursor: pointer;
                 font-size: 24px;
                 z-index: 10;
+                touch-action: manipulation;
             `;
             
             gallery.appendChild(prevButton);
@@ -875,15 +947,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 currentIndex = index;
             }
             
+            // Для мобильных используем touchstart
+            const clickEvent = ('ontouchstart' in window) ? 'touchstart' : 'click';
+            
             // Кнопка "назад"
-            prevButton.addEventListener('click', function() {
+            prevButton.addEventListener(clickEvent, function(e) {
+                e.stopPropagation();
                 let newIndex = currentIndex - 1;
                 if (newIndex < 0) newIndex = images.length - 1;
                 showImage(newIndex);
             });
             
             // Кнопка "вперед"
-            nextButton.addEventListener('click', function() {
+            nextButton.addEventListener(clickEvent, function(e) {
+                e.stopPropagation();
                 let newIndex = currentIndex + 1;
                 if (newIndex >= images.length) newIndex = 0;
                 showImage(newIndex);
@@ -903,7 +980,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (modal) {
                 const closeBtn = modal.querySelector('.close-modal');
                 if (closeBtn) {
-                    closeBtn.addEventListener('click', function() {
+                    closeBtn.addEventListener(clickEvent, function() {
                         clearInterval(interval);
                     });
                 }
@@ -971,8 +1048,12 @@ document.addEventListener("DOMContentLoaded", function() {
     function initAll() {
         console.log("🔄 Инициализация всех функций...");
         
-        // Инициализация слайдеров фильтров
+        // Инициализация всех компонентов
+        initHamburgerMenu();
         initFilterSliders();
+        initDetailButtons();
+        initModalClose();
+        initFilters();
         
         // Добавляем обработчики для всех элементов с классом .cinema-list
         document.querySelectorAll('.cinema-list').forEach(cinemaList => {
@@ -988,7 +1069,7 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("✅ Все обработчики мероприятий установлены");
 });
 
-// Добавляем CSS стили
+// Добавляем CSS стили для мобильных устройств
 const eventStyle = document.createElement('style');
 eventStyle.textContent = `
     @keyframes slideIn {
@@ -1005,6 +1086,52 @@ eventStyle.textContent = `
     .modal-details.visible {
         opacity: 1 !important;
         visibility: visible !important;
+        display: flex !important;
+    }
+    
+    /* Улучшения для мобильных устройств */
+    @media (max-width: 768px) {
+        /* Увеличиваем область клика для мобильных */
+        #hamburger, 
+        .filter-toggle,
+        .btn-detail,
+        .apply-filters,
+        .reset-filters,
+        .close-modal {
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Улучшаем отображение фильтров на мобильных */
+        .filter-dropdown {
+            position: fixed !important;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            max-height: 100vh !important;
+            overflow-y: auto !important;
+            z-index: 9999 !important;
+            background: rgba(45, 27, 71, 0.98) !important;
+            padding: 20px !important;
+            box-sizing: border-box !important;
+        }
+        
+        /* Улучшаем отображение модальных окон */
+        .modal-content {
+            width: 95% !important;
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+        }
+        
+        /* Улучшаем кнопки на мобильных */
+        .btn-detail {
+            padding: 12px 20px !important;
+            font-size: 16px !important;
+        }
     }
     
     /* Стили для изображений галереи */
@@ -1122,6 +1249,7 @@ eventStyle.textContent = `
         transition: all 0.3s ease;
         border: 1px solid rgba(147, 112, 219, 0.3);
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
     }
     
     .filter-result-item:hover {
@@ -1205,11 +1333,36 @@ eventStyle.textContent = `
         display: inline-flex;
         align-items: center;
         gap: 8px;
+        -webkit-tap-highlight-color: transparent;
     }
     
     .filter-results-close:hover {
         background: #b22222;
         transform: scale(1.05);
+    }
+    
+    /* Для мобильных устройств */
+    @media (max-width: 768px) {
+        .filter-results-content {
+            padding: 20px;
+            width: 100%;
+            max-height: 95vh;
+        }
+        
+        .filter-results-grid {
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        .filter-results-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .filter-results-header h2 {
+            font-size: 1.5em;
+        }
     }
 `;
 
