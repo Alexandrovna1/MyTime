@@ -1,4 +1,4 @@
-// ==================== ПОЛНАЯ ФУНКЦИОНАЛЬНОСТЬ ФИЛЬТРАЦИИ ====================
+/// ==================== ПОЛНАЯ ФУНКЦИОНАЛЬНОСТЬ ФИЛЬТРАЦИИ ====================
 document.addEventListener('DOMContentLoaded', function() {
     console.log("✅ Страница загружена");
     
@@ -93,7 +93,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Инициализация карты (если есть)
                 const mapContainer = modal.querySelector('.yandex-map');
                 if (mapContainer) {
-                    initYandexMap(mapContainer);
+                    // Проверяем, есть ли список кинотеатров в этом модальном окне
+                    const cinemaList = modal.querySelector('.cinemas-list');
+                    if (cinemaList) {
+                        console.log("🎬 Найден список кинотеатров, инициализируем...");
+                        // Даем небольшую задержку для гарантии отрисовки DOM
+                        setTimeout(() => {
+                            initCinemaList(cinemaList);
+                        }, 100);
+                    } else {
+                        // Обычная карта
+                        initYandexMap(mapContainer);
+                    }
                 }
             }
         });
@@ -438,6 +449,202 @@ document.addEventListener('DOMContentLoaded', function() {
     initImageSliders();
     
     console.log("✅ Все обработчики событий установлены");
+    
+    // 5. ИНИЦИАЛИЗАЦИЯ СПИСКА КИНОТЕАТРОВ
+    function initCinemaList(cinemaList) {
+        console.log("🎬 Инициализация списка кинотеатров");
+        const listItems = cinemaList.querySelectorAll('li');
+        const mapElement = cinemaList.closest('.modal-content').querySelector('.yandex-map');
+        
+        if (!mapElement) {
+            console.error("❌ Не найден элемент карты для списка кинотеатров");
+            return;
+        }
+        
+        console.log(`🎬 Найдено ${listItems.length} кинотеатров`);
+        
+        // Удаляем старые обработчики событий
+        listItems.forEach(item => {
+            item.onclick = null;
+        });
+        
+        // Добавляем новые обработчики событий
+        listItems.forEach(item => {
+            item.addEventListener('click', function() {
+                console.log("📍 Выбран кинотеатр:", this.textContent);
+                
+                // Удаляем активный класс у всех элементов
+                listItems.forEach(li => li.classList.remove('active'));
+                
+                // Добавляем активный класс к текущему элементу
+                this.classList.add('active');
+                
+                // Получаем координаты кинотеатра
+                const lat = this.getAttribute('data-lat');
+                const lon = this.getAttribute('data-lon');
+                const title = this.getAttribute('data-title') || this.textContent.trim();
+                const address = this.getAttribute('data-address') || this.getAttribute('title') || 'Адрес не указан';
+                
+                console.log(`📍 Координаты: ${lat}, ${lon}, Название: ${title}`);
+                
+                if (lat && lon) {
+                    // Инициализируем карту с координатами кинотеатра
+                    initCinemaMap(mapElement, lat, lon, title, address);
+                } else {
+                    console.warn("❌ У кинотеатра нет координат:", title);
+                    mapElement.innerHTML = `
+                        <div style="
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            background: rgba(45, 27, 71, 0.8);
+                            color: #e6e0ff;
+                            font-style: italic;
+                            border-radius: 10px;
+                            padding: 20px;
+                            text-align: center;
+                        ">
+                            <p>Координаты кинотеатра "${title}" не указаны</p>
+                        </div>
+                    `;
+                }
+            });
+        });
+        
+        // Активируем первый элемент, если есть элементы
+        if (listItems.length > 0) {
+            console.log("🎬 Активируем первый кинотеатр в списке");
+            // Даем небольшую задержку для гарантии отрисовки DOM
+            setTimeout(() => {
+                listItems[0].click();
+            }, 150);
+        }
+    }
+    
+    // 6. ИНИЦИАЛИЗАЦИЯ КАРТЫ КИНОТЕАТРА
+    function initCinemaMap(mapElement, lat, lon, title, address) {
+        console.log("🗺️ Инициализация карты для кинотеатра:", title);
+        
+        if (!lat || !lon) {
+            console.warn("❌ Нет координат для карты кинотеатра");
+            mapElement.innerHTML = `
+                <div style="
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(45, 27, 71, 0.8);
+                    color: #e6e0ff;
+                    font-style: italic;
+                    border-radius: 10px;
+                    padding: 20px;
+                    text-align: center;
+                ">
+                    <p>Координаты кинотеатра "${title}" не указаны</p>
+                </div>
+            `;
+            return;
+        }
+        
+        // Очищаем контейнер
+        mapElement.innerHTML = '';
+        
+        // Создаем уникальный ID для карты, если его нет
+        if (!mapElement.id || mapElement.id === '') {
+            mapElement.id = 'cinema-map-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            console.log("🆔 Создан новый ID для карты:", mapElement.id);
+        }
+        
+        // Проверяем, загружена ли библиотека Яндекс Карт
+        if (typeof ymaps === 'undefined') {
+            console.error('Yandex Maps API не загружена');
+            mapElement.innerHTML = `
+                <div style="
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: rgba(45, 27, 71, 0.8);
+                    color: #e6e0ff;
+                    font-style: italic;
+                    border-radius: 10px;
+                    padding: 20px;
+                    text-align: center;
+                ">
+                    <p>Карта временно недоступна. Обновите страницу.</p>
+                </div>
+            `;
+            return;
+        }
+        
+        console.log("🗺️ Загружаем Яндекс Карту...");
+        
+        ymaps.ready(function() {
+            try {
+                console.log("🗺️ Создаем карту для кинотеатра:", title);
+                
+                var myMap = new ymaps.Map(mapElement.id, {
+                    center: [parseFloat(lat), parseFloat(lon)],
+                    zoom: 16,
+                    controls: ['zoomControl', 'fullscreenControl']
+                });
+                
+                // Добавляем метку
+                var myPlacemark = new ymaps.Placemark([parseFloat(lat), parseFloat(lon)], {
+                    hintContent: title,
+                    balloonContent: `
+                        <div class="map-balloon-content">
+                            <h3 style="color: #000000; margin-bottom: 10px; font-size: 16px;">${title}</h3>
+                            <p style="margin: 5px 0; color: #333; font-size: 14px;">${address}</p>
+                        </div>
+                    `
+                }, {
+                    iconLayout: 'default#image',
+                    iconImageHref: 'https://cdn1.iconfinder.com/data/icons/user-interface-solid-5/32/UI_solid-09-1024.png',
+                    iconImageSize: [40, 40],
+                    iconImageOffset: [-20, -40]
+                });
+                
+                myMap.geoObjects.add(myPlacemark);
+                
+                // Открываем балун при создании
+                myPlacemark.balloon.open();
+                
+                console.log("✅ Карта кинотеатра успешно создана:", title);
+            } catch (error) {
+                console.error("❌ Ошибка создания карты кинотеатра:", error);
+                mapElement.innerHTML = `
+                    <div style="
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background: rgba(45, 27, 71, 0.8);
+                        color: #e6e0ff;
+                        font-style: italic;
+                        border-radius: 10px;
+                        padding: 20px;
+                        text-align: center;
+                    ">
+                        <p>Ошибка загрузки карты: ${error.message}</p>
+                    </div>
+                `;
+            }
+        });
+    }
+    
+    // Также инициализируем карты кинотеатров при загрузке страницы (на случай если они уже открыты)
+    setTimeout(() => {
+        document.querySelectorAll('.cinemas-list').forEach(cinemaList => {
+            console.log("🎬 Инициализируем список кинотеатров при загрузке");
+            initCinemaList(cinemaList);
+        });
+    }, 1000);
 });
 
 // ==================== ПОЛНАЯ ФУНКЦИЯ ФИЛЬТРАЦИИ ====================
@@ -1348,6 +1555,58 @@ style.textContent = `
     .filter-results-close:hover {
         background: #b22222;
         transform: scale(1.05);
+    }
+    
+    /* Стили для списка кинотеатров */
+    .cinemas-list {
+        list-style: none;
+        padding: 10px;
+        margin: 15px 0;
+        background: rgba(30, 0, 60, 0.5);
+        border-radius: 10px;
+        max-height: 200px;
+        overflow-y: auto;
+        border: 1px solid rgba(147, 112, 219, 0.3);
+    }
+    
+    .cinemas-list li {
+        padding: 12px 15px;
+        margin: 5px 0;
+        background: rgba(45, 27, 71, 0.7);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #e6e0ff;
+        border: 1px solid transparent;
+    }
+    
+    .cinemas-list li:hover {
+        background: rgba(147, 112, 219, 0.2);
+        border-color: rgba(147, 112, 219, 0.5);
+        transform: translateX(5px);
+    }
+    
+    .cinemas-list li.active {
+        background: rgba(147, 112, 219, 0.3);
+        border-color: #9370db;
+        color: #fff;
+        font-weight: bold;
+        box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+    }
+    
+    .cinemas-list li.active:before {
+        content: '▶';
+        margin-right: 8px;
+        color: #9370db;
+    }
+    
+    /* Стили для карты кинотеатра */
+    .yandex-map.cinema-map {
+        height: 350px;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 2px solid #9370db;
+        margin-top: 10px;
     }
 `;
 
