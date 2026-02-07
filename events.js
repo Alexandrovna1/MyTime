@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return null;
     }
     
-        // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ
+    // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ
     document.querySelectorAll('.btn-detail').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -156,29 +156,6 @@ document.addEventListener("DOMContentLoaded", function() {
             
             if (modalDetails) {
                 console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
-                
-                // Адаптируем для мобильных перед показом
-                if (window.innerWidth <= 768) {
-                    console.log("📱 Мобильное устройство - адаптируем модальное окно");
-                    modalDetails.style.cssText = `
-                        display: flex !important;
-                        align-items: flex-start !important;
-                        padding-top: 20px !important;
-                        padding-bottom: 20px !important;
-                        overflow-y: auto !important;
-                    `;
-                    
-                    const modalContent = modalDetails.querySelector('.modal-content');
-                    if (modalContent) {
-                        modalContent.style.cssText = `
-                            width: 95% !important;
-                            max-height: 85vh !important;
-                            margin: auto !important;
-                            overflow-y: auto !important;
-                        `;
-                    }
-                }
-                
                 modalDetails.classList.remove('hidden');
                 modalDetails.classList.add('visible');
                 document.body.style.overflow = 'hidden';
@@ -202,11 +179,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (cinemaList) {
                     initCinemaList(cinemaList);
                 }
-                
-                // Прокручиваем к верху модального окна
-                setTimeout(() => {
-                    modalDetails.scrollTop = 0;
-                }, 50);
             } else {
                 console.error('❌ Нет соответствующего модального окна:', fullModalId);
             }
