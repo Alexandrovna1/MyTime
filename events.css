@@ -1811,3 +1811,38 @@ nav a:hover::after {
 .nav-menu {
     z-index: 1000;
 }
+/* ==================== ФИКСЫ ДЛЯ МОБИЛЬНОЙ НАВИГАЦИИ ==================== */
+/* Убедимся, что гамбургер всегда справа */
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* На десктопе меню видно, гамбургер скрыт */
+@media (min-width: 993px) {
+    .nav-menu {
+        display: flex !important;
+    }
+    
+    .hamburger {
+        display: none !important;
+    }
+}
+
+/* На мобильных меню скрыто, гамбургер виден */
+@media (max-width: 992px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .hamburger {
+        display: flex !important;
+    }
+
+    
+}
