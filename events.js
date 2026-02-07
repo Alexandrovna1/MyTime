@@ -406,7 +406,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let filteredResults = [];
         
         // Собираем отфильтрованные мероприятия
-        document.querySelectorAll('.container').forEach(container => {
+        document.querySelectorAll('.concert .container, .spektakl .container, .cinema .container, .master_class .container, .vstrecha .container').forEach(container => {
             const eventData = extractEventData(container);
             if (eventData && eventPassesFilters(eventData, eventType, eventTime, eventCost, eventRating)) {
                 filteredResults.push(eventData);
@@ -981,335 +981,123 @@ document.addEventListener("DOMContentLoaded", function() {
         
         console.log("✅ Все функции инициализированы");
         
-        // Добавляем адаптивные стили для мобильной версии мероприятий
-        addEventsMobileStyles();
+        // Применяем мобильный макет если нужно
+        applyMobileLayout();
     }
     
-    // ==================== АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ МЕРОПРИЯТИЙ ====================
-    
-    function addEventsMobileStyles() {
-        if (document.querySelector('#events-mobile-styles')) return;
-        
-        const style = document.createElement('style');
-        style.id = 'events-mobile-styles';
-        style.textContent = `
-            /* Адаптивные стили для мероприятий на мобильных устройствах */
+    // 26. ФУНКЦИЯ ПРИМЕНЕНИЯ МОБИЛЬНОГО МАКЕТА
+    function applyMobileLayout() {
+        if (window.innerWidth <= 768) {
+            console.log("📱 Применяем мобильный макет мероприятий...");
             
-            /* На мобильных: 2 карточки в ряд */
-            @media (max-width: 768px) {
-                /* Для всех секций мероприятий (концерты, спектакли, кино и т.д.) */
-                .concert .container,
-                .spektakl .container,
-                .cinema .container,
-                .master_class .container,
-                .vstrecha .container {
-                    width: calc(50% - 10px) !important;
-                    margin: 5px !important;
-                    margin-bottom: 15px !important;
+            // Применяем column layout для всех секций мероприятий
+            document.querySelectorAll('.concert, .spektakl, .cinema, .master_class, .vstrecha').forEach(section => {
+                // Применяем CSS column layout
+                section.style.cssText = `
+                    display: block !important;
+                    width: 100% !important;
+                    overflow: hidden !important;
+                    column-count: 2 !important;
+                    column-gap: 10px !important;
+                    -webkit-column-count: 2 !important;
+                    -moz-column-count: 2 !important;
+                `;
+            });
+            
+            // Применяем стили для карточек
+            document.querySelectorAll('.concert .container, .spektakl .container, .cinema .container, .master_class .container, .vstrecha .container').forEach(container => {
+                container.style.cssText = `
+                    width: 100% !important;
                     display: inline-block !important;
-                    vertical-align: top !important;
+                    margin-bottom: 15px !important;
                     box-sizing: border-box !important;
+                    height: 360px !important;
+                    page-break-inside: avoid !important;
+                    -webkit-column-break-inside: avoid !important;
+                    break-inside: avoid !important;
+                    vertical-align: top !important;
+                    animation: none !important;
+                `;
+                
+                // Уменьшаем изображения
+                const imageSlider = container.querySelector('.image-slider');
+                if (imageSlider) {
+                    imageSlider.style.cssText = `
+                        height: 140px !important;
+                        min-height: 140px !important;
+                        max-height: 140px !important;
+                        overflow: hidden !important;
+                    `;
+                    
+                    const images = imageSlider.querySelectorAll('img');
+                    images.forEach(img => {
+                        img.style.cssText = `
+                            height: 140px !important;
+                            object-fit: cover !important;
+                        `;
+                    });
                 }
                 
-                /* Очистка float */
-                .concert::after,
-                .spektakl::after,
-                .cinema::after,
-                .master_class::after,
-                .vstrecha::after {
-                    content: "";
-                    display: table;
-                    clear: both;
+                // Уменьшаем заголовок
+                const title = container.querySelector('h3');
+                if (title) {
+                    title.style.cssText = `
+                        font-size: 14px !important;
+                        line-height: 1.3 !important;
+                        margin: 8px 10px 5px 10px !important;
+                        min-height: 36px !important;
+                        height: 36px !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 2 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
+                        text-overflow: ellipsis !important;
+                    `;
                 }
                 
-                /* Контейнер изображения */
-                .image-slider {
-                    height: 140px !important;
-                    min-height: 140px !important;
-                    overflow: hidden !important;
+                // Уменьшаем описание
+                const description = container.querySelector('p');
+                if (description) {
+                    description.style.cssText = `
+                        font-size: 12px !important;
+                        line-height: 1.4 !important;
+                        margin: 0 10px 8px 10px !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 3 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
+                        text-overflow: ellipsis !important;
+                        min-height: 50px !important;
+                        height: 50px !important;
+                    `;
                 }
                 
-                .image-slider img {
-                    height: 140px !important;
-                    object-fit: cover !important;
+                // Уменьшаем кнопку
+                const button = container.querySelector('.btn-detail');
+                if (button) {
+                    button.style.cssText = `
+                        margin: 0 10px 10px 10px !important;
+                        padding: 8px 12px !important;
+                        font-size: 12px !important;
+                        min-height: 36px !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                    `;
                 }
-                
-                /* Заголовок карточки */
-                .container h3 {
-                    font-size: 14px !important;
-                    line-height: 1.3 !important;
-                    margin: 8px 10px 5px 10px !important;
-                    min-height: 36px !important;
-                    display: -webkit-box !important;
-                    -webkit-line-clamp: 2 !important;
-                    -webkit-box-orient: vertical !important;
-                    overflow: hidden !important;
-                    text-overflow: ellipsis !important;
-                    height: 36px !important;
-                }
-                
-                /* Описание */
-                .container p {
-                    font-size: 12px !important;
-                    line-height: 1.4 !important;
-                    margin: 0 10px 8px 10px !important;
-                    display: -webkit-box !important;
-                    -webkit-line-clamp: 3 !important;
-                    -webkit-box-orient: vertical !important;
-                    overflow: hidden !important;
-                    text-overflow: ellipsis !important;
-                    min-height: 50px !important;
-                    height: 50px !important;
-                }
-                
-                /* Кнопка Подробнее */
-                .btn-detail {
-                    margin: 0 10px 10px 10px !important;
-                    padding: 8px 12px !important;
-                    font-size: 12px !important;
-                    min-height: 36px !important;
-                    display: flex !important;
-                    align-items: center !important;
-                    justify-content: center !important;
-                }
-                
-                /* Заголовок секции */
-                .main-title {
-                    font-size: 22px !important;
-                    text-align: center !important;
-                    margin: 15px 10px !important;
-                    padding: 0 10px !important;
-                }
-                
-                /* Контейнер для карточек - убираем flex */
-                .concert,
-                .spektakl,
-                .cinema,
-                .master_class,
-                .vstrecha {
-                    display: block !important;
-                    width: 100% !important;
-                }
-                
-                /* Модальное окно на мобильных */
-                .modal-content {
-                    width: 95% !important;
-                    max-height: 85vh !important;
-                    padding: 15px !important;
-                }
-                
-                .modal-header h2 {
-                    font-size: 18px !important;
-                }
-                
-                .gallery {
-                    height: 200px !important;
-                }
-                
-                .yandex-map {
-                    height: 200px !important;
-                }
-                
-                /* Фильтр в мобильной версии */
-                .filter-toggle {
-                    margin: 10px auto 15px auto !important;
-                    display: block !important;
-                    width: 90% !important;
-                    max-width: 300px !important;
-                }
-                
-                /* Галерея в модальном окне на мобильных */
-                .gallery img {
-                    height: 200px !important;
-                    object-fit: cover !important;
-                }
-                
-                /* Кнопки навигации галереи */
-                .prev-button,
-                .next-button {
-                    width: 35px !important;
-                    height: 35px !important;
-                    font-size: 20px !important;
-                }
-            }
+            });
             
-            /* На очень маленьких экранах: 2 карточки с меньшими отступами */
-            @media (max-width: 480px) {
-                .concert .container,
-                .spektakl .container,
-                .cinema .container,
-                .master_class .container,
-                .vstrecha .container {
-                    width: calc(50% - 8px) !important;
-                    margin: 4px !important;
-                    margin-bottom: 12px !important;
-                }
-                
-                .image-slider {
-                    height: 120px !important;
-                }
-                
-                .image-slider img {
-                    height: 120px !important;
-                }
-                
-                .container h3 {
-                    font-size: 13px !important;
-                    margin: 6px 8px 4px 8px !important;
-                    min-height: 34px !important;
-                    height: 34px !important;
-                }
-                
-                .container p {
-                    font-size: 11px !important;
-                    margin: 0 8px 6px 8px !important;
-                    min-height: 45px !important;
-                    height: 45px !important;
-                    -webkit-line-clamp: 3 !important;
-                }
-                
-                .btn-detail {
-                    margin: 0 8px 8px 8px !important;
-                    padding: 6px 10px !important;
-                    font-size: 11px !important;
-                    min-height: 32px !important;
-                }
-                
-                .main-title {
-                    font-size: 20px !important;
-                    margin: 10px 5px !important;
-                }
-            }
-            
-            /* На средних планшетах: 3 карточки в ряд */
-            @media (min-width: 769px) and (max-width: 1024px) {
-                .concert .container,
-                .spektakl .container,
-                .cinema .container,
-                .master_class .container,
-                .vstrecha .container {
-                    width: calc(33.333% - 20px) !important;
-                    margin: 10px !important;
-                }
-                
-                .image-slider {
-                    height: 180px !important;
-                }
-                
-                .image-slider img {
-                    height: 180px !important;
-                }
-            }
-            
-            /* Убедимся, что карточки не выходят за пределы */
-            .container {
-                box-sizing: border-box !important;
-                overflow: hidden !important;
-                position: relative !important;
-            }
-            
-            /* Фикс для текста */
-            .container h3,
-            .container p {
-                word-wrap: break-word !important;
-                overflow-wrap: break-word !important;
-                hyphens: auto !important;
-            }
-            
-            /* Фикс для кнопки фильтра на мобильных */
-            @media (max-width: 768px) {
-                .filter-dropdown.show {
-                    position: fixed !important;
-                    top: 50% !important;
-                    left: 50% !important;
-                    transform: translate(-50%, -50%) !important;
-                    width: 90% !important;
-                    max-width: 400px !important;
-                    z-index: 9999 !important;
-                    margin-top: 0 !important;
-                }
-            }
-            
-            /* Адаптация окна результатов фильтрации для мобильных */
-            @media (max-width: 768px) {
-                .filter-results-content {
-                    padding: 20px !important;
-                    width: 95% !important;
-                    max-height: 90vh !important;
-                }
-                
-                .filter-results-header {
-                    flex-direction: column !important;
-                    align-items: flex-start !important;
-                    gap: 15px !important;
-                    margin-bottom: 20px !important;
-                }
-                
-                .filter-results-header h2 {
-                    font-size: 1.5em !important;
-                    text-align: center !important;
-                    width: 100% !important;
-                }
-                
-                .filter-results-close {
-                    width: 100% !important;
-                    justify-content: center !important;
-                }
-                
-                .filter-results-grid {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                    gap: 15px !important;
-                }
-                
-                .filter-result-info {
-                    padding: 15px !important;
-                }
-                
-                .filter-result-info h3 {
-                    font-size: 1.2em !important;
-                }
-                
-                .filter-result-info p {
-                    font-size: 0.9em !important;
-                    line-height: 1.4 !important;
-                }
-                
-                .filter-result-meta {
-                    flex-direction: column !important;
-                    align-items: flex-start !important;
-                    gap: 8px !important;
-                }
-                
-                .filter-result-image {
-                    height: 150px !important;
-                }
-            }
-            
-            @media (max-width: 480px) {
-                .filter-results-grid {
-                    grid-template-columns: 1fr !important;
-                    gap: 15px !important;
-                }
-                
-                .filter-results-content {
-                    padding: 15px !important;
-                }
-                
-                .filter-result-info h3 {
-                    font-size: 1.1em !important;
-                }
-                
-                .filter-result-image {
-                    height: 140px !important;
-                }
-            }
-        `;
-        
-        document.head.appendChild(style);
+            console.log("✅ Мобильный макет применен");
+        }
     }
     
     // Запускаем инициализацию
     initAll();
+    
+    // Обработчик изменения размера окна
+    window.addEventListener('resize', function() {
+        setTimeout(applyMobileLayout, 100);
+    });
     
     console.log("✅ Все обработчики мероприятий установлены");
 });
