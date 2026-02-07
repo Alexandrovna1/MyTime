@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return null;
     }
     
-    // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ
+        // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА МЕРОПРИЯТИЙ
     document.querySelectorAll('.btn-detail').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -156,6 +156,29 @@ document.addEventListener("DOMContentLoaded", function() {
             
             if (modalDetails) {
                 console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
+                
+                // Адаптируем для мобильных перед показом
+                if (window.innerWidth <= 768) {
+                    console.log("📱 Мобильное устройство - адаптируем модальное окно");
+                    modalDetails.style.cssText = `
+                        display: flex !important;
+                        align-items: flex-start !important;
+                        padding-top: 20px !important;
+                        padding-bottom: 20px !important;
+                        overflow-y: auto !important;
+                    `;
+                    
+                    const modalContent = modalDetails.querySelector('.modal-content');
+                    if (modalContent) {
+                        modalContent.style.cssText = `
+                            width: 95% !important;
+                            max-height: 85vh !important;
+                            margin: auto !important;
+                            overflow-y: auto !important;
+                        `;
+                    }
+                }
+                
                 modalDetails.classList.remove('hidden');
                 modalDetails.classList.add('visible');
                 document.body.style.overflow = 'hidden';
@@ -179,6 +202,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (cinemaList) {
                     initCinemaList(cinemaList);
                 }
+                
+                // Прокручиваем к верху модального окна
+                setTimeout(() => {
+                    modalDetails.scrollTop = 0;
+                }, 50);
             } else {
                 console.error('❌ Нет соответствующего модального окна:', fullModalId);
             }
@@ -997,7 +1025,65 @@ document.addEventListener("DOMContentLoaded", function() {
         applyMobileLayout();
     }
     
+     // 27. ФУНКЦИЯ АДАПТАЦИИ МОДАЛЬНЫХ ОКОН ДЛЯ МОБИЛЬНЫХ
+function adaptModalsForMobile() {
+    if (window.innerWidth <= 768) {
+        console.log("📱 Адаптируем модальные окна для мобильных...");
         
+        // Получаем все открытые модальные окна
+        const openModals = document.querySelectorAll('.modal-details.visible');
+        
+        if (openModals.length > 0) {
+            openModals.forEach(modal => {
+                const modalContent = modal.querySelector('.modal-content');
+                if (modalContent) {
+                    // Применяем стили для мобильных
+                    modalContent.style.cssText = `
+                        width: 95% !important;
+                        max-height: 85vh !important;
+                        padding: 15px !important;
+                    `;
+                    
+                    // Адаптируем галерею
+                    const gallery = modal.querySelector('.gallery');
+                    if (gallery) {
+                        gallery.style.height = '200px !important';
+                    }
+                    
+                    // Адаптируем карту
+                    const map = modal.querySelector('.yandex-map');
+                    if (map) {
+                        map.style.height = '200px !important';
+                    }
+                    
+                    // Адаптируем список кинотеатров
+                    const cinemaList = modal.querySelector('.cinema-list');
+                    if (cinemaList) {
+                        cinemaList.style.maxHeight = '150px !important';
+                    }
+                    
+                    // Адаптируем заголовок
+                    const title = modal.querySelector('h2');
+                    if (title) {
+                        title.style.fontSize = '1.6em !important';
+                    }
+                }
+            });
+        }
+    }
+}
+
+// Добавьте вызов этой функции при изменении размера окна
+window.addEventListener('resize', function() {
+    adaptModalsForMobile();
+});
+
+// Также вызываем при открытии модального окна
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.btn-detail')) {
+        setTimeout(adaptModalsForMobile, 100);
+    }
+});   
     
     // Запускаем инициализацию
     initAll();
