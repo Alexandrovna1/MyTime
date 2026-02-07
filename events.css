@@ -498,12 +498,13 @@ nav a:hover::after {
     background: linear-gradient(90deg, transparent, #9370db, transparent);
 }
 
-/* СЕТКА 4 КАРТОЧКИ В РЯДУ */
-.event-list {
+/* ОСНОВНАЯ СЕТКА - 4 КАРТОЧКИ В РЯДУ ДЛЯ ДЕСКТОПА */
+.event-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     margin-top: 20px;
+    width: 100%;
 }
 
 /* ==================== КАРТОЧКИ МЕРОПРИЯТИЙ ==================== */
@@ -1176,12 +1177,13 @@ nav a:hover::after {
     outline-offset: 3px;
 }
 
-/* ==================== АДАПТИВНОСТЬ ==================== */
+/* ==================== АДАПТИВНОСТЬ ДЛЯ СЕТКИ МЕРОПРИЯТИЙ ==================== */
 
-/* Для средних экранов */
+/* Для средних экранов (ноутбуки) - 3 карточки */
 @media (max-width: 1200px) {
-    .event-list {
+    .event-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .filter-results-grid {
@@ -1189,7 +1191,7 @@ nav a:hover::after {
     }
 }
 
-/* Для планшетов */
+/* Для планшетов - 2 карточки */
 @media (max-width: 992px) {
     .navbar {
         padding: 1em;
@@ -1273,8 +1275,9 @@ nav a:hover::after {
         font-size: 2.5em;
     }
     
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
+    /* Сетка мероприятий - 2 карточки */
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
     
@@ -1323,7 +1326,7 @@ nav a:hover::after {
     }
 }
 
-/* Для мобильных */
+/* Для мобильных устройств - 2 карточки */
 @media (max-width: 768px) {
     .page-header {
         padding: 3em 1.5em 1.5em;
@@ -1337,7 +1340,8 @@ nav a:hover::after {
         font-size: 2.2em;
     }
     
-    .event-list {
+    /* Сетка мероприятий - 2 карточки */
+    .event-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
@@ -1399,7 +1403,7 @@ nav a:hover::after {
     }
 }
 
-/* Для маленьких мобильных */
+/* Для маленьких мобильных устройств - 1 карточка */
 @media (max-width: 576px) {
     .page-header h1 {
         font-size: 1.8em;
@@ -1409,15 +1413,18 @@ nav a:hover::after {
         font-size: 1.8em;
     }
     
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+    /* Сетка мероприятий - 1 карточка */
+    .event-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 320px;
+        margin: 0 auto;
     }
     
     .container {
         height: 320px;
-        max-width: none;
-        margin: 0;
+        max-width: 320px;
+        margin: 0 auto;
     }
     
     .image-slider {
@@ -1482,7 +1489,7 @@ nav a:hover::after {
     }
     
     .filter-results-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     
@@ -1528,14 +1535,17 @@ nav a:hover::after {
         transform: translateY(-8px) rotate(-45deg);
     }
     
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    /* Сетка мероприятий - 1 карточка */
+    .event-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
     }
     
     .container {
         height: 300px;
         padding: 12px;
+        max-width: none;
     }
     
     .image-slider {
@@ -1570,11 +1580,37 @@ nav a:hover::after {
     }
 }
 
-/* Для экранов с шириной более 480px но менее 768px - показываем 3 карточки */
+/* Для экранов с шириной более 480px но менее 768px - показываем 2 карточки */
 @media (min-width: 481px) and (max-width: 768px) {
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 768px но менее 992px - показываем 2 карточки */
+@media (min-width: 769px) and (max-width: 992px) {
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 992px но менее 1200px - показываем 3 карточки */
+@media (min-width: 993px) and (max-width: 1200px) {
+    .event-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .filter-results-grid {
@@ -1583,16 +1619,16 @@ nav a:hover::after {
     }
 }
 
-/* Для экранов с шириной более 768px но менее 992px - показываем 3-4 карточки */
-@media (min-width: 769px) and (max-width: 992px) {
-    .event-list {
+/* Для экранов с шириной более 1200px - показываем 4 карточки */
+@media (min-width: 1201px) {
+    .event-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 25px;
     }
     
     .filter-results-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
+        gap: 20px;
     }
 }
 
@@ -1627,230 +1663,229 @@ nav a:hover::after {
     .hamburger {
         display: flex !important;
     }
-
-    
 }
+
 @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    .modal-details.visible {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    
-    /* Стили для изображений галереи */
-    .gallery {
-        position: relative;
-    }
-    
-    .gallery img {
-        display: none;
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-    
-    .gallery img.active {
-        display: block;
-    }
-    
-    /* Плавное появление изображений */
-    .image-slider img,
-    .gallery img {
-        transition: opacity 0.5s ease;
-    }
-    
-    .image-slider img:not(.active),
-    .gallery img:not(.active) {
+    from {
+        transform: translateX(100%);
         opacity: 0;
     }
-    
-    .image-slider img.active,
-    .gallery img.active {
+    to {
+        transform: translateX(0);
         opacity: 1;
     }
-    
-    /* Анимация загрузки карточек */
-    @keyframes fadeIn {
-        from { 
-            opacity: 0; 
-            transform: translateY(20px);
-        }
-        to { 
-            opacity: 1; 
-            transform: translateY(0);
-        }
+}
+
+.modal-details.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Стили для изображений галереи */
+.gallery {
+    position: relative;
+}
+
+.gallery img {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.gallery img.active {
+    display: block;
+}
+
+/* Плавное появление изображений */
+.image-slider img,
+.gallery img {
+    transition: opacity 0.5s ease;
+}
+
+.image-slider img:not(.active),
+.gallery img:not(.active) {
+    opacity: 0;
+}
+
+.image-slider img.active,
+.gallery img.active {
+    opacity: 1;
+}
+
+/* Анимация загрузки карточек */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
     }
-    
-    .concert .container,
-    .spektakl .container,
-    .cinema .container,
-    .master_class .container,
-    .vstrecha .container {
-        animation: fadeIn 0.5s ease;
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
     }
-    
-    /* Стили для модального окна результатов фильтрации */
-    .filter-results-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(20, 0, 40, 0.97);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        padding: 20px;
-        backdrop-filter: blur(5px);
-    }
-    
-    .filter-results-modal.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .filter-results-content {
-        background: rgba(45, 27, 71, 0.98);
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
-        width: 95%;
-        max-width: 1200px;
-        max-height: 85vh;
-        overflow-y: auto;
-        position: relative;
-        border: 2px solid #9370db;
-    }
-    
-    .filter-results-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #7b68ee;
-    }
-    
-    .filter-results-header h2 {
-        color: #b19cd9;
-        font-size: 2em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        margin: 0;
-    }
-    
-    .filter-results-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-        margin-top: 20px;
-    }
-    
-    .filter-result-item {
-        background: rgba(30, 0, 60, 0.8);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(147, 112, 219, 0.3);
-        cursor: pointer;
-    }
-    
-    .filter-result-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
-        border-color: #9370db;
-    }
-    
-    .filter-result-image {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-    }
-    
-    .filter-result-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .filter-result-item:hover .filter-result-image img {
-        transform: scale(1.05);
-    }
-    
-    .filter-result-info {
-        padding: 20px;
-    }
-    
-    .filter-result-info h3 {
-        color: #b19cd9;
-        margin-bottom: 10px;
-        font-size: 1.4em;
-    }
-    
-    .filter-result-info p {
-        color: #e6e0ff;
-        margin-bottom: 15px;
-        font-size: 1em;
-        line-height: 1.5;
-    }
-    
-    .filter-result-meta {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(147, 112, 219, 0.2);
-        gap: 10px;
-    }
-    
-    .filter-result-price {
-        color: #9370db;
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-    
-    .filter-result-rating {
-        color: #ffd700;
-        font-weight: bold;
-    }
-    
-    .filter-result-time {
-        color: #b19cd9;
-        font-size: 0.9em;
-        margin-left: auto;
-    }
-    
-    .filter-results-close {
-        background: #8b0000;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 1em;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .filter-results-close:hover {
-        background: #b22222;
-        transform: scale(1.05);
-    }
+}
+
+.concert .container,
+.spektakl .container,
+.cinema .container,
+.master_class .container,
+.vstrecha .container {
+    animation: fadeIn 0.5s ease;
+}
+
+/* Стили для модального окна результатов фильтрации */
+.filter-results-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(20, 0, 40, 0.97);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.filter-results-modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.filter-results-content {
+    background: rgba(45, 27, 71, 0.98);
+    padding: 40px;
+    border-radius: 25px;
+    box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+    width: 95%;
+    max-width: 1200px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+    border: 2px solid #9370db;
+}
+
+.filter-results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #7b68ee;
+}
+
+.filter-results-header h2 {
+    color: #b19cd9;
+    font-size: 2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+.filter-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+}
+
+.filter-result-item {
+    background: rgba(30, 0, 60, 0.8);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+    cursor: pointer;
+}
+
+.filter-result-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
+    border-color: #9370db;
+}
+
+.filter-result-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.filter-result-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.filter-result-item:hover .filter-result-image img {
+    transform: scale(1.05);
+}
+
+.filter-result-info {
+    padding: 20px;
+}
+
+.filter-result-info h3 {
+    color: #b19cd9;
+    margin-bottom: 10px;
+    font-size: 1.4em;
+}
+
+.filter-result-info p {
+    color: #e6e0ff;
+    margin-bottom: 15px;
+    font-size: 1em;
+    line-height: 1.5;
+}
+
+.filter-result-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(147, 112, 219, 0.2);
+    gap: 10px;
+}
+
+.filter-result-price {
+    color: #9370db;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.filter-result-rating {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.filter-result-time {
+    color: #b19cd9;
+    font-size: 0.9em;
+    margin-left: auto;
+}
+
+.filter-results-close {
+    background: #8b0000;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-results-close:hover {
+    background: #b22222;
+    transform: scale(1.05);
+}
