@@ -534,6 +534,16 @@ document.addEventListener("DOMContentLoaded", function() {
             const closeBtn = document.createElement('button');
             closeBtn.className = 'filter-results-close';
             closeBtn.innerHTML = '✕ Закрыть';
+            closeBtn.style.cssText = `
+                background: #8b0000;
+                color: white;
+                border: none;
+                padding: 8px 16px;
+                cursor: pointer;
+                border-radius: 5px;
+                font-size: 0.9em;
+                transition: all 0.3s ease;
+            `;
             
             closeBtn.addEventListener('click', () => {
                 resultsModal.classList.remove('show');
@@ -546,6 +556,12 @@ document.addEventListener("DOMContentLoaded", function() {
             const grid = document.createElement('div');
             grid.className = 'filter-results-grid';
             grid.id = 'filter-results-grid';
+            grid.style.cssText = `
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+                margin-top: 20px;
+            `;
             
             resultsContent.appendChild(header);
             resultsContent.appendChild(grid);
@@ -559,10 +575,18 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             
             document.body.appendChild(resultsModal);
+            
+            // Добавляем CSS стили для мероприятий (такие же как у ресторанов)
+            addEventFilterResultsStyles();
         }
         
         const countText = results.length === 0 ? 'ничего не найдено' : `найдено ${results.length}`;
         resultsModal.querySelector('h2').textContent = `${title} (${countText})`;
+        resultsModal.querySelector('h2').style.cssText = `
+            color: #b19cd9;
+            font-size: 1.5em;
+            margin: 0;
+        `;
         
         const grid = resultsModal.querySelector('#filter-results-grid');
         grid.innerHTML = '';
@@ -570,16 +594,16 @@ document.addEventListener("DOMContentLoaded", function() {
         if (results.length === 0) {
             const noResults = document.createElement('div');
             noResults.className = 'no-results';
+            noResults.style.cssText = `
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 30px;
+                color: #e6e0ff;
+            `;
             noResults.innerHTML = `
-                <div style="text-align: center; padding: 40px;">
+                <div style="text-align: center;">
                     <p style="font-size: 1.2em; color: #b19cd9; margin-bottom: 15px;">😕 Ничего не найдено</p>
-                    <p style="color: #e6e0ff; margin-bottom: 20px;">По вашему запросу мероприятий не найдено.</p>
-                    <p style="color: #e6e0ff; margin-bottom: 25px;">Попробуйте изменить параметры фильтрации.</p>
-                    <div style="background: rgba(147, 112, 219, 0.1); padding: 15px; border-radius: 10px; border-left: 4px solid #9370db;">
-                        <p style="color: #b19cd9; font-size: 0.9em; margin: 0;">
-                            <strong>💡 Совет:</strong> Попробуйте выбрать другой тип мероприятия, время или уменьшите максимальную стоимость
-                        </p>
-                    </div>
+                    <p style="margin-bottom: 20px;">Попробуйте изменить параметры фильтрации.</p>
                 </div>
             `;
             grid.appendChild(noResults);
@@ -1070,233 +1094,213 @@ document.addEventListener('click', function(e) {
 
 // Добавляем CSS стили
 const eventStyle = document.createElement('style');
-eventStyle.textContent = `
-    @keyframes slideIn {
-        from {
-            transform: translateX(100%);
-            opacity: 0;
-        }
-        to {
-            transform: translateX(0);
-            opacity: 1;
-        }
-    }
-    
-    .modal-details.visible {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    
-    /* Стили для изображений галереи */
-    .gallery {
-        position: relative;
-    }
-    
-    .gallery img {
-        display: none;
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-    
-    .gallery img.active {
-        display: block;
-    }
-    
-    /* Плавное появление изображений */
-    .image-slider img,
-    .gallery img {
-        transition: opacity 0.5s ease;
-    }
-    
-    .image-slider img:not(.active),
-    .gallery img:not(.active) {
-        opacity: 0;
-    }
-    
-    .image-slider img.active,
-    .gallery img.active {
-        opacity: 1;
-    }
-    
-    /* Анимация загрузки карточек */
-    @keyframes fadeIn {
-        from { 
-            opacity: 0; 
-            transform: translateY(20px);
-        }
-        to { 
-            opacity: 1; 
-            transform: translateY(0);
-        }
-    }
-    
-    .concert .container,
-    .spektakl .container,
-    .cinema .container,
-    .master_class .container,
-    .vstrecha .container {
-        animation: fadeIn 0.5s ease;
-    }
-    
-    /* Стили для модального окна результатов фильтрации */
-    .filter-results-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(20, 0, 40, 0.97);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        padding: 20px;
-        backdrop-filter: blur(5px);
-    }
-    
-    .filter-results-modal.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .filter-results-content {
-        background: rgba(45, 27, 71, 0.98);
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
-        width: 95%;
-        max-width: 1200px;
-        max-height: 85vh;
-        overflow-y: auto;
-        position: relative;
-        border: 2px solid #9370db;
-    }
-    
-    .filter-results-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #7b68ee;
-    }
-    
-    .filter-results-header h2 {
-        color: #b19cd9;
-        font-size: 2em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        margin: 0;
-    }
-    
-    .filter-results-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-        margin-top: 20px;
-    }
-    
-    .filter-result-item {
-        background: rgba(30, 0, 60, 0.8);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(147, 112, 219, 0.3);
-        cursor: pointer;
-    }
-    
-    .filter-result-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
-        border-color: #9370db;
-    }
-    
-    .filter-result-image {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-    }
-    
-    .filter-result-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .filter-result-item:hover .filter-result-image img {
-        transform: scale(1.05);
-    }
-    
-    .filter-result-info {
-        padding: 20px;
-    }
-    
-    .filter-result-info h3 {
-        color: #b19cd9;
-        margin-bottom: 10px;
-        font-size: 1.4em;
-    }
-    
-    .filter-result-info p {
-        color: #e6e0ff;
-        margin-bottom: 15px;
-        font-size: 1em;
-        line-height: 1.5;
-    }
-    
-    .filter-result-meta {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(147, 112, 219, 0.2);
-        gap: 10px;
-    }
-    
-    .filter-result-price {
-        color: #9370db;
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-    
-    .filter-result-rating {
-        color: #ffd700;
-        font-weight: bold;
-    }
-    
-    .filter-result-time {
-        color: #b19cd9;
-        font-size: 0.9em;
-        margin-left: auto;
-    }
-    
-    .filter-results-close {
-        background: #8b0000;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 1em;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .filter-results-close:hover {
-        background: #b22222;
-        transform: scale(1.05);
-    }
-`;
-
-document.head.appendChild(eventStyle);
+    style.id = 'restaurant-mobile-styles';
+        style.textContent = `
+            /* Адаптивные стили для ресторанов на мобильных устройствах */
+            
+            /* На мобильных: 2 карточки в ряд */
+            @media (max-width: 768px) {
+                .event-list {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 15px !important;
+                    width: 100% !important;
+                    margin: 0 auto !important;
+                    padding: 10px !important;
+                }
+                
+                .event-list > div {
+                    width: 100% !important;
+                    margin: 0 !important;
+                    margin-bottom: 0 !important;
+                    break-inside: avoid !important;
+                    page-break-inside: avoid !important;
+                    -webkit-column-break-inside: avoid !important;
+                    height: auto !important;
+                    min-height: 320px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                }
+                
+                /* Убираем любые колонки */
+                .event-list {
+                    -webkit-column-count: 1 !important;
+                    -moz-column-count: 1 !important;
+                    column-count: 1 !important;
+                    -webkit-column-gap: 0 !important;
+                    -moz-column-gap: 0 !important;
+                    column-gap: 0 !important;
+                }
+                
+                /* Контент внутри карточки */
+                .image-slider {
+                    height: 140px !important;
+                    min-height: 140px !important;
+                    overflow: hidden !important;
+                }
+                
+                .image-slider img {
+                    height: 140px !important;
+                    object-fit: cover !important;
+                }
+                
+                /* Текстовая информация */
+                .event-list > div h3 {
+                    font-size: 14px !important;
+                    line-height: 1.3 !important;
+                    margin: 8px 10px 5px 10px !important;
+                    min-height: 36px !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 2 !important;
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                }
+                
+                .event-list > div p {
+                    font-size: 12px !important;
+                    line-height: 1.4 !important;
+                    margin: 0 10px 8px 10px !important;
+                    flex-grow: 1 !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 3 !important;
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                    min-height: 50px !important;
+                }
+                
+                /* Кнопка Подробнее */
+                .btn-detail {
+                    margin: 0 10px 10px 10px !important;
+                    padding: 8px 12px !important;
+                    font-size: 12px !important;
+                    min-height: 36px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                
+                /* Заголовок секции */
+                .main-title {
+                    font-size: 22px !important;
+                    text-align: center !important;
+                    margin: 15px 10px !important;
+                    padding: 0 10px !important;
+                }
+                
+                /* Фильтр в мобильной версии */
+                .filter-toggle {
+                    margin: 10px auto 15px auto !important;
+                    display: block !important;
+                    width: 90% !important;
+                    max-width: 300px !important;
+                }
+                
+                /* Модальное окно на мобильных */
+                .modal-content {
+                    width: 95% !important;
+                    max-height: 85vh !important;
+                    padding: 15px !important;
+                }
+                
+                .modal-header h2 {
+                    font-size: 18px !important;
+                }
+                
+                .gallery {
+                    height: 200px !important;
+                }
+                
+                .yandex-map {
+                    height: 200px !important;
+                }
+            }
+            
+            /* На очень маленьких экранах: 2 карточки, но с меньшими отступами */
+            @media (max-width: 480px) {
+                .event-list {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 10px !important;
+                    padding: 5px !important;
+                }
+                
+                .event-list > div {
+                    min-height: 300px !important;
+                }
+                
+                .image-slider {
+                    height: 120px !important;
+                }
+                
+                .image-slider img {
+                    height: 120px !important;
+                }
+                
+                .event-list > div h3 {
+                    font-size: 13px !important;
+                    margin: 6px 8px 4px 8px !important;
+                    min-height: 34px !important;
+                }
+                
+                .event-list > div p {
+                    font-size: 11px !important;
+                    margin: 0 8px 6px 8px !important;
+                    min-height: 45px !important;
+                }
+                
+                .btn-detail {
+                    margin: 0 8px 8px 8px !important;
+                    padding: 6px 10px !important;
+                    font-size: 11px !important;
+                    min-height: 32px !important;
+                }
+            }
+            
+            /* На средних планшетах: 3 карточки в ряд */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .event-list {
+                    grid-template-columns: repeat(3, 1fr) !important;
+                    gap: 20px !important;
+                }
+                
+                .event-list > div {
+                    min-height: 350px !important;
+                }
+                
+                .image-slider {
+                    height: 180px !important;
+                }
+            }
+            
+            /* Убедимся, что ничего не выходит за пределы экрана */
+            .event-list > div {
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            
+            /* Фикс для кнопки фильтра на мобильных */
+            @media (max-width: 768px) {
+                .filter-dropdown.show {
+                    position: fixed !important;
+                    top: 50% !important;
+                    left: 50% !important;
+                    transform: translate(-50%, -50%) !important;
+                    width: 90% !important;
+                    max-width: 400px !important;
+                    z-index: 9999 !important;
+                    margin-top: 0 !important;
+                }
+            }
+            
+            /* Улучшение читаемости текста */
+            .event-list > div h3,
+            .event-list > div p {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+        `;
+        
+        document.head.appendChild(style);
 
 console.log("✅ Функциональность мероприятий загружена");
