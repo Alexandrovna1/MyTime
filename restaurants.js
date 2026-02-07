@@ -228,13 +228,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // ==================== 2. ФИЛЬТРАЦИЯ (ПОЛНОСТЬЮ ПЕРЕРАБОТАННАЯ) ====================
+    // ==================== 2. ФИЛЬТРАЦИЯ ====================
     
-    // 2.0 ДАННЫЕ О РЕСТОРАНАХ (добавляем недостающую информацию)
+    // 2.0 ДАННЫЕ О РЕСТОРАНАХ
     const restaurantsData = {
         'tsarskoe-details': {
             cuisine: 'russian',
-            price: 2000, // среднее значение
+            price: 2000,
             rating: 5,
             workingHours: '12:00 - 23:00',
             workingHoursType: 'afternoon,evening'
@@ -388,7 +388,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
         
-        // 2.1 ПРОСТОЙ И РАБОЧИЙ ОТКРЫТИЕ/ЗАКРЫТИЕ ФИЛЬТРОВ
+        // 2.1 ОТКРЫТИЕ/ЗАКРЫТИЕ ФИЛЬТРОВ
         filterToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             console.log('🎯 Кнопка фильтрации нажата');
@@ -464,7 +464,7 @@ document.addEventListener("DOMContentLoaded", function() {
             applyBtn.addEventListener('click', function() {
                 console.log('🔍 Применяем фильтры...');
                 
-                // Закрываем меню фильтров - УСИЛЕННАЯ ВЕРСИЯ
+                // Закрываем меню фильтров
                 filterDropdown.classList.remove('show');
                 filterDropdown.style.display = 'none';
                 filterDropdown.style.opacity = '0';
@@ -483,7 +483,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     🍽️ Кухня: ${cuisine || 'Любая'}
                 `);
                 
-                // Фильтруем рестораны и показываем результаты в модальном окне
+                // Фильтруем рестораны
                 showFilterResults({
                     workingHours,
                     maxPrice,
@@ -509,7 +509,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     costValue.textContent = '5000 ₽';
                 }
                 
-                // Закрываем меню фильтров - УСИЛЕННАЯ ВЕРСИЯ
+                // Закрываем меню фильтров
                 filterDropdown.classList.remove('show');
                 filterDropdown.style.display = 'none';
                 filterDropdown.style.opacity = '0';
@@ -520,7 +520,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     item.style.display = 'block';
                 });
                 
-                // Показываем уведомление в правом верхнем углу (как у мероприятий)
+                // Показываем уведомление
                 showSimpleMessage('Фильтры ресторанов сброшены');
                 
                 // Закрываем окно результатов если открыто
@@ -542,7 +542,6 @@ document.addEventListener("DOMContentLoaded", function() {
             const filteredResults = [];
             
             restaurantItems.forEach(item => {
-                // Находим ID модального окна для этого ресторана
                 const detailBtn = item.querySelector('.btn-detail');
                 if (!detailBtn) return;
                 
@@ -581,28 +580,23 @@ document.addEventListener("DOMContentLoaded", function() {
                 // 4. Фильтр по времени работы
                 if (passesFilters && filters.workingHours && filters.workingHours !== '') {
                     if (filters.workingHours === '24_7') {
-                        // Круглосуточно
                         if (!restaurantDataItem.workingHoursType.includes('24_7') && 
                             restaurantDataItem.workingHours !== 'Круглосуточно') {
                             passesFilters = false;
                         }
                     } else if (filters.workingHours === 'morning') {
-                        // Утро (до 12:00)
                         if (!restaurantDataItem.workingHoursType.includes('morning')) {
                             passesFilters = false;
                         }
                     } else if (filters.workingHours === 'afternoon') {
-                        // День (12:00-18:00)
                         if (!restaurantDataItem.workingHoursType.includes('afternoon')) {
                             passesFilters = false;
                         }
                     } else if (filters.workingHours === 'evening') {
-                        // Вечер (после 18:00)
                         if (!restaurantDataItem.workingHoursType.includes('evening')) {
                             passesFilters = false;
                         }
                     } else if (filters.workingHours === 'late') {
-                        // Поздно (после 22:00)
                         if (!restaurantDataItem.workingHoursType.includes('late')) {
                             passesFilters = false;
                         }
@@ -857,19 +851,8 @@ document.addEventListener("DOMContentLoaded", function() {
             return names[time] || time;
         }
         
-        function getCuisineClass(element) {
-            const cuisines = ['russian', 'vostochnaya', 'gruz', 'italian', 'frank', 'smesh', 'sred', 'izrail'];
-            for (const cuisine of cuisines) {
-                if (element.classList.contains(cuisine)) {
-                    return cuisine;
-                }
-            }
-            return '';
-        }
-        
-        // 2.11 ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ (в правом верхнем углу)
+        // 2.11 ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ
         function showSimpleMessage(text) {
-            // Удаляем старое уведомление если есть
             const oldNotification = document.querySelector('.restaurant-info-message');
             if (oldNotification) {
                 oldNotification.remove();
@@ -899,7 +882,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             `;
             
-            // Добавляем CSS анимацию
             if (!document.querySelector('#restaurant-notification-styles')) {
                 const style = document.createElement('style');
                 style.id = 'restaurant-notification-styles';
@@ -930,7 +912,6 @@ document.addEventListener("DOMContentLoaded", function() {
             
             document.body.appendChild(message);
             
-            // Автоматическое скрытие через 3 секунды
             setTimeout(() => {
                 if (message.parentNode) {
                     const innerDiv = message.querySelector('div');
@@ -1095,7 +1076,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 
                 .filter-result-time {
                     color: #b19cd9;
-                    font-size = '0.9em';
+                    font-size: 0.9em;
                     margin-left: auto;
                 }
                 
@@ -1123,6 +1104,80 @@ document.addEventListener("DOMContentLoaded", function() {
                     grid-column: 1 / -1;
                     text-align: center;
                     padding: 40px;
+                }
+                
+                /* Адаптация для мобильных устройств */
+                @media (max-width: 768px) {
+                    .filter-results-content {
+                        padding: 20px;
+                        width: 95%;
+                        max-height: 90vh;
+                    }
+                    
+                    .filter-results-header {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 15px;
+                        margin-bottom: 20px;
+                    }
+                    
+                    .filter-results-header h2 {
+                        font-size: 1.5em;
+                        text-align: center;
+                        width: 100%;
+                    }
+                    
+                    .filter-results-close {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                    
+                    .filter-results-grid {
+                        grid-template-columns: repeat(2, 1fr);
+                        gap: 15px;
+                    }
+                    
+                    .filter-result-info {
+                        padding: 15px;
+                    }
+                    
+                    .filter-result-info h3 {
+                        font-size: 1.2em;
+                    }
+                    
+                    .filter-result-info p {
+                        font-size: 0.9em;
+                        line-height: 1.4;
+                    }
+                    
+                    .filter-result-meta {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 8px;
+                    }
+                    
+                    .filter-result-image {
+                        height: 150px;
+                    }
+                }
+                
+                @media (max-width: 480px) {
+                    .filter-results-grid {
+                        grid-template-columns: 1fr;
+                        gap: 15px;
+                    }
+                    
+                    .filter-results-content {
+                        padding: 15px;
+                    }
+                    
+                    .filter-result-info h3 {
+                        font-size: 1.1em;
+                    }
+                    
+                    .filter-result-image {
+                        height: 140px;
+                    }
                 }
             `;
             
@@ -1232,6 +1287,225 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('Кнопка фильтра:', document.querySelector('.filter-toggle') ? '✅ Найдена' : '❌ Не найдена');
         console.log('Меню фильтров:', document.querySelector('.filter-dropdown') ? '✅ Найдено' : '❌ Не найдено');
         console.log('Количество ресторанов:', document.querySelectorAll('.event-list > div').length);
+        
+        // Добавляем адаптивные стили для мобильной версии
+        addMobileStyles();
+    }
+    
+    // ==================== 5. АДАПТИВНЫЕ СТИЛИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ ====================
+    
+    function addMobileStyles() {
+        if (document.querySelector('#restaurant-mobile-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'restaurant-mobile-styles';
+        style.textContent = `
+            /* Адаптивные стили для ресторанов на мобильных устройствах */
+            
+            /* На мобильных: 2 карточки в ряд */
+            @media (max-width: 768px) {
+                .event-list {
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 15px !important;
+                    width: 100% !important;
+                    margin: 0 auto !important;
+                    padding: 10px !important;
+                }
+                
+                .event-list > div {
+                    width: 100% !important;
+                    margin: 0 !important;
+                    margin-bottom: 0 !important;
+                    break-inside: avoid !important;
+                    page-break-inside: avoid !important;
+                    -webkit-column-break-inside: avoid !important;
+                    height: auto !important;
+                    min-height: 320px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                }
+                
+                /* Убираем любые колонки */
+                .event-list {
+                    -webkit-column-count: 1 !important;
+                    -moz-column-count: 1 !important;
+                    column-count: 1 !important;
+                    -webkit-column-gap: 0 !important;
+                    -moz-column-gap: 0 !important;
+                    column-gap: 0 !important;
+                }
+                
+                /* Контент внутри карточки */
+                .image-slider {
+                    height: 140px !important;
+                    min-height: 140px !important;
+                    overflow: hidden !important;
+                }
+                
+                .image-slider img {
+                    height: 140px !important;
+                    object-fit: cover !important;
+                }
+                
+                /* Текстовая информация */
+                .event-list > div h3 {
+                    font-size: 14px !important;
+                    line-height: 1.3 !important;
+                    margin: 8px 10px 5px 10px !important;
+                    min-height: 36px !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 2 !important;
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                }
+                
+                .event-list > div p {
+                    font-size: 12px !important;
+                    line-height: 1.4 !important;
+                    margin: 0 10px 8px 10px !important;
+                    flex-grow: 1 !important;
+                    display: -webkit-box !important;
+                    -webkit-line-clamp: 3 !important;
+                    -webkit-box-orient: vertical !important;
+                    overflow: hidden !important;
+                    text-overflow: ellipsis !important;
+                    min-height: 50px !important;
+                }
+                
+                /* Кнопка Подробнее */
+                .btn-detail {
+                    margin: 0 10px 10px 10px !important;
+                    padding: 8px 12px !important;
+                    font-size: 12px !important;
+                    min-height: 36px !important;
+                    display: flex !important;
+                    align-items: center !important;
+                    justify-content: center !important;
+                }
+                
+                /* Заголовок секции */
+                .main-title {
+                    font-size: 22px !important;
+                    text-align: center !important;
+                    margin: 15px 10px !important;
+                    padding: 0 10px !important;
+                }
+                
+                /* Фильтр в мобильной версии */
+                .filter-toggle {
+                    margin: 10px auto 15px auto !important;
+                    display: block !important;
+                    width: 90% !important;
+                    max-width: 300px !important;
+                }
+                
+                /* Модальное окно на мобильных */
+                .modal-content {
+                    width: 95% !important;
+                    max-height: 85vh !important;
+                    padding: 15px !important;
+                }
+                
+                .modal-header h2 {
+                    font-size: 18px !important;
+                }
+                
+                .gallery {
+                    height: 200px !important;
+                }
+                
+                .yandex-map {
+                    height: 200px !important;
+                }
+            }
+            
+            /* На очень маленьких экранах: 2 карточки, но с меньшими отступами */
+            @media (max-width: 480px) {
+                .event-list {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 10px !important;
+                    padding: 5px !important;
+                }
+                
+                .event-list > div {
+                    min-height: 300px !important;
+                }
+                
+                .image-slider {
+                    height: 120px !important;
+                }
+                
+                .image-slider img {
+                    height: 120px !important;
+                }
+                
+                .event-list > div h3 {
+                    font-size: 13px !important;
+                    margin: 6px 8px 4px 8px !important;
+                    min-height: 34px !important;
+                }
+                
+                .event-list > div p {
+                    font-size: 11px !important;
+                    margin: 0 8px 6px 8px !important;
+                    min-height: 45px !important;
+                }
+                
+                .btn-detail {
+                    margin: 0 8px 8px 8px !important;
+                    padding: 6px 10px !important;
+                    font-size: 11px !important;
+                    min-height: 32px !important;
+                }
+            }
+            
+            /* На средних планшетах: 3 карточки в ряд */
+            @media (min-width: 769px) and (max-width: 1024px) {
+                .event-list {
+                    grid-template-columns: repeat(3, 1fr) !important;
+                    gap: 20px !important;
+                }
+                
+                .event-list > div {
+                    min-height: 350px !important;
+                }
+                
+                .image-slider {
+                    height: 180px !important;
+                }
+            }
+            
+            /* Убедимся, что ничего не выходит за пределы экрана */
+            .event-list > div {
+                box-sizing: border-box !important;
+                overflow: hidden !important;
+            }
+            
+            /* Фикс для кнопки фильтра на мобильных */
+            @media (max-width: 768px) {
+                .filter-dropdown.show {
+                    position: fixed !important;
+                    top: 50% !important;
+                    left: 50% !important;
+                    transform: translate(-50%, -50%) !important;
+                    width: 90% !important;
+                    max-width: 400px !important;
+                    z-index: 9999 !important;
+                    margin-top: 0 !important;
+                }
+            }
+            
+            /* Улучшение читаемости текста */
+            .event-list > div h3,
+            .event-list > div p {
+                word-wrap: break-word !important;
+                overflow-wrap: break-word !important;
+            }
+        `;
+        
+        document.head.appendChild(style);
     }
     
     // Запуск инициализации
