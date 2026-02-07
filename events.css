@@ -1050,6 +1050,27 @@ nav a:hover::after {
     color: #e6e0ff;
     font-size: 1.1em;
 }
+
+.filter-results-close {
+    background: #8b0000;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-results-close:hover {
+    background: #b22222;
+    transform: scale(1.05);
+}
+
 /* Анимация для модального окна */
 @keyframes modalAppear {
     from {
@@ -1810,24 +1831,6 @@ nav a:hover::after {
 
 .nav-menu {
     z-index: 1000;
-}
-/* ==================== ФИКСЫ ДЛЯ МОБИЛЬНОЙ НАВИГАЦИИ ==================== */
-/* Убедимся, что гамбургер всегда справа */
-.nav-container {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
-/* На десктопе меню видно, гамбургер скрыт */
-@media (min-width: 993px) {
-    .nav-menu {
-        display: flex !important;
-    }
-    
-    .hamburger {
-        display: none !important;
-    }
 }
 
 /* На мобильных меню скрыто, гамбургер виден */
