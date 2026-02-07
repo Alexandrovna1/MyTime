@@ -997,37 +997,37 @@ document.addEventListener("DOMContentLoaded", function() {
         applyMobileLayout();
     }
     
-    // 26. ФУНКЦИЯ ПРИМЕНЕНИЯ МОБИЛЬНОГО МАКЕТА
+        // 26. ФУНКЦИЯ ПРИМЕНЕНИЯ МОБИЛЬНОГО МАКЕТА
     function applyMobileLayout() {
         if (window.innerWidth <= 768) {
             console.log("📱 Применяем мобильный макет мероприятий...");
             
-            // Применяем column layout для всех секций мероприятий
-            document.querySelectorAll('.concert, .spektakl, .cinema, .master_class, .vstrecha').forEach(section => {
-                // Применяем CSS column layout
-                section.style.cssText = `
-                    display: block !important;
+            // Убедимся, что используется grid layout
+            const eventGrid = document.querySelector('.event-grid');
+            if (eventGrid) {
+                eventGrid.style.cssText = `
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 15px !important;
                     width: 100% !important;
-                    overflow: hidden !important;
-                    column-count: 2 !important;
-                    column-gap: 10px !important;
-                    -webkit-column-count: 2 !important;
-                    -moz-column-count: 2 !important;
+                    margin: 0 auto !important;
+                    padding: 10px !important;
                 `;
-            });
+            }
             
             // Применяем стили для карточек
-            document.querySelectorAll('.concert .container, .spektakl .container, .cinema .container, .master_class .container, .vstrecha .container').forEach(container => {
+            document.querySelectorAll('.event-grid .container').forEach(container => {
                 container.style.cssText = `
                     width: 100% !important;
-                    display: inline-block !important;
-                    margin-bottom: 15px !important;
-                    box-sizing: border-box !important;
-                    height: 360px !important;
+                    margin: 0 !important;
+                    margin-bottom: 0 !important;
+                    break-inside: avoid !important;
                     page-break-inside: avoid !important;
                     -webkit-column-break-inside: avoid !important;
-                    break-inside: avoid !important;
-                    vertical-align: top !important;
+                    height: auto !important;
+                    min-height: 320px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
                     animation: none !important;
                 `;
                 
@@ -1074,13 +1074,13 @@ document.addEventListener("DOMContentLoaded", function() {
                         font-size: 12px !important;
                         line-height: 1.4 !important;
                         margin: 0 10px 8px 10px !important;
+                        flex-grow: 1 !important;
                         display: -webkit-box !important;
                         -webkit-line-clamp: 3 !important;
                         -webkit-box-orient: vertical !important;
                         overflow: hidden !important;
                         text-overflow: ellipsis !important;
                         min-height: 50px !important;
-                        height: 50px !important;
                     `;
                 }
                 
