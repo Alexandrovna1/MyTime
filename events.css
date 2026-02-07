@@ -470,7 +470,7 @@ nav a:hover::after {
     background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
 }
 
-/* ==================== СЕТКА МЕРОПРИЯТИЙ (4 В СТРОКУ) ==================== */
+/* ==================== СЕТКА МЕРОПРИЯТИЙ ==================== */
 .events-list {
     max-width: 1400px;
     margin: 0 auto;
@@ -498,12 +498,29 @@ nav a:hover::after {
     background: linear-gradient(90deg, transparent, #9370db, transparent);
 }
 
-/* СЕТКА 4 КАРТОЧКИ В РЯДУ */
-.event-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+/* ОСНОВНОЕ ИСПРАВЛЕНИЕ ДЛЯ СЕКЦИЙ МЕРОПРИЯТИЙ */
+/* На десктопе: используем flex для правильного расположения */
+.concert,
+.spektakl,
+.cinema,
+.master_class,
+.vstrecha {
+    display: flex;
+    flex-wrap: wrap;
     gap: 25px;
-    margin-top: 20px;
+    margin-bottom: 40px;
+    justify-content: flex-start;
+}
+
+/* Карточки мероприятий - 4 в ряд на десктопе */
+.concert .container,
+.spektakl .container,
+.cinema .container,
+.master_class .container,
+.vstrecha .container {
+    flex: 0 0 calc(25% - 19px); /* 4 карточки в ряд */
+    max-width: calc(25% - 19px);
+    box-sizing: border-box;
 }
 
 /* ==================== КАРТОЧКИ МЕРОПРИЯТИЙ ==================== */
@@ -1060,45 +1077,6 @@ nav a:hover::after {
     }
 }
 
-/* Адаптивность для результатов фильтрации */
-@media (max-width: 992px) {
-    .filter-results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 25px;
-    }
-}
-
-@media (max-width: 768px) {
-    .filter-results-content {
-        padding: 30px;
-    }
-    
-    .filter-results-header h2 {
-        font-size: 1.8em;
-    }
-    
-    .filter-results-grid {
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-}
-
-@media (max-width: 576px) {
-    .filter-results-content {
-        padding: 20px;
-    }
-    
-    .filter-results-header {
-        flex-direction: column;
-        gap: 15px;
-        text-align: center;
-    }
-    
-    .filter-results-grid {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* ==================== СТИЛИ ДЛЯ БАЛЛУНОВ ==================== */
 .ymaps-balloon__content {
     background-color: #9370db !important;
@@ -1211,301 +1189,62 @@ nav a:hover::after {
     outline-offset: 3px;
 }
 
-/* ==================== АДАПТИВНОСТЬ ДЛЯ 4 КАРТОЧЕК ==================== */
-@media (min-width: 1401px) {
-    .event-list {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-    }
-    
-    .container {
-        height: 420px;
-    }
-    
-    .image-slider {
-        height: 200px;
-    }
-}
+/* ==================== КРИТИЧЕСКИ ВАЖНЫЕ ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ ==================== */
 
-@media (max-width: 1400px) {
-    .events-list {
-        max-width: 1200px;
-    }
-    
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .container {
-        height: 380px;
-    }
-    
-    .image-slider {
-        height: 180px;
-    }
-}
+/* УДАЛЯЕМ ВСЕ СТАРЫЕ СТИЛИ ДЛЯ МОБИЛЬНЫХ И ДЕЛАЕМ ПРОСТУЮ РЕАЛИЗАЦИЮ */
 
 @media (max-width: 1200px) {
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
-    }
-    
-    .events-list {
-        max-width: 1000px;
-    }
-    
-    .container {
-        height: 380px;
-    }
-}
-
-@media (max-width: 992px) {
-    .page-header h1 {
-        font-size: 2.5em;
-    }
-    
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .container {
-        height: 420px;
-    }
-    
-    .image-slider {
-        height: 200px;
-    }
-    
-    .filter-dropdown {
-        width: 340px;
-    }
-    
-    .btn-detail {
-        min-width: 140px;
-    }
-    
-    .filter-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .yandex-map {
-        height: 350px;
-    }
-}
-
-@media (max-width: 768px) {
-    .page-header {
-        padding: 3em 1.5em 1.5em;
-    }
-    
-    .page-header h1 {
-        font-size: 2.2em;
-    }
-    
-    .events-list h2 {
-        font-size: 2.2em;
-    }
-    
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-    
-    .container {
-        height: 380px;
-        padding: 15px;
-    }
-    
-    .image-slider {
-        height: 180px;
-    }
-    
-    .container h3 {
-        font-size: 1.3em;
-        min-height: 55px;
-    }
-    
-    .modal-content {
-        padding: 30px;
-    }
-    
-    .modal-content h2 {
-        font-size: 1.9em;
-    }
-    
-    .modal-content .gallery {
-        height: 300px;
-    }
-    
-    .filter-dropdown {
-        width: 320px;
-        padding: 2em;
-    }
-    
-    .yandex-map {
-        height: 300px;
-    }
-    
-    .cinema-list li {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-    }
-}
-
-@media (max-width: 576px) {
-    .page-header h1 {
-        font-size: 1.8em;
-    }
-    
-    .events-list h2 {
-        font-size: 1.8em;
-    }
-    
-    .event-list {
-        grid-template-columns: 1fr;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    
-    .container {
-        height: 360px;
-        max-width: 350px;
-        margin: 0 auto;
-    }
-    
-    .image-slider {
-        height: 170px;
-    }
-    
-    .modal-content {
-        padding: 20px;
-    }
-    
-    .modal-content h2 {
-        font-size: 1.6em;
-    }
-    
-    .modal-content p {
-        font-size: 1em;
-    }
-    
-    .modal-content .gallery {
-        height: 250px;
-    }
-    
-    .yandex-map {
-        height: 250px;
-    }
-    
-    .filter-dropdown {
-        width: 300px;
-        padding: 1.5em;
-    }
-    
-    .filter-toggle, .reset-filters {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    
-    .cinema-list {
-        max-height: 180px;
-        padding: 10px;
-    }
-    
-    .cinema-list li {
-        padding: 10px 12px;
-        font-size: 0.95em;
-    }
-}
-
-@media (max-width: 400px) {
-    .filter-dropdown {
-        width: 280px;
-        padding: 1.5em 1em;
-    }
-    
-    .modal-content {
-        padding: 15px;
-    }
-    
-    .btn-detail {
-        padding: 8px 16px;
-        font-size: 0.85em;
-        min-width: 120px;
-    }
-    
-    .filter-toggle, .reset-filters {
-        padding: 10px 18px;
-        font-size: 0.95em;
-    }
-    
-    .container {
-        height: 340px;
-        max-width: 320px;
-    }
-    
-    .yandex-map {
-        height: 200px;
-    }
-}
-
-/* ==================== АДАПТИВНОСТЬ ДЛЯ МЕРОПРИЯТИЙ НА МОБИЛЬНЫХ (2 КАРТОЧКИ В РЯД) ==================== */
-
-/* Скрываем стандартный grid на мобильных для мероприятий */
-@media (max-width: 992px) {
-    .events-list .event-list {
-        display: block !important;
-        grid-template-columns: none !important;
-        -webkit-column-count: 1 !important;
-        -moz-column-count: 1 !important;
-        column-count: 1 !important;
-    }
-}
-
-/* Для мероприятий - 2 карточки в ряд на мобильных */
-@media (max-width: 768px) {
-    /* Отключаем grid layout для секций мероприятий */
-    .concert,
-    .spektakl,
-    .cinema,
-    .master_class,
-    .vstrecha {
-        display: block !important;
-        width: 100% !important;
-        overflow: hidden !important;
-        column-count: 2 !important;
-        column-gap: 10px !important;
-        -webkit-column-count: 2 !important;
-        -moz-column-count: 2 !important;
-    }
-    
-    /* Карточки мероприятий */
-    .concert .container,
-    .spektakl .container, 
-    .cinema .container,
-    .master_class .container,
-    .vstrecha .container {
-        width: 100% !important;
-        display: inline-block !important;
-        margin-bottom: 15px !important;
-        box-sizing: border-box !important;
-        height: 360px !important;
-        page-break-inside: avoid !important;
-        -webkit-column-break-inside: avoid !important;
-        break-inside: avoid !important;
-        vertical-align: top !important;
-    }
-    
-    /* Убираем любые flex/grid свойства, которые могут мешать */
+    /* 3 карточки в ряд на планшетах */
     .concert .container,
     .spektakl .container,
     .cinema .container,
     .master_class .container,
     .vstrecha .container {
-        display: inline-block !important;
-        float: none !important;
+        flex: 0 0 calc(33.333% - 17px) !important;
+        max-width: calc(33.333% - 17px) !important;
+    }
+}
+
+/* НА МОБИЛЬНЫХ УСТРОЙСТВАХ: 2 КАРТОЧКИ В РЯД */
+@media (max-width: 768px) {
+    .concert,
+    .spektakl,
+    .cinema,
+    .master_class,
+    .vstrecha {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        gap: 15px !important;
+        justify-content: space-between !important;
+        margin-bottom: 30px !important;
+    }
+    
+    /* 2 КАРТОЧКИ В РЯД НА МОБИЛЬНЫХ */
+    .concert .container,
+    .spektakl .container,
+    .cinema .container,
+    .master_class .container,
+    .vstrecha .container {
+        flex: 0 0 calc(50% - 8px) !important;
+        max-width: calc(50% - 8px) !important;
+        height: 380px !important;
+        margin-bottom: 0 !important;
+    }
+    
+    /* Заголовок страницы */
+    .page-header h1 {
+        font-size: 2.2em;
+    }
+    
+    /* Заголовок секции */
+    .events-list h2 {
+        font-size: 2.2em;
+        margin-bottom: 1em;
+    }
+    
+    .container {
+        height: 380px;
+        padding: 15px;
     }
     
     /* Контейнер изображения */
@@ -1558,19 +1297,48 @@ nav a:hover::after {
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
+        min-width: 140px !important;
     }
     
-    /* Заголовок секции */
-    .events-list h2 {
-        font-size: 22px !important;
-        text-align: center !important;
-        margin: 15px 10px !important;
-        padding: 0 10px !important;
-    }
-    
-    /* Основной контейнер мероприятий */
     .events-list {
         padding: 0 10px 2em !important;
+    }
+    
+    .modal-content {
+        padding: 30px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.9em;
+    }
+    
+    .modal-content .gallery {
+        height: 300px;
+    }
+    
+    .filter-dropdown {
+        width: 320px;
+        padding: 2em;
+    }
+    
+    .yandex-map {
+        height: 300px;
+    }
+    
+    .cinema-list li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    /* Отключаем анимацию для производительности */
+    .container {
+        animation: none !important;
+        transition: none !important;
+    }
+    
+    .container:hover {
+        transform: none !important;
     }
 }
 
@@ -1581,19 +1349,25 @@ nav a:hover::after {
     .cinema,
     .master_class,
     .vstrecha {
-        column-count: 2 !important;
-        column-gap: 8px !important;
-        -webkit-column-count: 2 !important;
-        -moz-column-count: 2 !important;
+        gap: 10px !important;
     }
     
     .concert .container,
-    .spektakl .container, 
+    .spektakl .container,
     .cinema .container,
     .master_class .container,
     .vstrecha .container {
+        flex: 0 0 calc(50% - 5px) !important;
+        max-width: calc(50% - 5px) !important;
         height: 340px !important;
-        margin-bottom: 12px !important;
+    }
+    
+    .page-header h1 {
+        font-size: 1.8em;
+    }
+    
+    .events-list h2 {
+        font-size: 1.8em;
     }
     
     .image-slider {
@@ -1625,162 +1399,104 @@ nav a:hover::after {
         padding: 6px 10px !important;
         font-size: 11px !important;
         min-height: 32px !important;
+        min-width: 120px !important;
     }
     
-    .events-list h2 {
-        font-size: 20px !important;
-        margin: 10px 5px !important;
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.6em;
+    }
+    
+    .modal-content p {
+        font-size: 1em;
+    }
+    
+    .modal-content .gallery {
+        height: 250px;
+    }
+    
+    .yandex-map {
+        height: 250px;
+    }
+    
+    .filter-dropdown {
+        width: 300px;
+        padding: 1.5em;
+    }
+    
+    .filter-toggle, .reset-filters {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+    
+    .cinema-list {
+        max-height: 180px;
+        padding: 10px;
+    }
+    
+    .cinema-list li {
+        padding: 10px 12px;
+        font-size: 0.95em;
     }
 }
 
-/* На средних планшетах: 3 карточки в ряд */
-@media (min-width: 769px) and (max-width: 992px) {
-    .concert,
-    .spektakl,
-    .cinema,
-    .master_class,
-    .vstrecha {
-        column-count: 3 !important;
-        column-gap: 15px !important;
-        -webkit-column-count: 3 !important;
-        -moz-column-count: 3 !important;
-    }
-    
+@media (max-width: 400px) {
     .concert .container,
-    .spektakl .container, 
+    .spektakl .container,
     .cinema .container,
     .master_class .container,
     .vstrecha .container {
-        height: 380px !important;
-        margin-bottom: 15px !important;
+        flex: 0 0 calc(50% - 5px) !important;
+        max-width: calc(50% - 5px) !important;
+        height: 320px !important;
     }
     
     .image-slider {
-        height: 160px !important;
-        max-height: 160px !important;
+        height: 110px !important;
+        max-height: 110px !important;
     }
     
     .image-slider img {
-        height: 160px !important;
-    }
-}
-
-/* Убедимся, что карточки не выходят за пределы */
-.concert .container,
-.spektakl .container,
-.cinema .container,
-.master_class .container,
-.vstrecha .container {
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-    position: relative !important;
-}
-
-/* Фикс для текста */
-.container h3,
-.container p {
-    word-wrap: break-word !important;
-    overflow-wrap: break-word !important;
-    hyphens: auto !important;
-}
-
-/* Отключаем анимацию на мобильных для производительности */
-@media (max-width: 768px) {
-    .container {
-        animation: none !important;
-        transition: none !important;
+        height: 110px !important;
     }
     
-    .container:hover {
-        transform: none !important;
-    }
-}
-
-/* Фикс для кнопки фильтра на мобильных */
-@media (max-width: 768px) {
-    .filter-dropdown.show {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 90% !important;
-        max-width: 400px !important;
-        z-index: 9999 !important;
-        margin-top: 0 !important;
-    }
-}
-
-/* Исправление для модального окна результатов фильтрации на мобильных */
-@media (max-width: 768px) {
-    .filter-results-content {
-        padding: 20px !important;
-        width: 95% !important;
-        max-height: 90vh !important;
+    .container h3 {
+        font-size: 12px !important;
+        min-height: 32px !important;
+        height: 32px !important;
     }
     
-    .filter-results-header {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 15px !important;
-        margin-bottom: 20px !important;
+    .container p {
+        font-size: 10px !important;
+        min-height: 40px !important;
+        height: 40px !important;
     }
     
-    .filter-results-header h2 {
-        font-size: 1.5em !important;
-        text-align: center !important;
-        width: 100% !important;
+    .filter-dropdown {
+        width: 280px;
+        padding: 1.5em 1em;
     }
     
-    .filter-results-close {
-        width: 100% !important;
-        justify-content: center !important;
+    .modal-content {
+        padding: 15px;
     }
     
-    .filter-results-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 15px !important;
+    .btn-detail {
+        padding: 5px 10px;
+        font-size: 10px;
+        min-width: 110px;
     }
     
-    .filter-result-info {
-        padding: 15px !important;
+    .filter-toggle, .reset-filters {
+        padding: 10px 18px;
+        font-size: 0.95em;
     }
     
-    .filter-result-info h3 {
-        font-size: 1.2em !important;
-    }
-    
-    .filter-result-info p {
-        font-size: 0.9em !important;
-        line-height: 1.4 !important;
-    }
-    
-    .filter-result-meta {
-        flex-direction: column !important;
-        align-items: flex-start !important;
-        gap: 8px !important;
-    }
-    
-    .filter-result-image {
-        height: 150px !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .filter-results-grid {
-        grid-template-columns: 1fr !important;
-        gap: 15px !important;
-    }
-    
-    .filter-results-content {
-        padding: 15px !important;
-    }
-    
-    .filter-result-info h3 {
-        font-size: 1.1em !important;
-    }
-    
-    .filter-result-image {
-        height: 140px !important;
+    .yandex-map {
+        height: 200px;
     }
 }
 
@@ -1815,5 +1531,127 @@ nav a:hover::after {
     
     .hamburger {
         display: flex !important;
+    }
+}
+
+/* ==================== АДАПТИВНОСТЬ ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ ==================== */
+@media (max-width: 992px) {
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-results-content {
+        padding: 30px;
+    }
+    
+    .filter-results-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    /* 2 КАРТОЧКИ В РЯД ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ */
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .filter-results-content {
+        padding: 20px;
+    }
+    
+    .filter-results-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    /* 1 КАРТОЧКА В РЯД ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ НА МАЛЕНЬКИХ ЭКРАНАХ */
+    .filter-results-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Фикс для кнопки фильтра на мобильных */
+@media (max-width: 768px) {
+    .filter-dropdown.show {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        max-width: 400px !important;
+        z-index: 9999 !important;
+        margin-top: 0 !important;
+    }
+}
+
+/* ==================== ВАЖНОЕ ИСПРАВЛЕНИЕ: УБИРАЕМ ВСЕ КОНФЛИКТУЮЩИЕ СТИЛИ ==================== */
+/* Убедимся, что для мероприятий не применяются неправильные стили */
+.concert,
+.spektakl,
+.cinema,
+.master_class,
+.vstrecha {
+    /* Удаляем все старые свойства которые могут мешать */
+    column-count: 1 !important;
+    -webkit-column-count: 1 !important;
+    -moz-column-count: 1 !important;
+    display: flex !important; /* Всегда используем flex */
+}
+
+.concert .container,
+.spektakl .container,
+.cinema .container,
+.master_class .container,
+.vstrecha .container {
+    /* Удаляем все старые свойства которые могут мешать */
+    float: none !important;
+    display: block !important;
+    page-break-inside: auto !important;
+    -webkit-column-break-inside: auto !important;
+    break-inside: auto !important;
+    width: auto !important;
+}
+
+/* Убираем старый .event-list который может мешать */
+.events-list .event-list {
+    display: none !important;
+}
+
+/* Фикс для текста */
+.container h3,
+.container p {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+}
+
+/* ==================== ДОПОЛНИТЕЛЬНЫЙ ФИКС ДЛЯ ТЕЛЕФОНОВ В ПОРТРЕТНОЙ ОРИЕНТАЦИИ ==================== */
+@media (max-width: 768px) and (orientation: portrait) {
+    .concert .container,
+    .spektakl .container,
+    .cinema .container,
+    .master_class .container,
+    .vstrecha .container {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        height: 350px !important;
+        margin-bottom: 15px !important;
+    }
+    
+    .concert,
+    .spektakl,
+    .cinema,
+    .master_class,
+    .vstrecha {
+        gap: 10px !important;
     }
 }
