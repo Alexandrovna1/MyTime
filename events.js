@@ -64,7 +64,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("navMenu:", navMenu);
     }
     
-    // [Остальной код остается таким же, как в предыдущем ответе]
     // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ
     function initFilterSliders() {
         // Слайдер стоимости
@@ -156,8 +155,10 @@ document.addEventListener("DOMContentLoaded", function() {
             
             if (modalDetails) {
                 console.log(`📱 Открываем модальное окно мероприятия: ${fullModalId}`);
-                modalDetails.classList.remove('hidden');
-                modalDetails.classList.add('visible');
+                modalDetails.style.display = 'flex';
+                setTimeout(() => {
+                    modalDetails.classList.add('visible');
+                }, 10);
                 document.body.style.overflow = 'hidden';
                 
                 // Инициализация галереи
@@ -296,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // 8. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА ПРИ КЛИКЕ ВНЕ ОКНА
     document.querySelectorAll('.modal-details').forEach(modal => {
         modal.addEventListener('click', function(event) {
-            if (event.target === this && (this.classList.contains('visible') || !this.classList.contains('hidden'))) {
+            if (event.target === this) {
                 closeModal(this);
             }
         });
@@ -306,7 +307,9 @@ document.addEventListener("DOMContentLoaded", function() {
     function closeModal(modal) {
         if (modal) {
             modal.classList.remove('visible');
-            modal.classList.add('hidden');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 400);
             document.body.style.overflow = 'auto';
             console.log("📱 Модальное окно закрыто");
         }
@@ -338,6 +341,32 @@ document.addEventListener("DOMContentLoaded", function() {
         filterToggle.addEventListener('click', function(e) {
             e.stopPropagation();
             filterDropdown.classList.toggle('show');
+            
+            // Принудительно применяем стили для кнопки фильтра
+            if (filterDropdown.classList.contains('show')) {
+                // Устанавливаем inline стили для правильного позиционирования
+                filterDropdown.style.cssText = `
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    position: absolute !important;
+                    top: 100% !important;
+                    left: 50% !important;
+                    transform: translateX(-50%) translateY(10px) !important;
+                    background: rgba(45, 27, 71, 0.98) !important;
+                    backdrop-filter: blur(10px) !important;
+                    padding: 25px !important;
+                    border-radius: 15px !important;
+                    box-shadow: 0 20px 40px rgba(75, 0, 130, 0.4) !important;
+                    width: 350px !important;
+                    z-index: 1002 !important;
+                    margin-top: 10px !important;
+                    border: 2px solid #9370db !important;
+                `;
+            } else {
+                filterDropdown.style.cssText = '';
+            }
+            
             console.log('📋 Фильтры мероприятий ' + (filterDropdown.classList.contains('show') ? 'открыты' : 'закрыты'));
         });
         
@@ -347,6 +376,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 !filterToggle.contains(e.target) && 
                 filterDropdown.classList.contains('show')) {
                 filterDropdown.classList.remove('show');
+                filterDropdown.style.cssText = '';
             }
         });
         
@@ -357,6 +387,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 console.log('🔘 Применение фильтров мероприятий');
                 applyEventFilters();
                 filterDropdown.classList.remove('show');
+                filterDropdown.style.cssText = '';
             });
         }
         
@@ -394,6 +425,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
                 
                 filterDropdown.classList.remove('show');
+                filterDropdown.style.cssText = '';
                 showSimpleMessage('Фильтры мероприятий сброшены');
             });
         }
@@ -418,7 +450,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let filteredResults = [];
         
         // Собираем отфильтрованные мероприятия
-        document.querySelectorAll('.concert .container, .spektakl .container, .cinema .container, .master_class .container, .vstrecha .container').forEach(container => {
+        document.querySelectorAll('.event-list .container').forEach(container => {
             const eventData = extractEventData(container);
             if (eventData && eventPassesFilters(eventData, eventType, eventTime, eventCost, eventRating)) {
                 filteredResults.push(eventData);
@@ -426,7 +458,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         
         // Показываем результаты в модальном окне
-        showFilterResults(filteredResults, getFilterTitle(eventType, eventTime, eventCost, eventRating), "events");
+        showFilterResults(filteredResults, getFilterTitle(eventType, eventTime, eventCost, eventRating));
         
         console.log(`✅ Найдено мероприятий: ${filteredResults.length}`);
     }
@@ -516,7 +548,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     
     // 17. ФУНКЦИЯ ПОКАЗА РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ В МОДАЛЬНОМ ОКНЕ
-    function showFilterResults(results, title, filterType) {
+    function showFilterResults(results, title) {
         let resultsModal = document.querySelector('.filter-results-modal');
         
         if (!resultsModal) {
@@ -559,6 +591,9 @@ document.addEventListener("DOMContentLoaded", function() {
             });
             
             document.body.appendChild(resultsModal);
+            
+            // Добавляем стили как в ресторанах
+            addFilterResultsStyles();
         }
         
         const countText = results.length === 0 ? 'ничего не найдено' : `найдено ${results.length}`;
@@ -590,6 +625,10 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         }
         
+        // Применяем сетку как у ресторанов
+        grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+        grid.style.gap = '20px';
+        
         resultsModal.classList.add('show');
         document.body.style.overflow = 'hidden';
     }
@@ -614,7 +653,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return title;
     }
     
-    // 19. ФУНКЦИЯ СОЗДАНИЯ ЭЛЕМЕНТА РЕЗУЛЬТАТА
+    // 19. ФУНКЦИЯ СОЗДАНИЯ ЭЛЕМЕНТА РЕЗУЛЬТАТА (ИСПРАВЛЕННАЯ)
     function createResultItem(result) {
         const item = document.createElement('div');
         item.className = 'filter-result-item';
@@ -635,24 +674,41 @@ document.addEventListener("DOMContentLoaded", function() {
         
         const title = document.createElement('h3');
         title.textContent = result.title;
+        title.style.fontSize = '1.2em';
+        title.style.minHeight = 'auto';
         
         const description = document.createElement('p');
         description.textContent = result.description;
+        description.style.fontSize = '0.9em';
+        description.style.lineHeight = '1.4';
+        description.style.marginBottom = '10px';
         
         const metaDiv = document.createElement('div');
         metaDiv.className = 'filter-result-meta';
+        metaDiv.style.flexWrap = 'wrap';
+        metaDiv.style.gap = '8px';
         
         const typeBadge = document.createElement('div');
         typeBadge.className = 'filter-result-type';
         typeBadge.textContent = getTypeEmoji(result.type) + ' ' + getTypeName(result.type);
+        typeBadge.style.cssText = `
+            background: rgba(147, 112, 219, 0.2);
+            color: #b19cd9;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            border: 1px solid rgba(147, 112, 219, 0.5);
+        `;
         
         const price = document.createElement('div');
         price.className = 'filter-result-price';
         price.textContent = result.price;
+        price.style.fontSize = '1em';
         
         const rating = document.createElement('div');
         rating.className = 'filter-result-rating';
         rating.textContent = result.rating;
+        rating.style.fontSize = '1em';
         
         // Добавляем время проведения
         const eventTime = getEventTime(result.modalId);
@@ -686,8 +742,10 @@ document.addEventListener("DOMContentLoaded", function() {
                         resultsModal.classList.remove('show');
                     }
                     
-                    modal.classList.remove('hidden');
-                    modal.classList.add('visible');
+                    modal.style.display = 'flex';
+                    setTimeout(() => {
+                        modal.classList.add('visible');
+                    }, 10);
                     document.body.style.overflow = 'hidden';
                     
                     const gallery = modal.querySelector('.gallery');
@@ -842,67 +900,45 @@ document.addEventListener("DOMContentLoaded", function() {
             const prevButton = document.createElement('button');
             prevButton.className = 'prev-button';
             prevButton.innerHTML = '‹';
-            prevButton.style.cssText = `
-                position: absolute;
-                left: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(45, 27, 71, 0.8);
-                color: white;
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 24px;
-                z-index: 10;
-            `;
             
             const nextButton = document.createElement('button');
             nextButton.className = 'next-button';
             nextButton.innerHTML = '›';
-            nextButton.style.cssText = `
-                position: absolute;
-                right: 10px;
-                top: 50%;
-                transform: translateY(-50%);
-                background: rgba(45, 27, 71, 0.8);
-                color: white;
-                border: none;
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 24px;
-                z-index: 10;
-            `;
             
             gallery.appendChild(prevButton);
             gallery.appendChild(nextButton);
             
             // Функция показа изображения
             function showImage(index) {
-                images.forEach(img => img.classList.remove('active'));
+                images.forEach(img => {
+                    img.classList.remove('active');
+                    img.style.opacity = '0';
+                });
                 images[index].classList.add('active');
+                images[index].style.opacity = '1';
                 currentIndex = index;
             }
             
+            showImage(0);
+            
             // Кнопка "назад"
-            prevButton.addEventListener('click', function() {
+            prevButton.addEventListener('click', function(e) {
+                e.stopPropagation();
                 let newIndex = currentIndex - 1;
                 if (newIndex < 0) newIndex = images.length - 1;
                 showImage(newIndex);
             });
             
             // Кнопка "вперед"
-            nextButton.addEventListener('click', function() {
+            nextButton.addEventListener('click', function(e) {
+                e.stopPropagation();
                 let newIndex = currentIndex + 1;
                 if (newIndex >= images.length) newIndex = 0;
                 showImage(newIndex);
             });
             
             // Автоматическая смена изображений
-            const interval = setInterval(() => {
+            let interval = setInterval(() => {
                 if (document.querySelector('.modal-details.visible')) {
                     let newIndex = currentIndex + 1;
                     if (newIndex >= images.length) newIndex = 0;
@@ -911,15 +947,14 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 4000);
             
             // Очистка интервала при закрытии модального окна
-            const modal = gallery.closest('.modal-details');
-            if (modal) {
-                const closeBtn = modal.querySelector('.close-modal');
-                if (closeBtn) {
-                    closeBtn.addEventListener('click', function() {
-                        clearInterval(interval);
-                    });
-                }
-            }
+            gallery.addEventListener('mouseenter', () => clearInterval(interval));
+            gallery.addEventListener('mouseleave', () => {
+                interval = setInterval(() => {
+                    let newIndex = currentIndex + 1;
+                    if (newIndex >= images.length) newIndex = 0;
+                    showImage(newIndex);
+                }, 4000);
+            });
         }
     }
     
@@ -979,96 +1014,312 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // 25. ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ
+    // 25. ФУНКЦИЯ ДОБАВЛЕНИЯ СТИЛЕЙ ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ (КОПИЯ ИЗ РЕСТОРАНОВ)
+    function addFilterResultsStyles() {
+        if (document.querySelector('#events-filter-results-styles')) return;
+        
+        const style = document.createElement('style');
+        style.id = 'events-filter-results-styles';
+        style.textContent = `
+            /* Стили для модального окна результатов фильтрации мероприятий */
+            .filter-results-modal {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(20, 0, 40, 0.97);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.4s ease;
+                padding: 20px;
+                backdrop-filter: blur(5px);
+            }
+            
+            .filter-results-modal.show {
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            .filter-results-content {
+                background: rgba(45, 27, 71, 0.98);
+                padding: 40px;
+                border-radius: 25px;
+                box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
+                width: 95%;
+                max-width: 1200px;
+                max-height: 85vh;
+                overflow-y: auto;
+                position: relative;
+                border: 2px solid #9370db;
+                animation: modalAppear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+            
+            .filter-results-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 30px;
+                padding-bottom: 20px;
+                border-bottom: 2px solid #7b68ee;
+            }
+            
+            .filter-results-header h2 {
+                color: #b19cd9;
+                font-size: 2em;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+                margin: 0;
+            }
+            
+            .filter-results-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+                margin-top: 20px;
+            }
+            
+            .filter-result-item {
+                background: rgba(30, 0, 60, 0.8);
+                border-radius: 15px;
+                overflow: hidden;
+                transition: all 0.3s ease;
+                border: 1px solid rgba(147, 112, 219, 0.3);
+                cursor: pointer;
+            }
+            
+            .filter-result-item:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
+                border-color: #9370db;
+            }
+            
+            .filter-result-image {
+                width: 100%;
+                height: 180px;
+                overflow: hidden;
+            }
+            
+            .filter-result-image img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+            
+            .filter-result-item:hover .filter-result-image img {
+                transform: scale(1.05);
+            }
+            
+            .filter-result-info {
+                padding: 15px;
+            }
+            
+            .filter-result-info h3 {
+                color: #b19cd9;
+                margin-bottom: 10px;
+                font-size: 1.2em;
+                min-height: auto;
+            }
+            
+            .filter-result-info p {
+                color: #e6e0ff;
+                margin-bottom: 10px;
+                font-size: 0.9em;
+                line-height: 1.4;
+            }
+            
+            .filter-result-meta {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 10px;
+                padding-top: 10px;
+                border-top: 1px solid rgba(147, 112, 219, 0.2);
+                gap: 8px;
+            }
+            
+            .filter-result-price {
+                color: #9370db;
+                font-weight: bold;
+                font-size: 1em;
+            }
+            
+            .filter-result-rating {
+                color: #ffd700;
+                font-weight: bold;
+                font-size: 1em;
+            }
+            
+            .filter-results-close {
+                background: #8b0000;
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                cursor: pointer;
+                border-radius: 8px;
+                font-weight: bold;
+                font-size: 1em;
+                transition: all 0.3s ease;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+            }
+            
+            .filter-results-close:hover {
+                background: #b22222;
+                transform: scale(1.05);
+            }
+            
+            .no-results {
+                grid-column: 1 / -1;
+                text-align: center;
+                padding: 40px;
+                color: #e6e0ff;
+                font-size: 1.1em;
+            }
+            
+            @keyframes modalAppear {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9) translateY(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1) translateY(0);
+                }
+            }
+            
+            /* Адаптация для мобильных устройств */
+            @media (max-width: 768px) {
+                .filter-results-content {
+                    padding: 20px !important;
+                    width: 95% !important;
+                    max-height: 90vh !important;
+                }
+                
+                .filter-results-header {
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    gap: 15px !important;
+                    margin-bottom: 20px !important;
+                }
+                
+                .filter-results-header h2 {
+                    font-size: 1.5em !important;
+                    text-align: center !important;
+                    width: 100% !important;
+                }
+                
+                .filter-results-close {
+                    width: 100% !important;
+                    justify-content: center !important;
+                }
+                
+                .filter-results-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 15px !important;
+                }
+                
+                .filter-result-info {
+                    padding: 15px !important;
+                }
+                
+                .filter-result-info h3 {
+                    font-size: 1.2em !important;
+                }
+                
+                .filter-result-info p {
+                    font-size: 0.9em !important;
+                    line-height: 1.4 !important;
+                }
+                
+                .filter-result-meta {
+                    flex-direction: column !important;
+                    align-items: flex-start !important;
+                    gap: 8px !important;
+                }
+                
+                .filter-result-image {
+                    height: 150px !important;
+                }
+            }
+            
+            @media (max-width: 480px) {
+                .filter-results-content {
+                    padding: 15px !important;
+                }
+                
+                .filter-results-header h2 {
+                    font-size: 1.3em !important;
+                }
+                
+                .filter-results-grid {
+                    grid-template-columns: 1fr !important;
+                    gap: 12px !important;
+                }
+                
+                .filter-result-info h3 {
+                    font-size: 1.1em !important;
+                }
+                
+                .filter-result-image {
+                    height: 140px !important;
+                }
+                
+                .filter-results-close {
+                    padding: 10px 20px !important;
+                    font-size: 0.9em !important;
+                }
+            }
+        `;
+        
+        document.head.appendChild(style);
+    }
+    
+    // ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ
     function initAll() {
-        console.log("🔄 Инициализация всех функций...");
+        console.log("🔄 Инициализация всех функций мероприятий...");
         
         // Инициализация слайдеров фильтров
         initFilterSliders();
         
-        // Добавляем обработчики для всех элементов с классом .cinema-list
-        document.querySelectorAll('.cinema-list').forEach(cinemaList => {
-            initCinemaList(cinemaList);
+        // Инициализация кнопок фильтров
+        const filterToggle = document.querySelector('.filter-toggle');
+        const resetFilters = document.querySelector('.reset-filters');
+        
+        // Применяем единые стили к кнопкам фильтров
+        if (filterToggle) {
+            filterToggle.style.padding = '14px 28px';
+            filterToggle.style.fontSize = '1.2em';
+            filterToggle.style.zIndex = '100';
+        }
+        
+        if (resetFilters) {
+            resetFilters.style.padding = '14px 28px';
+            resetFilters.style.fontSize = '1.2em';
+            resetFilters.style.zIndex = '100';
+        }
+        
+        // Инициализация галереи в модальных окнах
+        document.querySelectorAll('.gallery').forEach(gallery => {
+            initGallery(gallery);
         });
         
-        console.log("✅ Все функции инициализированы");
-        
-        // Применяем мобильный макет если нужно
-        applyMobileLayout();
+        console.log("✅ Все функции мероприятий инициализированы");
     }
-    
-     // 27. ФУНКЦИЯ АДАПТАЦИИ МОДАЛЬНЫХ ОКОН ДЛЯ МОБИЛЬНЫХ
-function adaptModalsForMobile() {
-    if (window.innerWidth <= 768) {
-        console.log("📱 Адаптируем модальные окна для мобильных...");
-        
-        // Получаем все открытые модальные окна
-        const openModals = document.querySelectorAll('.modal-details.visible');
-        
-        if (openModals.length > 0) {
-            openModals.forEach(modal => {
-                const modalContent = modal.querySelector('.modal-content');
-                if (modalContent) {
-                    // Применяем стили для мобильных
-                    modalContent.style.cssText = `
-                        width: 95% !important;
-                        max-height: 85vh !important;
-                        padding: 15px !important;
-                    `;
-                    
-                    // Адаптируем галерею
-                    const gallery = modal.querySelector('.gallery');
-                    if (gallery) {
-                        gallery.style.height = '200px !important';
-                    }
-                    
-                    // Адаптируем карту
-                    const map = modal.querySelector('.yandex-map');
-                    if (map) {
-                        map.style.height = '200px !important';
-                    }
-                    
-                    // Адаптируем список кинотеатров
-                    const cinemaList = modal.querySelector('.cinema-list');
-                    if (cinemaList) {
-                        cinemaList.style.maxHeight = '150px !important';
-                    }
-                    
-                    // Адаптируем заголовок
-                    const title = modal.querySelector('h2');
-                    if (title) {
-                        title.style.fontSize = '1.6em !important';
-                    }
-                }
-            });
-        }
-    }
-}
-
-// Добавьте вызов этой функции при изменении размера окна
-window.addEventListener('resize', function() {
-    adaptModalsForMobile();
-});
-
-// Также вызываем при открытии модального окна
-document.addEventListener('click', function(e) {
-    if (e.target.closest('.btn-detail')) {
-        setTimeout(adaptModalsForMobile, 100);
-    }
-});   
     
     // Запускаем инициализацию
     initAll();
     
-    // Обработчик изменения размера окна
-    window.addEventListener('resize', function() {
-        setTimeout(applyMobileLayout, 100);
-    });
-    
     console.log("✅ Все обработчики мероприятий установлены");
 });
 
-// Добавляем CSS стили
+// УДАЛЯЕМ СТАРЫЕ СТИЛИ И ДОБАВЛЯЕМ ТОЛЬКО НЕОБХОДИМЫЕ
 const eventStyle = document.createElement('style');
 eventStyle.textContent = `
     @keyframes slideIn {
@@ -1093,29 +1344,30 @@ eventStyle.textContent = `
     }
     
     .gallery img {
-        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
-        height: auto;
-        border-radius: 10px;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 0.8s ease;
     }
     
     .gallery img.active {
-        display: block;
+        opacity: 1;
     }
     
     /* Плавное появление изображений */
-    .image-slider img,
-    .gallery img {
-        transition: opacity 0.5s ease;
+    .image-slider img {
+        transition: opacity 0.8s ease-in-out;
     }
     
-    .image-slider img:not(.active),
-    .gallery img:not(.active) {
+    .image-slider img:not(.active) {
         opacity: 0;
     }
     
-    .image-slider img.active,
-    .gallery img.active {
+    .image-slider img.active {
         opacity: 1;
     }
     
@@ -1131,172 +1383,9 @@ eventStyle.textContent = `
         }
     }
     
-    .concert .container,
-    .spektakl .container,
-    .cinema .container,
-    .master_class .container,
-    .vstrecha .container {
+    .container {
         animation: fadeIn 0.5s ease;
-    }
-    
-    /* Стили для модального окна результатов фильтрации */
-    .filter-results-modal {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(20, 0, 40, 0.97);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 2000;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.4s ease;
-        padding: 20px;
-        backdrop-filter: blur(5px);
-    }
-    
-    .filter-results-modal.show {
-        opacity: 1;
-        visibility: visible;
-    }
-    
-    .filter-results-content {
-        background: rgba(45, 27, 71, 0.98);
-        padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
-        width: 95%;
-        max-width: 1200px;
-        max-height: 85vh;
-        overflow-y: auto;
-        position: relative;
-        border: 2px solid #9370db;
-    }
-    
-    .filter-results-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 30px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #7b68ee;
-    }
-    
-    .filter-results-header h2 {
-        color: #b19cd9;
-        font-size: 2em;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        margin: 0;
-    }
-    
-    .filter-results-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-        margin-top: 20px;
-    }
-    
-    .filter-result-item {
-        background: rgba(30, 0, 60, 0.8);
-        border-radius: 15px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        border: 1px solid rgba(147, 112, 219, 0.3);
-        cursor: pointer;
-    }
-    
-    .filter-result-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
-        border-color: #9370db;
-    }
-    
-    .filter-result-image {
-        width: 100%;
-        height: 200px;
-        overflow: hidden;
-    }
-    
-    .filter-result-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    
-    .filter-result-item:hover .filter-result-image img {
-        transform: scale(1.05);
-    }
-    
-    .filter-result-info {
-        padding: 20px;
-    }
-    
-    .filter-result-info h3 {
-        color: #b19cd9;
-        margin-bottom: 10px;
-        font-size: 1.4em;
-    }
-    
-    .filter-result-info p {
-        color: #e6e0ff;
-        margin-bottom: 15px;
-        font-size: 1em;
-        line-height: 1.5;
-    }
-    
-    .filter-result-meta {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 15px;
-        padding-top: 15px;
-        border-top: 1px solid rgba(147, 112, 219, 0.2);
-        gap: 10px;
-    }
-    
-    .filter-result-price {
-        color: #9370db;
-        font-weight: bold;
-        font-size: 1.1em;
-    }
-    
-    .filter-result-rating {
-        color: #ffd700;
-        font-weight: bold;
-    }
-    
-    .filter-result-time {
-        color: #b19cd9;
-        font-size: 0.9em;
-        margin-left: auto;
-    }
-    
-    .filter-results-close {
-        background: #8b0000;
-        color: white;
-        border: none;
-        padding: 12px 24px;
-        cursor: pointer;
-        border-radius: 8px;
-        font-weight: bold;
-        font-size: 1em;
-        transition: all 0.3s ease;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .filter-results-close:hover {
-        background: #b22222;
-        transform: scale(1.05);
     }
 `;
 
 document.head.appendChild(eventStyle);
-
-console.log("✅ Функциональность мероприятий загружена");
