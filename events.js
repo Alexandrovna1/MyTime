@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log("📋 Меню найдено:", navMenu);
         
         // Открытие/закрытие меню
-        hamburger.addEventListener('click', function() {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation();
             console.log("👉 Гамбургер нажат!");
             hamburger.classList.toggle('active');
             navMenu.classList.toggle('active');
@@ -46,6 +47,16 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
         
+        // Закрыть меню по клавише ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = '';
+                console.log("⎋ Меню закрыто по клавише ESC");
+            }
+        });
+        
         console.log("✅ Гамбургер-меню инициализировано");
     } else {
         console.error("❌ Элементы гамбургер-меню не найдены!");
@@ -53,6 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("navMenu:", navMenu);
     }
     
+    // [Остальной код остается таким же, как в предыдущем ответе]
     // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРОВ ФИЛЬТРОВ
     function initFilterSliders() {
         // Слайдер стоимости
