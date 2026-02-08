@@ -1547,6 +1547,17 @@ footer p {
 
 /* ==================== АДАПТИВНОСТЬ ==================== */
 
+/* Для средних экранов */
+@media (max-width: 1200px) {
+    .event-list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+}
+
 /* Для планшетов */
 @media (max-width: 992px) {
     .navbar {
@@ -1584,7 +1595,7 @@ footer p {
     }
     
     .hamburger {
-        display: flex !important;
+        display: flex;
         position: absolute;
         right: 20px;
         top: 50%;
@@ -1627,28 +1638,21 @@ footer p {
         font-size: 1.1em;
     }
     
-    .description h1 {
-        font-size: 2.8em;
+    .page-header h1 {
+        font-size: 2.5em;
     }
     
-    .events-list,
-    .restaurants-list {
-        gap: 25px;
+    .event-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .container {
-        width: 260px;
         height: 380px;
     }
     
-    .filter-dropdown {
-        width: 340px;
-    }
-    
-    .btn-detail {
-        padding: 10px 20px;
-        font-size: 0.95em;
-        min-width: 140px;
+    .image-slider {
+        height: 170px;
     }
     
     .filter-buttons {
@@ -1658,228 +1662,57 @@ footer p {
         gap: 10px;
     }
     
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 80px;
+    .filter-toggle, .reset-filters, .apply-filters {
+        padding: 12px 20px;
+        font-size: 1em;
+        z-index: 100 !important;
     }
     
-    .scroll-btn {
-        display: none;
-    }
-}
-
-@media (max-width: 1200px) {
-    .container {
-        width: 280px;
-        height: 400px;
-    }
-    
-    .modal-content {
-        padding: 35px;
-        max-width: 900px;
+    .filter-dropdown.show {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        z-index: 1002;
     }
     
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 80px;
+    .yandex-map {
+        height: 300px;
+    }
+    
+    .filter-results-content {
+        padding: 25px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 15px;
     }
 }
 
 /* Для мобильных */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 0.8em 1em;
+    .page-header {
+        padding: 3em 1.5em 1.5em;
     }
     
-    .logo a {
-        font-size: 1.2em;
-    }
-    
-    .hamburger {
-        width: 28px;
-        height: 22px;
-        right: 15px;
-    }
-    
-    .nav-menu {
-        top: 60px;
-        height: calc(100vh - 60px);
-    }
-    
-    .description {
-        padding: 4em 1.5em;
-    }
-    
-    .description h1 {
-        font-size: 2.4em;
-    }
-    
-    .description p {
-        font-size: 1.1em;
-    }
-    
-    .events-section h2,
-    .restaurants-section h2,
-    .about h2 {
+    .page-header h1 {
         font-size: 2.2em;
     }
     
+    .restaurant-list h2 {
+        font-size: 2.2em;
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    
     .container {
-        width: 240px;
-        height: 360px;
-        padding: 15px;
-    }
-    
-    .image-slider {
-        height: 170px;
-    }
-    
-    .container h3 {
-        font-size: 1.3em;
-        min-height: 55px;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        gap: 20px;
-    }
-    
-    .modal-content {
-        padding: 25px;
-    }
-    
-    .modal-content h2 {
-        font-size: 1.9em;
-    }
-    
-    .modal-content .gallery {
-        height: 300px;
-    }
-    
-    .filter-dropdown {
-        width: 320px;
-        padding: 2em;
-    }
-    
-    .about-images {
-        gap: 30px;
-    }
-    
-    .about-images img {
-        width: 150px;
-        height: 150px;
-    }
-    
-    .prev-button, .next-button {
-        width: 50px;
-        height: 50px;
-        font-size: 24px;
-        padding: 12px;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 12px 24px;
-        font-size: 1.1em;
-    }
-    
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 60px;
-        background: linear-gradient(to right, rgba(30, 0, 60, 0.98), transparent);
-    }
-    
-    .restaurants-section::before,
-    .restaurants-section::after {
-        background: linear-gradient(to left, rgba(30, 0, 60, 0.98), transparent);
-    }
-    
-    .yandex-map {
         height: 350px;
-    }
-    
-    .cinema-list {
-        max-height: 200px;
-    }
-    
-    .cinema-list li {
-        padding: 12px 15px;
-        font-size: 1em;
-    }
-    
-    .cinema-nav-btn {
-        padding: 10px 20px;
-        font-size: 0.95em;
-    }
-}
-
-/* Для маленьких мобильных */
-@media (max-width: 576px) {
-    .navbar {
-        padding: 0.6em 1em;
-        height: 60px;
-    }
-    
-    .logo {
-        left: 15px;
-    }
-    
-    .logo a {
-        font-size: 1.1em;
-    }
-    
-    .hamburger {
-        width: 25px;
-        height: 20px;
-        right: 15px;
-    }
-    
-    .hamburger span {
-        height: 2.5px;
-    }
-    
-    .hamburger.active span:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-    
-    .hamburger.active span:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-    
-    .nav-menu {
-        top: 60px;
-        height: calc(100vh - 60px);
-    }
-    
-    nav a {
-        width: 90%;
-        padding: 0.9em;
-        font-size: 1em;
-    }
-    
-    .description h1 {
-        font-size: 2em;
-    }
-    
-    .description p {
-        font-size: 1em;
-    }
-    
-    .events-section h2,
-    .restaurants-section h2,
-    .about h2 {
-        font-size: 1.8em;
-    }
-    
-    .container {
-        width: 220px;
-        height: 340px;
         padding: 15px;
     }
     
@@ -1892,24 +1725,87 @@ footer p {
         min-height: 50px;
     }
     
-    .container p {
-        font-size: 0.95em;
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-content h2 {
+        font-size: 1.8em;
+    }
+    
+    .modal-content .gallery {
+        height: 250px;
+    }
+    
+    .yandex-map {
+        height: 250px;
+    }
+    
+    .filter-dropdown.show {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .filter-results-content {
+        padding: 20px;
+    }
+    
+    .filter-results-header h2 {
+        font-size: 1.8em;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .filter-result-image {
+        height: 140px;
+    }
+    
+    .filter-result-info h3 {
+        font-size: 1.1em;
+    }
+}
+
+/* Для маленьких мобильных */
+@media (max-width: 576px) {
+    .page-header h1 {
+        font-size: 1.8em;
+    }
+    
+    .restaurant-list h2 {
+        font-size: 1.8em;
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+    
+    .container {
+        height: 320px;
+        max-width: none;
+        margin: 0;
+    }
+    
+    .image-slider {
+        height: 130px;
+    }
+    
+    .container h3 {
+        font-size: 1.1em;
+        min-height: 45px;
     }
     
     .btn-detail {
-        padding: 9px 18px;
+        padding: 10px 16px;
         font-size: 0.9em;
-        min-width: 130px;
-    }
-    
-    .events-list,
-    .restaurants-list {
-        gap: 15px;
-        padding: 0 15px;
+        min-width: 120px;
     }
     
     .modal-content {
-        padding: 20px;
+        padding: 15px;
     }
     
     .modal-content h2 {
@@ -1921,84 +1817,50 @@ footer p {
     }
     
     .modal-content .gallery {
-        height: 250px;
-    }
-    
-    .modal-content iframe {
-        height: 250px;
-    }
-    
-    .filter-dropdown {
-        width: 300px;
-        padding: 1.5em;
-    }
-    
-    .about-images {
-        gap: 25px;
-    }
-    
-    .about-images img {
-        width: 130px;
-        height: 130px;
-    }
-    
-    .about p {
-        font-size: 1.1em;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 12px 20px;
-        font-size: 1em;
-    }
-    
-    .prev-button, .next-button {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
-        padding: 10px;
-    }
-    
-    .close-modal {
-        width: 40px;
-        height: 40px;
-        padding: 10px;
-        font-size: 1em;
-    }
-    
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 40px;
+        height: 200px;
     }
     
     .yandex-map {
-        height: 300px;
+        height: 200px;
     }
     
-    .cinema-list {
-        max-height: 180px;
-        padding: 10px;
-    }
-    
-    .cinema-list li {
-        padding: 10px 12px;
+    .filter-toggle, .reset-filters {
+        padding: 10px 16px;
         font-size: 0.95em;
+        width: 48%;
     }
     
-    .cinema-nav-controls {
+    .apply-filters {
+        padding: 12px;
+        font-size: 1em;
+    }
+    
+    .filter-dropdown.show {
+        width: 95%;
         padding: 15px;
     }
     
-    .cinema-nav-btn {
-        padding: 8px 16px;
-        font-size: 0.9em;
+    .filter-results-content {
+        padding: 15px;
     }
     
-    .ymaps-balloon__content {
-        max-width: 280px !important;
-        padding: 15px !important;
+    .filter-results-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .filter-result-image {
+        height: 120px;
+    }
+    
+    .filter-result-info {
+        padding: 10px;
     }
 }
 
@@ -2027,79 +1889,37 @@ footer p {
         height: 2.5px;
     }
     
-    .nav-menu {
-        top: 60px;
-        height: calc(100vh - 60px);
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
     }
     
-    nav a {
-        width: 90%;
-        padding: 0.8em;
-        font-size: 0.95em;
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    .event-list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
     }
     
     .container {
-        width: 200px;
-        height: 320px;
+        height: 300px;
         padding: 12px;
     }
     
-    .filter-dropdown {
-        width: 280px;
-        padding: 1.5em 1em;
+    .image-slider {
+        height: 120px;
     }
     
-    .modal-content {
-        padding: 15px;
+    .container h3 {
+        font-size: 1em;
+        min-height: 40px;
     }
     
     .btn-detail {
-        padding: 8px 16px;
+        padding: 8px 14px;
         font-size: 0.85em;
-        min-width: 120px;
-    }
-    
-    .filter-toggle,
-    .reset-filters {
-        padding: 10px 18px;
-        font-size: 0.95em;
-    }
-    
-    .events-section::before,
-    .events-section::after,
-    .restaurants-section::before,
-    .restaurants-section::after {
-        width: 30px;
-    }
-    
-    .yandex-map {
-        height: 250px;
-    }
-    
-    .cinema-list li {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-    }
-    
-    .cinema-time {
-        align-self: center;
-    }
-}
-
-/* Для экстремально маленьких экранов */
-@media (max-width: 360px) {
-    .navbar {
-        padding: 0.5em 0.8em;
-    }
-    
-    .logo a {
-        font-size: 1em;
-    }
-    
-    .hamburger {
-        width: 24px;
-        height: 18px;
+        min-width: 110px;
     }
     
     .filter-buttons {
@@ -2111,7 +1931,56 @@ footer p {
     .filter-toggle, .reset-filters {
         width: 100%;
         max-width: 280px;
+        padding: 10px;
     }
+    
+    .filter-results-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Для экранов с шириной более 480px но менее 768px - показываем 3 карточки */
+@media (min-width: 481px) and (max-width: 768px) {
+    .event-list {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 768px но менее 992px - показываем 3-4 карточки */
+@media (min-width: 769px) and (max-width: 992px) {
+    .event-list {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Исправление z-index для модальных окон */
+.modal-details,
+.filter-results-modal {
+    z-index: 2000;
+}
+
+.filter-dropdown.show {
+    z-index: 1002;
+}
+
+.hamburger {
+    z-index: 1001;
+}
+
+.nav-menu {
+    z-index: 1000;
 }
 
 /* ==================== ДОПОЛНИТЕЛЬНЫЕ ФИКСЫ ==================== */
@@ -2197,3 +2066,4 @@ footer p {
 .nav-menu {
     z-index: 1000;
 }
+
