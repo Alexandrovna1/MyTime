@@ -2064,3 +2064,34 @@ footer p {
 .nav-menu {
     z-index: 1000;
 }
+@media (max-width: 992px) {
+    .filter-dropdown.show {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        max-height: 80vh; /* Ограничиваем высоту */
+        overflow-y: auto; /* Включаем вертикальную прокрутку */
+        z-index: 1002;
+    }
+    
+    /* Увеличиваем отступы для лучшего скролла */
+    .filter-dropdown {
+        padding: 1.5em;
+    }
+}
+
+@media (max-width: 768px) {
+    .filter-dropdown.show {
+        max-height: 85vh; /* Больше высота на маленьких экранах */
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+    }
+    
+    /* Убираем анимацию для лучшей производительности */
+    .filter-dropdown {
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+}
