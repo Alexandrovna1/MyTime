@@ -1169,27 +1169,6 @@ footer p {
     color: #e6e0ff;
     font-size: 1.1em;
 }
-
-.filter-results-close {
-    background: #8b0000;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 1em;
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-results-close:hover {
-    background: #b22222;
-    transform: scale(1.05);
-}
-
 /* ==================== КНОПКИ ПРОЛИСТЫВАНИЯ ЛЕНТ ==================== */
 .scroll-controls {
     position: absolute;
@@ -2290,3 +2269,4 @@ footer p {
                     text-align: center;
                     padding: 40px;
                 }
+
