@@ -1003,12 +1003,7 @@ footer p {
     background: linear-gradient(#9370db, #7b68ee);
 }
 
-/* ==================== ДОСТУПНОСТЬ ==================== */
-*:focus {
-    outline: 3px solid #9370db;
-    outline-offset: 3px;
-}
-
+/* ==================== МОДАЛЬНОЕ ОКНО РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ ==================== */
 .filter-results-modal {
     position: fixed;
     top: 0;
