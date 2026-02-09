@@ -31,11 +31,13 @@
             </ul>
         </nav>
     </header>
+
 <!-- Описание сайта -->
 <section class="description">
 <h1>Моё Время</h1>
 <p>Платформа для поиска мероприятий, ресторанов и кафе в городе Кирове.</p>
 </section>
+
 <!-- Блок фильтров -->
 <div class="filter-menu">
 <div class="filter-buttons">
@@ -60,6 +62,7 @@
 <label for="event-cost">Стоимость:</label>
 <input type="range" id="event-cost" min="0" max="1000" step="100" value="0">
 <span id="cost-value">0 ₽</span>
+
 <!-- Фильтрация по рейтингу - добавить этот блок -->
 <label for="event-rating">Минимальный рейтинг:</label>
 <select id="event-rating">
@@ -82,6 +85,7 @@
 </select>
 
 <hr />
+
 <!-- Фильтры для ресторанов -->
 <label for="restaurant-cuisine">Тип кухни:</label>
 <select id="restaurant-cuisine">
@@ -96,6 +100,23 @@
 <option value="sred">Средиземноморская</option>
 <option value="izrail">Израильская</option>
 <option value="smesh">Смешанная</option>
+</select>
+
+<!-- Фильтры для активностей -->
+<label for="category">🎭 Выберите категорию:</label>
+<select id="active-category">
+    <option value="all">Все виды</option>
+    <option value="skiing-snowboarding">⛷️Лыжи и 🏂Сноуборд</option>
+    <option value="skating">⛸️Коньки</option>
+    <option value="trampoline">🤸Батуты</option>
+    <option value="swimming-pools">🏊Бассейн</option>
+    <option value="fitness-center">💪Фитнес-залы</option>
+    <option value="amusement-parks">🎡Парки аттракционов</option>
+    <option value="tourist-complexes">🎡Туристические комплексы</option>
+    <option value="sports-complex">🎯Спортивный комплекс</option>
+    <option value="quests">🔍Квесты</option>
+    <option value="shooting">🔫Стрельба</option>
+    <option value="karting">🏎️Картинг</option>
 </select>
 <button type="button" class="apply-filters">Применить фильтры</button>
 </form>
@@ -198,6 +219,40 @@
 <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/Aromaroomsbar 1.webp" class="active"><img src="/Aromaroomsbar 2.jpg"><img src="/Aromaroomsbar 3.jpg"></div><h3>Aroma Rooms Bar</h3><p>Ресторан русской кухни.</p><a href="#aromaroomsbar-details" class="btn-detail">Подробнее →</a></article></div></div>
 <!-- 19 -->
 <div class="russian"><div class="container"><article class="restaurant-item"><div class="image-slider"><img src="/Vasya Lozhkin's 1.webp" class="active"><img src="/Vasya Lozhkin's 2.webp"><img src="/Vasya Lozhkin's 3.webp"></div><h3>Бармузей Васи Ложкина</h3><p>Бармузей русской кухни.</p><a href="#vasia-details" class="btn-detail">Подробнее →</a></article></div></div>
+</div>
+</div>
+</section>
+
+<!-- ИСПРАВЛЕННАЯ СЕКЦИЯ "АКТИВНЫЙ ОТДЫХ" -->
+<section class="active-section">
+<h2>Активный отдых</h2>
+<div class="active-container">
+<div class="scroll-controls">
+</div>
+<div class="active-list">
+<!-- Активный отдых -->
+<!-- 1 -->
+<div class="skiing-snowboarding"><div class="container"><article class="active-item"><div class="image-slider"><img src="/skiing and snowboarding.webp" class="active"></div><h3>Катание на лыжах и сноуборде</h3><a href="#skiing-snowboarding-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 2 -->
+<div class="skating"><div class="container"><article class="active-item"><div class="image-slider"><img src="/skates.webp" class="active"></div><h3>Катание на коньках</h3><a href="#skating-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 3 -->
+<div class="trampoline"><div class="container"><article class="active-item"><div class="image-slider"><img src="/trampoline.jpg" class="active"></div><h3>Батутные центры</h3><a href="#trampoline-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 4 -->
+<div class="swimming-pools"><div class="container"><article class="active-item"><div class="image-slider"><img src="/swimming-pools.jpg" class="active"></div><h3>Басейн</h3><a href="#swimming-pools-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 5 -->
+<div class="fitness-center"><div class="container"><article class="active-item"><div class="image-slider"><img src="/fitness-center.jpg" class="active"></div><h3>Фитнес-залы</h3><a href="#fitness-center-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 6 -->
+<div class="amusement-parks"><div class="container"><article class="active-item"><div class="image-slider"><img src="/amusement-parks.webp" class="active"></div><h3>Парки аттракционов</h3><a href="#amusement-parks-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 7 -->
+<div class="tourist-complexes"><div class="container"><article class="active-item"><div class="image-slider"><img src="/tourist-complexes.jpg" class="active"></div><h3>Туристические комплексы</h3><a href="#tourist-complexes-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 8 -->
+<div class="sports-complex"><div class="container"><article class="active-item"><div class="image-slider"><img src="/sports-complex.png" class="active"></div><h3>Спортивные комплексы</h3><a href="#sports-complex-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 9 -->
+<div class="quests"><div class="container"><article class="active-item"><div class="image-slider"><img src="/quests.jpg" class="active"></div><h3>Квесты</h3><a href="#quests-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 10 -->
+<div class="shooting"><div class="container"><article class="active-item"><div class="image-slider"><img src="/shooting.jpg" class="active"></div><h3>Стрельба и метание</h3><a href="#shooting-details" class="btn-detail">Подробнее →</a></article></div></div>
+<!-- 11 -->
+<div class="karting"><div class="container"><article class="active-item"><div class="image-slider"><img src="/karting.jpg" class="active"></div><h3>Картинг и вождение</h3><a href="#karting-details" class="btn-detail">Подробнее →</a></article></div></div>
 </div>
 </div>
 </section>
@@ -682,7 +737,7 @@ DS Crew подготовили для своих поклонников прем
 Он рос яркой личностью с непреодолимой тягой к знаниям и самообразованию. Путешествия стали неотъемлемой частью жизни повзрослевшего Миван. Он безудержно погружался в атмосферу разных стран, исследовал культуры и обычаи, но при этом никогда не забывал о своих собственных корнях.
 От мамы и бабушки Миван наследовал талант и непреходящую любовь к приготовлению пищи и к традиционным рецептам своего народа. А заложенное культурой воспитание наполняет тщанием, щедростью и заботой встречу любого гостя в его доме.
 Миван готов встретить своих дорогих гостей! Насладить каждого гармоничной смесью традиций Кавказа и впечатлений от путешествий по миру в каждом блюде.
-Добро пожаловать в “Миван”, дом гостеприимства Кавказа. </p>
+Добро пожаловать в "Миван", дом гостеприимства Кавказа. </p>
 <div class="modal-info">
 <p><strong>📍 Адрес:</strong> ул. Ленина, 86 • этаж 1 </p><p><strong>🕒 Часы работы:</strong> 12:00 - 23:00 </p><p><strong>📞 Телефон:</strong> +7 (8332) 21-48-88 </p>
 <p><strong>💵 Средний чек:</strong> 900-3000 руб </p><p><strong>⭐ Рейтинг:</strong> 4.9</p><p><strong>🍽️ Кухня:</strong> Восточная, Кавказская</p>
@@ -1096,6 +1151,1063 @@ DS Crew подготовили для своих поклонников прем
 </div>
 </div>
 
+<!-- 1. ЛЫЖИ И СНОУБОРД -->
+<div id="skiing-snowboarding-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Катание на лыжах и сноуборде</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/skiing and snowboarding.webp" class="active" data-sport-place="kalinka">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>⛷️ Где можно покататься на лыжах и сноуборде:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="kalinka"
+                    data-lat="58.590960" 
+                    data-lon="49.688845" 
+                    data-title="Калинка" 
+                    data-address="Киров, микрорайон Центральный Рынок, бугельный подъёмник"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="Горнолыжный комплекс «Калинка», расположенный в Кирове недалеко от филармонии и парка им. Гагарина на спуске к реке Хлыновке, — удобная возможность для кировчан и их гостей, не покидая пределов города, покататься на лыжах, сноубордах или ватрушках.
+                                        Кроме того, Центр зимнего отдыха «Калинка» — удачное место, чтобы освоить популярные зимние виды спорта как детям, так и взрослым. Недлинные трассы имеют разный уровень сложности, а обучающие занятия возможны как в группах, так и в индивидуальном порядке.
+                                        Ценители спортивных зрелищ могут посетить соревнования и фестивали, посвященные зимним видам спорта, а руководителям организаций стоит присмотреться к проведению здесь веселого спортивного корпоратива."
+                    data-images='["/Kalinka1.webp", "/Kalinka2.webp", "/Kalinka3.webp"]'
+                    data-time="10:00-21:00">
+                    ⛷️<strong>Горнолыжный комплекс "Калинка"</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="poroshino"
+                    data-lat="58.607060" 
+                    data-lon="49.809588" 
+                    data-title="Порошино" 
+                    data-address="Боровицкая ул., 36"
+                    data-price="1200-2500 руб"
+                    data-rating="4.5"
+                    data-description="Добро пожаловать в спортивно-туристический комплекс Порошино.
+                                    Располагается в живописном месте в 20 минутах езды от центра Кирова. Лес, чистая вода, свежий воздух, развитая инфраструктура.
+                                    Наши направления:
+                                    - тропы здоровья на 1, 3 и 5 км
+                                    - прокат спортивного инвентаря и фэтбайков (лыжи, ватрушки, велосипеды, сигвеи, детские велокресла, беговелы, веломобили, катание на банане)
+                                    - конный клуб: прогулки, занятия верхом, исторические реконструкции
+                                    - крепость Хлыновская застава
+                                    - кафе Трапезная
+                                    - банька Дубровский
+                                    - глэмпинг-парк Дубровский
+                                    - красивейшие шатры для мероприятий ( вместимостью от 10 до 250 человек)
+                                    - беседки с мангалами в лесном массиве (вместимостью до 25 человек)
+                                    - веревочный парк Тайпарк Порошино (4 трассы для взрослых и детей)
+                                    - организация праздников, концертов и игровых программ
+                                    Приехав в Порошино - можно отдохнуть на 100%.
+                                    СТК Порошино - это ПРОСТРАНСТВО, наполненное СЧАСТЬЕМ!"
+                    data-images='["/poroshino1.jpg", "/poroshino2.webp", "/poroshino3.jpg"]'
+                    data-time="09:00-19:00">
+                    ⛷️<strong>Спортивная база "Порошино"</strong> - 1200-2500 руб. ⭐4.5
+                </li>
+                <!-- 3 -->
+                <li class="place-item" 
+                    data-place-id="lift"
+                    data-lat="57.834058" 
+                    data-lon="50.086588" 
+                    data-title="Подъем" 
+                    data-address="Набережная ул., 27, п.г.т. Суна"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Спортивный центр Подъём | Горнолыжка Суна.
+                                        Подготовленные склоны, аренда лыж и сноубордов, прокат ватрушек с подъёмником ☎ +7 (912) 717-22-92 Работаем с 9 до 20
+                                        Спортивный центр Подъем в Суне - один из самых популярных горнолыжных центров в Кировской области.
+                                        Работаем с 9 до 20 часов каждый день!
+                                        ❄ ТРИ разнообразные склона для лыжников и сноубордистов
+                                        ❄ учебная трасса со своим подъёмником
+                                        ❄ отдельный склон с ватрушками
+                                        ❄ прокат снаряжения
+                                        ❄ в выходные работает инструктор
+                                        ❄ красивая природа
+                                        ❄ буфет
+                                        ❄ гостиница и зона отдыха"
+                    data-images='["/lift1.webp", "/lift2.jpg", "/lift3.jpg"]'
+                    data-time="09:00-20:00">
+                    ⛷️<strong>Спортивный центр "Подъём"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 4 -->
+                <li class="place-item" 
+                    data-place-id="northern"
+                    data-lat="58.644328" 
+                    data-lon="49.625236" 
+                    data-title="Северный" 
+                    data-address="ул. Северная Набережная, 15А"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="СЕВЕРНЫЙ спортивный комплекс
+                                    Северная набережная 15а, слева от трамплина
+                                    - Горнолыжные трассы
+                                    - Школа сноуборда и горнолыжного спорта
+                                    - Буфет
+                                    - Экстрим парк"
+                    data-images='["/northern1.webp", "/northern2.webp", "/northern3.webp"]'
+                    data-time="09:00-21:00">
+                    ⛷️<strong>Спортивный центр "Северный"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 5 -->
+                <li class="place-item" 
+                    data-place-id="Petropavlovsk"
+                    data-lat="57.601566" 
+                    data-lon="49.103253" 
+                    data-title="Петропавловск" 
+                    data-address="Кировская область, Советский район, Греховское сельское поселение"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Петропавловск | Горнолыжный комплекс | Советск.
+                                    Работает каждые выходные и праздники.
+                                    ❄️ Горнолыжный комплекс Загородного клуба Петропавловск.
+                                    ⛷ горные лыжи
+                                    🏂 сноуборд
+                                    🍩 тюбинг
+                                    ✅ прокат снаряжения
+                                    ✅ бугельный подъёмник
+                                    ✅ тёплая зона для отдыха
+                                    ✅ открытая терраса
+                                    ✅ тёплый туалет
+                                    ✅ буфет"
+                    data-images='["/Petropavlovsk1.webp", "/Petropavlovsk2.webp", "/Petropavlovsk3.webp"]'
+                    data-time="10:00-17:00">
+                    ⛷️<strong>Горнолыжный комплекс "Петропавловск"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 6 -->
+                <li class="place-item" 
+                    data-place-id="The White Mountain"
+                    data-lat="57.662236" 
+                    data-lon="59.690778" 
+                    data-title="Гора Белая" 
+                    data-address="Свердловская область, муниципальный округ Нижний Тагил, посёлок Уралец, горнолыжный комплекс Гора Белая"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="ЗИМА В ГОРАХ!
+                                    💥 Подъёмники
+                                    Кресельный подъемник
+                                    Бугельные подъемники
+                                    💥 Сервисный центр 8 (3435) 41-20-89
+                                    Беседки для пикника
+                                    Касса
+                                    Конференц-зал
+                                    Прокат оборудования
+                                    Каток
+                                    Трасса для беговых лыж
+                                    💥 Физкультурно-оздоровительный комплекс 8 (3435) 41-40-31
+                                    Бассейн (дети от 3-х лет)
+                                    Тренажёрный зал
+                                    Игровой зал
+                                    Кедровая бочка
+                                    Прессотерапия
+                                    Аппаратный массаж ног
+                                    Кислородный коктейль
+                                    Настольный теннис
+                                    Инфракрасная сауна
+                                    💥 Проживание 8 (3435) 48-56-19
+                                    Гостиница (30 номеров)
+                                    Гостевые домики (4-6 чел)
+                                    Шале Монблан (до 14 чел)
+                                    Финская сауна"
+                    data-images='["/The White Mountain1.jpg", "/The White Mountain2.jpg", "/The White Mountain3.jpg"]'
+                    data-time="10:00-17:00">
+                    ⛷️<strong>Горнолыжный курорт "Гора Белая"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>⛷️ О комплексе:</h3>
+            <p id="current-place-description">Современный горнолыжный комплекс с 4 трассами разной сложности. Есть прокат оборудования и инструкторы.</p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Калинка</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">ул. Лыжная, 10</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">10:00-22:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-skiing" class="yandex-map"></div>
+    </div>
+</div>
+
+    <!-- 2. КАТАНИЕ НА КОНЬКАХ -->
+<div id="skating-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Катание на коньках</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/skates.webp" class="active" data-sport-place="union">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🎿 Где можно покататься на коньках:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="union"
+                    data-lat="58.617381" 
+                    data-lon="49.660406" 
+                    data-title="Союз" 
+                    data-address="Владимирская ул., 11"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="Каток «Союз» в Кирове — единственная в городе крытая спортивная арена с искусственным льдом. Площадь ледовой арены — 1800 кв. м. 
+                                        Каток служит тренировочной площадкой для занятий по хоккею и фигурному катанию на коньках. На нём проводятся соревнования различных рангов: первенство России по хоккею с шайбой среди детских и юношеских команд, чемпионат России по мини-хоккею с мячом и другие.
+                                        Некоторые услуги катка:
+                                        массовые и корпоративные катания; 
+                                        прокат спортивного инвентаря; 
+                                        заточка коньков. 
+                                        В зале есть зрительские трибуны и балконы общей вместимостью 1000 человек. Также здесь расположен уютный безалкогольный бар, где можно выпить горячий чай или кофе."
+                    data-images='["/union1.webp", "/union2.webp", "/union3.webp"]'
+                    data-time="07:00-00:30">
+                    🎿<strong>Каток «Союз»</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="The haze"
+                    data-lat="58.597849" 
+                    data-lon="49.578824" 
+                    data-title="Дымка" 
+                    data-address="ул. Воровского, 175"
+                    data-price="1200-2500 руб"
+                    data-rating="4.5"
+                    data-description="Детско-юношеская спортивная школа по проведению учебно-тренировочных занятий по фигурному катанию и хоккею с предоставлением круглогодичных услуг населению по катанию на коньках. Крытый тренировочный каток расположен в юго-западном районе города, где проживает большое количество людей, дети которых занимаются в секциях фигурного катания и хоккея."
+                    data-images='["/The haze1.webp", "/The haze2.webp", "/The haze3.webp"]'
+                    data-time="09:00-19:00">
+                    🎿<strong>Каток «Дымка»</strong> - 1200-2500 руб. ⭐4.5
+                </li>
+                <!-- 3 -->
+                <li class="place-item" 
+                    data-place-id="rodina"
+                    data-lat="58.621992" 
+                    data-lon="49.648318" 
+                    data-title="Родина" 
+                    data-address="Октябрьский пр., 67"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Спорткомплекс Родина (рейтинг организации на Zoon - 3.9) поможет вам всегда оставаться бодрым и полным сил. Для вас специалисты центра подобрали различные программы тренировок и комплексные процедуры для поддержания бодрости и хорошего настроения."
+                    data-images='["/rodina3.webp", "/rodina1.jpg", "/rodina2.jpg"]'
+                    data-time="06:00-23:00">
+                    🎿<strong>Каток "Родина"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 4 -->
+                <li class="place-item" 
+                    data-place-id="Machine Builder skating rink"
+                    data-lat="58.612755" 
+                    data-lon="49.654997" 
+                    data-title="Машиностроитель" 
+                    data-address="Киров, микрорайон Завода 1 Мая"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Группа СЕЛЬМАШ в очередной раз открывает двери на БЕСПЛАТНЫЙ каток при стадионе Машиностроитель.
+                                        Работаем ЕЖЕДНЕВНО с 10:00 утра до 22:00 вечера.
+                                        Хотим обратить внимание посетителей без коньков, которые занимаются физкультурой. На время заливки и очистки льда, стадион будет закрыт в мерах безопасности.
+                                        Прокат коньков работает:
+                                        в будни с 17 до 22;
+                                        в выходные и праздничные дни с 11 до 22."
+                    data-images='["/Machine Builder skating rink1.webp", "/Machine Builder skating rink2.webp", "/Machine Builder skating rink3.webp"]'
+                    data-time="10:00-22:00">
+                    🎿<strong>Каток "Машиностроитель"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 5 -->
+                <li class="place-item" 
+                    data-place-id="Machine Builder skating rink"
+                    data-lat="58.612755" 
+                    data-lon="49.654997" 
+                    data-title="Каток у Филармони" 
+                    data-address="Киров, парк имени Гагарина"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Бесплатный каток в парке Гагарина г. Киров
+                                        Прокат коньков от 26 до 45 размера. Залог 1000 р.
+                                        Заточка коньков (прием коньков в рабочее время пункта проката, возвращаем на следующий день)
+                                        Зимние аттракционы
+                                        Буфет
+                                        Работаем с декабря по март (включительно), режим работы может зависеть  от погодных условий."
+                    data-images='["/at the Philharmonic1.webp", "/at the Philharmonic2.webp", "/at the Philharmonic3.webp"]'
+                    data-time="01:00-00:00">
+                    🎿<strong>Каток у Филармони</strong> - 800-1500 руб. ⭐4.2
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🎿 О катке:</h3>
+            <p id="current-place-description">Каток «Союз» в Кирове — единственная в городе крытая спортивная арена с искусственным льдом. Площадь ледовой арены — 1800 кв. м. 
+                                        Каток служит тренировочной площадкой для занятий по хоккею и фигурному катанию на коньках. На нём проводятся соревнования различных рангов: первенство России по хоккею с шайбой среди детских и юношеских команд, чемпионат России по мини-хоккею с мячом и другие.
+                                        Некоторые услуги катка:
+                                        массовые и корпоративные катания; 
+                                        прокат спортивного инвентаря; 
+                                        заточка коньков. 
+                                        В зале есть зрительские трибуны и балконы общей вместимостью 1000 человек. Также здесь расположен уютный безалкогольный бар, где можно выпить горячий чай или кофе.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Союз</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Владимирская ул., 11</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">07:00-00:30</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-skating" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 3. БАТУТНЫЕ ЦЕНТРЫ -->
+<div id="trampoline-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Батутные центры</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/trampoline.jpg" class="active" data-sport-place="Level up">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🤸 Где можно попрыгать:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Level up"
+                    data-lat="58.588422" 
+                    data-lon="49.638467"  
+                    data-title="Level up" 
+                    data-address="улица Сурикова, 14А, Киров"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="Хотите энергии и активного движения? Добро пожаловать в наш центр!
+                                        ✅ Здесь дети и взрослые учатся владеть своим телом, развивают силу, гибкость и уверенность! У нас не просто тренировки – у нас настоящая территория движения!
+                                        Что у нас есть?
+                                        ✔ Групповые занятия:
+                                        • Паркур (7+) – научим ловкости и смелости
+                                        • Акробатика (6+) – стойки, перевороты, элементы с нуля
+                                        • ОФП (3–5 лет) – заряд энергии для самых маленьких
+                                        • Батутный фристайл (7+) – прыжки, трюки и сальто
+                                        ✔ Индивидуальные тренировки – максимум внимания Вам и Вашим целям!
+                                        ✔ Свободное посещение – батуты и зона тренировок!
+                                        ✔ Аренда зала – день рождения, класс, лагерь!
+                                        ✔ Спортивные сборы на каникулах и летом – драйвовая альтернатива гаджетам!
+                                        Оборудование:
+                                        • Профессиональные батуты (2 больших + 2 средних + детский)
+                                        • Поролоновый бассейн\мягкая зона для приземления с батута и турника
+                                        • Канат 4 метра, трапеции для паркура, турники, страховочные маты
+                                        • Баланс-борды, шведские стенки
+                                        📲 Записывайтесь уже сегодня!
+                                        Ваш путь к трюкам и адреналину начинается здесь!
+                                        Обязательна предварительная запись через сообщения в группе или по тел. 45-17-85"
+                    data-images='["/Level up1.webp", "/Level up2.jpg", "/Level up3.webp"]'
+                    data-time="10:00-21:00">
+                    🤸<strong>Центр физического развития "LvL Up"</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Charge activity"
+                    data-lat="58.598480" 
+                    data-lon="49.646986" 
+                    data-title="Zаряд activity" 
+                    data-address="ул. Воровского, 175"
+                    data-price="1200-2500 руб"
+                    data-rating="4.5"
+                    data-description="🌟 Приветствуем вас в ZАРЯД Activity — месте, где каждый день становится праздником активности!
+                                        🏃‍♂ Здесь царит атмосфера веселья и драйва! Прыгайте, бегайте, соревнуйтесь и наслаждайтесь свободой движений вместе с нами! 🚀
+                                        ✨ Для вас мы подготовили:
+                                        - Просторные зоны для прыжков на батутах разных форматов
+                                        - Интерактивные игровые площадки
+                                        - Удобная зона отдыха и кафе для восстановления сил между активностью
+                                        👫 Приходите всей семьей, собирайте друзей и погружайтесь в мир невероятных эмоций! Мы ждем вас ежедневно с утра до позднего вечера!"
+                    data-images='["/Charge activity1.webp", "/Charge activity2.webp", "/Charge activity3.webp"]'
+                    data-time="09:00-19:00">
+                    🤸<strong>Батутный центр "Zаряд activity"</strong> - 1200-2500 руб. ⭐4.5
+                </li>
+                <!-- 3 -->
+                <li class="place-item" 
+                    data-place-id="Time of the First"
+                    data-lat="58.592141" 
+                    data-lon="49.689278" 
+                    data-title="Время Первых" 
+                    data-address="ул. Урицкого, 42/2"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Развлекательный центр «Время Первых» — это место, где дети и взрослые могут весело провести время, прыгая на батутах и играя в поролоновой яме."
+                    data-images='["/Time of the First1.jpg", "/Time of the First2.jpg", "/Time of the First3.jpg"]'
+                    data-time="10:00-20:00">
+                    🤸<strong>Батутный центр "Время Первых"</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 4 -->
+                <li class="place-item" 
+                    data-place-id="Recharging"
+                    data-lat="58.570219" 
+                    data-lon="49.681257" 
+                    data-title="Подzарядка" 
+                    data-address="ул. Ленина, 205"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Развлекательный центр «Подzарядка» — это место, где дети могут весело провести время, играя в лабиринте с горками, прыгая на батутах, катаясь на ватрушках и играя в мягких кубиках в бассейне."
+                    data-images='["/Recharging1.webp", "/Recharging2.webp", "/Recharging3.webp"]'
+                    data-time="10:00-21:00">
+                    🤸<strong>Развлекательный центр «Подzарядка»</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 5 -->
+                <li class="place-item" 
+                    data-place-id="Mario"
+                    data-lat="58.616209" 
+                    data-lon="49.678910" 
+                    data-title="Марио" 
+                    data-address="ул. Ленина, 1Г"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="Батутный центр «Марио» — это место, где взрослые и дети могут весело провести время, прыгая на батутах."
+                    data-images='["/Mario1.jpg", "/Mario2.jpg", "/Mario3.jpg"]'
+                    data-time="10:00-22:00">
+                    🤸<strong>Батутный центр «Марио»</strong> - 800-1500 руб. ⭐4.2
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🤸 О батутном центре:</h3>
+            <p id="current-place-description">Хотите энергии и активного движения? Добро пожаловать в наш центр!
+                                        ✅ Здесь дети и взрослые учатся владеть своим телом, развивают силу, гибкость и уверенность! У нас не просто тренировки – у нас настоящая территория движения!
+                                        Что у нас есть?
+                                        ✔ Групповые занятия:
+                                        • Паркур (7+) – научим ловкости и смелости
+                                        • Акробатика (6+) – стойки, перевороты, элементы с нуля
+                                        • ОФП (3–5 лет) – заряд энергии для самых маленьких
+                                        • Батутный фристайл (7+) – прыжки, трюки и сальто
+                                        ✔ Индивидуальные тренировки – максимум внимания Вам и Вашим целям!
+                                        ✔ Свободное посещение – батуты и зона тренировок!
+                                        ✔ Аренда зала – день рождения, класс, лагерь!
+                                        ✔ Спортивные сборы на каникулах и летом – драйвовая альтернатива гаджетам!
+                                        Оборудование:
+                                        • Профессиональные батуты (2 больших + 2 средних + детский)
+                                        • Поролоновый бассейн\мягкая зона для приземления с батута и турника
+                                        • Канат 4 метра, трапеции для паркура, турники, страховочные маты
+                                        • Баланс-борды, шведские стенки
+                                        📲 Записывайтесь уже сегодня!
+                                        Ваш путь к трюкам и адреналину начинается здесь!
+                                        Обязательна предварительная запись через сообщения в группе или по тел. 45-17-85
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Level up</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">улица Сурикова, 14А,</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">10:00-21:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-trampoline" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 4. СПОРТИВНЫЕ КОМПЛЕКСЫ -->
+<div id="sports-complex-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Спортивные комплексы</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/sports-complex.png" class="active" data-sport-place="Heathers">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🎯 Где можно позаниматься спортом:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Heathers"
+                    data-lat="58.587504" 
+                    data-lon="49.695366"  
+                    data-title="Вересники" 
+                    data-address="Средний пер., 15, микрорайон Вересники"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="Спортивный комплекс «Вересники» — это современный спортивный центр, где можно заниматься различными видами спорта, такими как плавание, легкая атлетика, триатлон и пятиборье."
+                    data-images='["/Heathers1.webp", "/Heathers2.webp", "/Heathers3.webp"]'
+                    data-time="07:00-21:00">
+                    🎯<strong>Спортивный комплекс «Вересники»</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Southern"
+                    data-lat="58.570712" 
+                    data-lon="49.673510" 
+                    data-title="Южный" 
+                    data-address="Агрономическая ул., 7, Ленинский район"
+                    data-price="1200-2500 руб"
+                    data-rating="4.5"
+                    data-description="Спортивный комплекс «Южный» — это многофункциональный спортивный центр, где можно заниматься различными видами спорта, такими как большой и настольный теннис, футбол, бокс, тренажёрный зал и массаж."
+                    data-images='["/Southern1.webp", "/Southern2.webp", "/Southern3.webp"]'
+                    data-time="08:00-22:30">
+                    🎯<strong>Спортивный комплекс «Южный»</strong> - 1200-2500 руб. ⭐4.5
+                </li>
+                <!-- 3 -->
+                <li class="place-item" 
+                    data-place-id="Palace of Martial Arts"
+                    data-lat="58.611700" 
+                    data-lon="49.609789" 
+                    data-title="Дворец единоборств" 
+                    data-address="ул. Мира, 46"
+                    data-price="800-1500 руб"
+                    data-rating="5.0"
+                    data-description="«Дворец единоборств» — это современный спортивный комплекс, который предназначен для проведения соревнований по различным видам единоборств, а также для тренировок спортсменов."
+                    data-images='["/Palace of Martial Arts1.webp", "/Palace of Martial Arts2.webp", "/Palace of Martial Arts3.webp"]'
+                    data-time="08:00-21:00">
+                    🎯<strong>Дворец единоборств</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 4 -->
+                <li class="place-item" 
+                    data-place-id="Sports school"
+                    data-lat="58.591009" 
+                    data-lon="49.605430" 
+                    data-title="Спортивная школа № 1 города Кирова" 
+                    data-address="Солнечная ул., 25В"
+                    data-price="800-1500 руб"
+                    data-rating="4.8"
+                    data-description="Муниципальное бюджетное учреждение дополнительного образования Спортивная школа №1 города Кирова (МБУ ДО СШ №1)"
+                    data-images='["/Sports school1.webp", "/Sports school2.webp", "/Sports school3.webp"]'
+                    data-time="08:00-20:00">
+                    🎯<strong>Спортивная школа № 1</strong> - 800-1500 руб. ⭐4.2
+                </li>
+                <!-- 5 -->
+                <li class="place-item" 
+                    data-place-id="Torch"
+                    data-lat="58.634806" 
+                    data-lon="49.613078" 
+                    data-title="Факел" 
+                    data-address="ул. Ленина, 1Г"
+                    data-price="800-1500 руб"
+                    data-rating="4.2"
+                    data-description="КОГАУ ДО ВятСШОР Кировское областное государственное автономное учреждение дополнительного образования «Вятская спортивная школа олимпийского резерва»"
+                    data-images='["/Torch1.webp", "/Torch2.webp", "/Torch3.webp"]'
+                    data-time="10:00-22:00">
+                    🎯<strong>Вятская спортивная школа олимпийского резерва</strong> - 800-1500 руб. ⭐4.2
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🎯 О спортивном комплексе:</h3>
+            <p id="current-place-description">Спортивный комплекс «Вересники» — это современный спортивный центр, где можно заниматься различными видами спорта, такими как плавание, легкая атлетика, триатлон и пятиборье.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Вересники</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Средний пер., 15, микрорайон Вересники</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">07:00-21:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-sports-complex" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 5. БАСЕЙНЫ -->
+<div id="swimming-pools-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Басейны</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/swimming-pools.jpg" class="active" data-sport-place="Sea Park">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🏊 Где можно поплавать:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Sea Park"
+                    data-lat="58.582653" 
+                    data-lon="49.631654"  
+                    data-title="Море парк" 
+                    data-address="ул. Некрасова, 49"
+                    data-price="1500-3000 руб"
+                    data-rating="5.0"
+                    data-description="Наш комплекс представляет собой европейский формат оздоровительных услуг, который включает в себя бассейны, сауны и бани, услуги массажиста и косметолога, а так же залы для занятия спортом и кафе и направлен на отдых и развлечение для всей семьи, как для детей, так и для взрослых"
+                    data-images='["/Sea Park1.jpg", "/Sea Park2.jpg", "/Sea Park3.jpg"]'
+                    data-time="06:00-22:00">
+                    🏊<strong>Оздоровительный центр "Море парк"</strong> - 1500-3000 руб. ⭐5.0
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Bystrica"
+                    data-lat="58.592090" 
+                    data-lon="49.601873" 
+                    data-title="Быстрица" 
+                    data-address="ул. Маршала И.С. Конева, 10"
+                    data-price="1200-2500 руб"
+                    data-rating="5.0"
+                    data-description="КОГАУ ДО «Спортивная школа олимпийского резерва «Быстрица»"
+                    data-images='["/Bystrica1.webp", "/Bystrica2.webp", "/Bystrica3.webp"]'
+                    data-time="07:00-21:00">
+                    🏊<strong>Спортивная школа олимпийского резерва «Быстрица»</strong> - 1200-2500 руб. ⭐5.0
+                </li>
+                <!-- 3 -->
+                <li class="place-item" 
+                    data-place-id="Fitness family time"
+                    data-lat="58.590437"
+                    data-lon="49.603372" 
+                    data-title="Fitness family time" 
+                    data-address="ул. Мира, 46"
+                    data-price="800-1500 руб"
+                    data-rating="5.0"
+                    data-description="«Фитнес-клуб Fitness family time предлагает своим посетителям широкий спектр услуг, включая тренажерный зал, бассейн, сауну и хаммам, а также групповые тренировки и занятия для детей."
+                    data-images='["/Fitness family time1.webp", "/Fitness family time2.webp", "/Fitness family time3.webp"]'
+                    data-time="07:00-22:00">
+                    🏊<strong>Фитнес-клуб Fitness family time</strong> - 800-1500 руб. ⭐5.0
+                </li>
+                <!-- 4 -->
+                <li class="place-item" 
+                    data-place-id="Marmara SPA & Hamam"
+                    data-lat="58.599501" 
+                    data-lon="49.644953" 
+                    data-title="Marmara SPA & Hamam" 
+                    data-address="ул. Герцена, 88/2этаж 1"
+                    data-price="800-1500 руб"
+                    data-rating="4.7"
+                    data-description="Оздоровительный и семейный SPA-центр приглашает Вас насладиться SPA-процедурами и получить заряд бодрости"
+                    data-images='["/Marmara1.webp", "/Marmara2.webp", "/Marmara3.webp"]'
+                    data-time="08:00-23:00">
+                    🏊<strong>SPA-центр Marmara SPA & Hamam</strong> - 800-1500 руб. ⭐4.7
+                </li>
+                <!-- 5 -->
+                <li class="place-item" 
+                    data-place-id="Little fin"
+                    data-lat="58.590562" 
+                    data-lon="49.641653" 
+                    data-title="Плавничок" 
+                    data-address="Красноармейская ул., 82"
+                    data-price="800-1500 руб"
+                    data-rating="4.9"
+                    data-description="Бассейн «Плавничок» — это место, где дети могут заниматься плаванием под руководством опытных тренеров."
+                    data-images='["/Little fin1.webp", "/Little fin2.webp", "/Little fin3.webp"]'
+                    data-time="10:00-22:00">
+                    🏊<strong>Бассейн «Плавничок»</strong> - 800-1500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🏊 О басейне:</h3>
+            <p id="current-place-description">Наш комплекс представляет собой европейский формат оздоровительных услуг, который включает в себя бассейны, сауны и бани, услуги массажиста и косметолога, а так же залы для занятия спортом и кафе и направлен на отдых и развлечение для всей семьи, как для детей, так и для взрослых
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Sea Park</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">ул. Некрасова, 49</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">06:00-22:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">5.0</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-swimming-pools" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 6. ФИТНЕС-ЗАЛЫ -->
+<div id="fitness-center-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Фитнес залы</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/fitness-center.jpg" class="active" data-sport-place="Modo Gym">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>💪 Где можно подкачаться:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Modo Gym"
+                    data-lat="58.596642" 
+                    data-lon="49.605645"  
+                    data-title="Modo Gym" 
+                    data-address="ул. Воровского, 102А"
+                    data-price="1500-3000 руб"
+                    data-rating="4.9"
+                    data-description="Фитнес-клуб Modo Gym предлагает своим клиентам широкий выбор тренажёров и групповых тренировок, а также хаммам и солярий."
+                    data-images='["/Modo Gym1.webp", "/Modo Gym2.webp", "/Modo Gym3.webp"]'
+                    data-time="06:00-22:00">
+                    💪<strong>Оздоровительный центр "Море парк"</strong> - 1500-3000 руб. ⭐4.9
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Gym Station"
+                    data-lat="58.596748" 
+                    data-lon="49.591065" 
+                    data-title="Gym Station" 
+                    data-address="ул. Воровского, 114"
+                    data-price="1200-2500 руб"
+                    data-rating="4.9"
+                    data-description="Мы — GYM STATION, сеть ультрасовременных фитнес-клубов, заряженных энергией для твоих побед!
+                                        Клубы сети:
+                                        • GS Чистые Пруды, Попова, 56, 1-2 этаж
+                                        • GS Атлант, Воровского, 114, 3-4 этаж
+                                        • GS Алые Паруса, Октябрьский пр-т, 117, 2 этаж
+                                        • GS РУМ, ул. Морозовская, 30, 5 этаж
+                                        • GS Солнечный берег, Ленина, 198/4
+                                        • GS Европейский, Воровского, 43,
+                                        4 этаж
+                                        • GS Лепсе, Октябрьский проспект, 24а, 2 этаж
+                                        • GS ТРЦ «GREEN HAUS», Ленина, 205/1 (нижняя парковка)
+                                        • GS Кирово-Чепецк ТЦ «РУСЬ», ул. Мира, д.43А
+                                        Многие по праву называют GYM STATION №1 в Кирове. Почему?
+                                        ⚡Ультрасовременные пространства. Мы первыми привозим в Киров все фитнес-новинки, чтобы ты мог пробовать лучшее из индустрии прямо на своих тренировках.
+                                        ⚡Топовое оборудование. Максимум безопасности и эффективности для прогресса.
+                                        ⚡Сильная команда тренеров. Пожалуй, лучшие специалисты города помогут достигнуть целей.
+                                        ⚡Атмосфера, которая заряжает. После каждой тренировки уходишь не только с результатом, но и с новым уровнем энергии."
+                    data-images='["/Gym Station1.webp", "/Gym Station2.webp", "/Gym Station3.webp"]'
+                    data-time="06:30-22:30">
+                    💪<strong>Спортивная школа олимпийского резерва «Быстрица»</strong> - 1200-2500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>💪 О фитнес-центре:</h3>
+            <p id="current-place-description">Фитнес-клуб Modo Gym предлагает своим клиентам широкий выбор тренажёров и групповых тренировок, а также хаммам и солярий.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Modo Gym</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">ул. Воровского, 102А</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">06:00-22:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.9</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-fitness-center" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 7. ПАРКИ АТРАКЦИОНОВ -->
+<div id="amusement-parks-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Парки атракционов</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/amusement-parks.webp" class="active" data-sport-place="Fairytale Glade">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🎡 Где можно посетить атракционы:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Fairytale Glade"
+                    data-lat="58.606955"
+                    data-lon="49.686195"  
+                    data-title="Поляна сказок" 
+                    data-address="Киров, Александровский сад"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="«Поляна сказок» — это парк аттракционов, расположенный в Александровском парке города Кирова."
+                    data-images='["/Fairytale Glade1.webp", "/Fairytale Glade2.webp", "/Fairytale Glade3.webp"]'
+                    data-time="10:00-19:00">
+                    🎡<strong>Оздоровительный центр "Море парк"</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Yurkin Park"
+                    data-lat="58.612854" 
+                    data-lon="49.781534" 
+                    data-title="Юркин Парк" 
+                    data-address="ул. Воровского, 114"
+                    data-price="1200-2500 руб"
+                    data-rating="4.9"
+                    data-description="«Юркин Парк» — это парк аттракционов, расположенный в селе Талица Кировской области. Он привлекает посетителей своей коллекцией динозавров, которая является самой большой в России."
+                    data-images='["/Yurkin Park1.jpg", "/Yurkin Park2.jpg", "/Yurkin Park3.jpg"]'
+                    data-time="10:00-18:00">
+                    🎡<strong>Юркин Парк</strong> - 1200-2500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🎡 О парке:</h3>
+            <p id="current-place-description">«Поляна сказок» — это парк аттракционов, расположенный в Александровском парке города Кирова.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Поляна сказок</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Киров, Александровский сад</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">10:00-19:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-amusement-parks" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 8. ТУРИСТИЧЕСКИЕ КОМПЛЕКСЫ -->
+<div id="tourist-complexes-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Туристические комплексы</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/tourist-complexes.jpg" class="active" data-sport-place="Fairytale Glade">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🏕️ Где можно посетить туристические комплексы:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Fairytale Glade"
+                    data-lat="58.606955"
+                    data-lon="49.686195"  
+                    data-title="Поляна сказок" 
+                    data-address="Киров, Александровский сад"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="«Поляна сказок» — это парк аттракционов, расположенный в Александровском парке города Кирова."
+                    data-images='["/Fairytale Glade1.webp", "/Fairytale Glade2.webp", "/Fairytale Glade3.webp"]'
+                    data-time="10:00-19:00">
+                    🏕️<strong>Поляна сказок</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Yurkin Park"
+                    data-lat="58.612854" 
+                    data-lon="49.781534" 
+                    data-title="Юркин Парк" 
+                    data-address="ул. Воровского, 114"
+                    data-price="1200-2500 руб"
+                    data-rating="4.9"
+                    data-description="«Юркин Парк» — это парк аттракционов, расположенный в селе Талица Кировской области. Он привлекает посетителей своей коллекцией динозавров, которая является самой большой в России."
+                    data-images='["/Yurkin Park1.jpg", "/Yurkin Park2.jpg", "/Yurkin Park3.jpg"]'
+                    data-time="10:00-18:00">
+                    🏕️<strong>Юркин Парк</strong> - 1200-2500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🏕️ О туристическом комплексе:</h3>
+            <p id="current-place-description">«Поляна сказок» — это парк аттракционов, расположенный в Александровском парке города Кирова.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Поляна сказок</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Киров, Александровский сад</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">10:00-19:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-tourist-complexes" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 9. КВЕСТЫ -->
+<div id="quests-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Квесты</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/quests.jpg" class="active" data-sport-place="Multiquest">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🔍 Где можно испугаться:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="Multiquest"
+                    data-lat="58.598217"
+                    data-lon="49.685477"  
+                    data-title="Многоквест" 
+                    data-address="Казанская ул., 64, корп. 1"
+                    data-price="1500-3000 руб"
+                    data-rating="5.0"
+                    data-description="«Многоквест» — это место, где вы можете пройти различные квесты, такие как «Тайна проклятого дома», «Отель мёртвых», «Чёрная вдова» и другие."
+                    data-images='["/Multiquest1.webp", "/Multiquest2.webp", "/Multiquest3.webp"]'
+                    data-time="09:00-22:00">
+                    🔍<strong>«Многоквест»</strong> - 1500-3000 руб. ⭐5.0
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Quests No. 1"
+                    data-lat="58.598908" 
+                    data-lon="49.673346" 
+                    data-title="Квесты № 1" 
+                    data-address="ул. Володарского, 114А, Первомайский районэтаж цокольный"
+                    data-price="1200-2500 руб"
+                    data-rating="4.9"
+                    data-description="«квесты, экшен-игры, с детьми, для новичков, веселые, недорогие, для подростков, для больших компаний, для школьников, для корпоратива, для взрослых, динамичные, ограбление, нестандартные, по фильмам и играм, приключения, гарри поттер"
+                    data-images='["/Quests No. 11.webp", "/Quests No. 12.webp", "/Quests No. 13.webp"]'
+                    data-time="09:00-19:00">
+                    🔍<strong>Квесты № 1</strong> - 1200-2500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🔍 О квесте:</h3>
+            <p id="current-place-description">«Многоквест» — это место, где вы можете пройти различные квесты, такие как «Тайна проклятого дома», «Отель мёртвых», «Чёрная вдова» и другие.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">Многоквест</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Казанская ул., 64, корп. 1</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">09:00-22:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">5.0</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-quests" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 10. СТРЕЛЬБА И МЕТАНИЕ -->
+<div id="shooting-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Стрельба и метание</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/shooting.jpg" class="active" data-sport-place="KNIFE CLUB">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🔫 Где можно пострелять или пометать:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="KNIFE CLUB"
+                    data-lat="58.596413"
+                    data-lon="49.685059"  
+                    data-title="KNIFE CLUB | Киров | Метание ножей | Тир" 
+                    data-address="Казанская ул., 76этаж цокольный"
+                    data-price="1500-3000 руб"
+                    data-rating="4.8"
+                    data-description="Тренировки по метанию ножей и обучение с опытными тренерами. Стрельба из винтовок, автоматов и пистолетов. Стрельба из луков и арбалетов.
+Единственный в Кирове клуб метания ножей KNIFE CLUB."
+                    data-images='["/KNIFE CLUB1.webp", "/KNIFE CLUB2.webp", "/KNIFE CLUB3.jpg"]'
+                    data-time="12:00-21:00">
+                    🔫<strong>KNIFE CLUB | Киров | Метание ножей | Тир</strong> - 1500-3000 руб. ⭐4.8
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Bratislava"
+                    data-lat="58.598823" 
+                    data-lon="49.682045" 
+                    data-title="Братислава" 
+                    data-address="ул. Ленина, 92"
+                    data-price="1200-2500 руб"
+                    data-rating="4.9"
+                    data-description="«Стрелковый клуб «Братислава» — это место, где вы можете попробовать себя в стрельбе из различных видов оружия, включая луки, арбалеты и пневматические винтовки."
+                    data-images='["/Bratislava1.webp", "/Bratislava2.webp", "/Bratislava3.webp"]'
+                    data-time="10:00-18:00">
+                    🔫<strong>Стрелковый клуб «Братислава</strong> - 1200-2500 руб. ⭐4.9
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🔫 О месте стрельбы или метания:</h3>
+            <p id="current-place-description">Тренировки по метанию ножей и обучение с опытными тренерами. Стрельба из винтовок, автоматов и пистолетов. Стрельба из луков и арбалетов.
+                                                Единственный в Кирове клуб метания ножей KNIFE CLUB.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">KNIFE CLUB | Киров | Метание ножей | Тир</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">Казанская ул., 76этаж цокольный</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">12:00-21:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">4.8</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-shooting" class="yandex-map"></div>
+    </div>
+</div>
+
+<!-- 11. КАРТИНГ И ВОЖДЕНИЕ -->
+<div id="karting-details" class="modal-details hidden">
+    <div class="modal-content">
+        <button class="close-modal">×</button>
+        <h2>Картинг и вождение</h2>
+        <!-- Галерея изображений для выбранного места -->
+        <div class="gallery">
+            <img src="/karting.jpg" class="active" data-sport-place="e-kart">
+        </div>
+        <!-- Список мест для занятия -->
+        <div class="sports-places-list">
+            <h3>🏎️ Где можно покататься со скоростью и адреналином:</h3>
+            <ul class="places-list">
+                <!-- 1 -->
+                <li class="place-item active" 
+                    data-place-id="e-kart"
+                    data-lat="58.564530"
+                    data-lon="49.643401"  
+                    data-title="e-kart" 
+                    data-address="ул. Ивана Попова, 64А"
+                    data-price="1500-3000 руб"
+                    data-rating="5.0"
+                    data-description="«Е-Карт» — это спортивно-развлекательный центр, где можно покататься на картах. Трасса длиной 278 метров с 13 поворотами находится в закрытом помещении, поэтому кататься можно в любую погоду."
+                    data-images='["/e-kart1.jpg", "/e-kart2.jpg", "/e-kart3.jpg"]'
+                    data-time="10:00-22:00">
+                    🏎️<strong>Е-Карт</strong> - 1500-3000 руб. ⭐5.0
+                </li>
+                <!-- 2 -->
+                <li class="place-item" 
+                    data-place-id="Speed ​​territory"
+                    data-lat="58.615533" 
+                    data-lon="49.597236" 
+                    data-title="Территория скорости" 
+                    data-address="Киров, территория Чукавино4"
+                    data-price="1200-2500 руб"
+                    data-rating="5.0"
+                    data-description="«Территория скорости» — это картинг-центр, где вы можете прокатиться на бензиновых картах по асфальтированной трассе."
+                    data-images='["/Speed ​​territory1.webp", "/Speed ​​territory2.webp", "/Speed ​​territory3.webp"]'
+                    data-time="10:00-21:00">
+                    🏎️<strong>Территория скорости</strong> - 1200-2500 руб. ⭐5.0
+                </li>
+            </ul>
+        </div>
+        <!-- Описание выбранного места -->
+        <div class="place-description">
+            <h3>🏎️ О картинге:</h3>
+            <p id="current-place-description">«Е-Карт» — это спортивно-развлекательный центр, где можно покататься на картах. Трасса длиной 278 метров с 13 поворотами находится в закрытом помещении, поэтому кататься можно в любую погоду.
+            </p>
+        </div>
+        <!-- Информация -->
+        <div class="modal-info">
+            <p><strong>📍 Место:</strong> <span id="current-place-title">e-kart</span></p>
+            <p><strong>🏠 Адрес:</strong> <span id="current-place-address">ул. Ивана Попова, 64А</span></p>
+            <p><strong>🕒 Время работы:</strong> <span id="current-place-time">10:00-22:00</span></p>
+            <p><strong>💵 Цена:</strong> <span id="current-place-price">1500-3000 руб</span></p>
+            <p><strong>⭐ Рейтинг:</strong> <span id="current-place-rating">5.0</span>/5</p>
+        </div>
+        <!-- Карта -->
+        <div id="map-karting" class="yandex-map"></div>
+    </div>
+</div>
 
 <section class="about">
 <h2>Информация о нас</h2>
@@ -1113,8 +2225,4 @@ DS Crew подготовили для своих поклонников прем
 </footer>
 <script src="/home.js"></script>
 </body>
-
 </html>
-
-
-
