@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const navMenu = document.getElementById('nav-menu');
 
     if (hamburger && navMenu) {
-        // [Код гамбургер-меню остается без изменений]
         hamburger.addEventListener('click', function(e) {
             e.stopPropagation();
             hamburger.classList.toggle('active');
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!match) return null;
         
         const openHour = parseInt(match[1]);
-        const closeHour = parseInt(match[3]);
         
         // Определяем временной интервал на основе времени открытия
         if (openHour >= 6 && openHour < 12) {
@@ -92,7 +90,56 @@ document.addEventListener("DOMContentLoaded", function() {
         return null;
     }
     
-    // 4. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА АКТИВНОГО ОТДЫХА
+    // 4. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ ВРЕМЕНИ ИЗ МОДАЛЬНОГО ОКНА
+    function getPlaceTimeFromModal(modal) {
+        // Пробуем найти время в списке мест
+        const activePlace = modal.querySelector('.place-item.active');
+        if (activePlace) {
+            const timeText = activePlace.getAttribute('data-time');
+            if (timeText) return timeText;
+        }
+        
+        // Ищем время в информации модального окна
+        const timeElem = modal.querySelector('#current-place-time');
+        if (timeElem) {
+            return timeElem.textContent;
+        }
+        
+        return null;
+    }
+    
+    // 5. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ ЦЕНЫ ИЗ МОДАЛЬНОГО ОКНА (ИСПРАВЛЕННАЯ)
+    function getPlacePrice(modal) {
+        // Пробуем найти цену в списке мест
+        const activePlace = modal.querySelector('.place-item.active');
+        if (activePlace) {
+            const priceText = activePlace.getAttribute('data-price');
+            if (priceText) {
+                // Ищем все числа в тексте цены (например, "1500-3000 руб")
+                const matches = priceText.match(/\d+/g);
+                if (matches && matches.length > 0) {
+                    // Берем минимальную цену из диапазона
+                    const prices = matches.map(match => parseInt(match));
+                    return Math.min(...prices);
+                }
+            }
+        }
+        
+        // Ищем цену в информации модального окна
+        const priceElem = modal.querySelector('#current-place-price');
+        if (priceElem) {
+            const priceText = priceElem.textContent;
+            const matches = priceText.match(/\d+/g);
+            if (matches && matches.length > 0) {
+                const prices = matches.map(match => parseInt(match));
+                return Math.min(...prices);
+            }
+        }
+        
+        return null;
+    }
+    
+    // 6. ОБРАБОТКА ОТКРЫТИЯ МОДАЛЬНОГО ОКНА АКТИВНОГО ОТДЫХА
     document.querySelectorAll('.btn-detail').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
@@ -131,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    // 5. ИНИЦИАЛИЗАЦИЯ СПИСКА МЕСТ ДЛЯ АКТИВНОГО ОТДЫХА
+    // 7. ИНИЦИАЛИЗАЦИЯ СПИСКА МЕСТ ДЛЯ АКТИВНОГО ОТДЫХА
     function initPlacesList(placesList) {
         const listItems = placesList.querySelectorAll('.place-item');
         const mapElement = placesList.closest('.modal-content').querySelector('.yandex-map');
@@ -196,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // 6. ФУНКЦИЯ ОБНОВЛЕНИЯ ИНФОРМАЦИИ В МОДАЛЬНОМ ОКНЕ
+    // 8. ФУНКЦИЯ ОБНОВЛЕНИЯ ИНФОРМАЦИИ В МОДАЛЬНОМ ОКНЕ
     function updateModalInfo(modalContent, data) {
         // Обновляем основные поля
         const titleElem = modalContent.querySelector('#current-place-title');
@@ -214,7 +261,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (timeElem) timeElem.textContent = data.time;
     }
     
-    // 7. ОБНОВЛЕНИЕ ГАЛЕРЕИ
+    // 9. ОБНОВЛЕНИЕ ГАЛЕРЕИ
     function updateGallery(images, placeId, galleryElement) {
         if (!galleryElement) return;
         
@@ -233,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function() {
         initGallery(galleryElement);
     }
     
-    // 8. ОБНОВЛЕНИЕ КАРТЫ
+    // 10. ОБНОВЛЕНИЕ КАРТЫ
     function updateMap(mapElement, lat, lon, title, address) {
         if (!mapElement || !lat || !lon) return;
         
@@ -295,46 +342,47 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // 9. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ КАТЕГОРИИ ИЗ ID МОДАЛЬНОГО ОКНА
+    // 11. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ КАТЕГОРИИ ИЗ ID МОДАЛЬНОГО ОКНА
     function getCategoryFromModalId(modalId) {
-    const mapping = {
-        'skiing-details': 'skiing-snowboarding',
-        'skating-details': 'skating',
-        'trampoline-details': 'trampoline',
-        'sports-complex-details': 'sports-complex',
-        'swimming-pools-details': 'swimming-pools',
-        'fitness-center-details': 'fitness-center',
-        'amusement-parks-details': 'amusement-parks',
-        'tourist-complexes-details': 'tourist-complexes',
-        'quests-details': 'quests',
-        'shooting-details': 'shooting',
-        'karting-details': 'karting',
-        'other-activities-details': 'other-activities'
-    };
+        const mapping = {
+            'skiing-details': 'skiing-snowboarding',
+            'skating-details': 'skating',
+            'trampoline-details': 'trampoline',
+            'sports-complex-details': 'sports-complex',
+            'swimming-pools-details': 'swimming-pools',
+            'fitness-center-details': 'fitness-center',
+            'amusement-parks-details': 'amusement-parks',
+            'tourist-complexes-details': 'tourist-complexes',
+            'quests-details': 'quests',
+            'shooting-details': 'shooting',
+            'karting-details': 'karting',
+            'other-activities-details': 'other-activities'
+        };
+        
+        return mapping[modalId] || null;
+    }
     
-    return mapping[modalId] || null;
-}
-    
-    // 10. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ НАЗВАНИЯ АКТИВНОСТИ
+    // 12. ФУНКЦИЯ ДЛЯ ПОЛУЧЕНИЯ НАЗВАНИЯ АКТИВНОСТИ
     function getActivityTitle(modalId) {
         const mapping = {
             'skiing-details': 'Катание на лыжах и сноуборде',
             'skating-details': 'Катание на коньках',
             'trampoline-details': 'Батутные центры',
             'sports-complex-details': 'Спортивные комплексы',
-            'swimming-details': 'Бассейн',
-            'fitness-details': 'Фитнес-залы',
-            'amusement-details': 'Парки аттракционов',
+            'swimming-pools-details': 'Бассейн',
+            'fitness-center-details': 'Фитнес-залы',
+            'amusement-parks-details': 'Парки аттракционов',
+            'tourist-complexes-details': 'Туристические комплексы',
             'quests-details': 'Квесты',
             'shooting-details': 'Стрельба и метание',
             'karting-details': 'Картинг и вождение',
-            'other-details': 'Другие активности'
+            'other-activities-details': 'Другие активности'
         };
         
         return mapping[modalId] || 'Активный отдых';
     }
     
-    // 11. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
+    // 13. ЗАКРЫТИЕ МОДАЛЬНОГО ОКНА
     document.querySelectorAll('.close-modal').forEach(button => {
         button.addEventListener('click', function() {
             const modal = this.closest('.modal-details');
@@ -351,7 +399,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // 12. ОБРАБОТКА КЛАВИШИ ESC
+    // 14. ОБРАБОТКА КЛАВИШИ ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const openModal = document.querySelector('.modal-details.visible');
@@ -361,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     
-    // 13. ФИЛЬТРАЦИЯ МЕРОПРИЯТИЙ ДЛЯ АКТИВНОГО ОТДЫХА
+    // 15. ФИЛЬТРАЦИЯ МЕРОПРИЯТИЙ ДЛЯ АКТИВНОГО ОТДЫХА
     const filterToggle = document.querySelector('.filter-toggle');
     const filterDropdown = document.querySelector('.filter-dropdown');
     
@@ -418,7 +466,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // 14. ФУНКЦИЯ ФИЛЬТРАЦИИ АКТИВНОГО ОТДЫХА
+    // 16. ФУНКЦИЯ ФИЛЬТРАЦИИ АКТИВНОГО ОТДЫХА (ИСПРАВЛЕННАЯ ДЛЯ ВРЕМЕНИ И ЦЕНЫ)
     function applyActiveFilters() {
         console.log("🔄 Применяем фильтры активного отдыха...");
         
@@ -426,13 +474,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const categoryFilter = document.querySelector("#category")?.value || 'all';
         const timeFilter = document.querySelector("#time")?.value || 'all';
         const ageFilter = document.querySelector("#age")?.value || 'all';
-        const costFilter = parseInt(document.querySelector("#cost")?.value || 5000);
+        const costFilter = parseInt(document.querySelector("#cost")?.value || 10000); // Максимальная цена
         
         console.log("Фильтры активного отдыха:");
         console.log("- Категория:", categoryFilter);
         console.log("- Время:", timeFilter);
         console.log("- Возраст:", ageFilter);
-        console.log("- Стоимость:", costFilter);
+        console.log("- Максимальная цена:", costFilter);
         
         let visibleCards = 0;
         
@@ -446,7 +494,26 @@ document.addEventListener("DOMContentLoaded", function() {
                 shouldShow = false;
             }
             
-            // Фильтр по стоимости (на основе данных в модальном окне)
+            // Фильтр по времени
+            if (shouldShow && timeFilter !== 'all') {
+                const modalLink = card.querySelector('.btn-detail');
+                if (modalLink) {
+                    const modalId = modalLink.getAttribute('href').substring(1);
+                    const modal = document.getElementById(modalId);
+                    if (modal) {
+                        const timeData = getPlaceTimeFromModal(modal);
+                        const timeCategory = getTimeCategoryFromWorkHours(timeData);
+                        
+                        console.log(`Карточка: ${category}, Время: ${timeData}, Категория времени: ${timeCategory}`);
+                        
+                        if (timeCategory !== timeFilter) {
+                            shouldShow = false;
+                        }
+                    }
+                }
+            }
+            
+            // Фильтр по цене (ИСПРАВЛЕННЫЙ)
             if (shouldShow && costFilter < 10000) {
                 const modalLink = card.querySelector('.btn-detail');
                 if (modalLink) {
@@ -454,7 +521,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     const modal = document.getElementById(modalId);
                     if (modal) {
                         const price = getPlacePrice(modal);
-                        if (price && price > costFilter) {
+                        console.log(`Карточка: ${category}, Цена: ${price}, Лимит: ${costFilter}`);
+                        
+                        // Если цена найдена и превышает фильтр
+                        if (price !== null && price > costFilter) {
                             shouldShow = false;
                         }
                     }
@@ -469,33 +539,12 @@ document.addEventListener("DOMContentLoaded", function() {
         
         if (visibleCards === 0) {
             showSimpleMessage('По вашему запросу ничего не найдено. Попробуйте изменить параметры фильтрации.');
+        } else {
+            showSimpleMessage(`Найдено ${visibleCards} мероприятий`);
         }
     }
     
-    // 15. ФУНКЦИЯ ПОЛУЧЕНИЯ ЦЕНЫ ИЗ МОДАЛЬНОГО ОКНА
-    function getPlacePrice(modal) {
-        // Пробуем найти цену в списке мест
-        const activePlace = modal.querySelector('.place-item.active');
-        if (activePlace) {
-            const priceText = activePlace.getAttribute('data-price');
-            if (priceText) {
-                const match = priceText.match(/(\d+)/);
-                if (match) return parseInt(match[1]);
-            }
-        }
-        
-        // Ищем цену в информации модального окна
-        const priceElem = modal.querySelector('#current-place-price');
-        if (priceElem) {
-            const priceText = priceElem.textContent;
-            const match = priceText.match(/(\d+)/);
-            if (match) return parseInt(match[1]);
-        }
-        
-        return null;
-    }
-    
-    // 16. ФУНКЦИЯ ИНИЦИАЛИЗАЦИИ ГАЛЕРЕИ
+    // 17. ФУНКЦИЯ ИНИЦИАЛИЗАЦИИ ГАЛЕРЕИ
     function initGallery(gallery) {
         const images = gallery.querySelectorAll('img');
         if (images.length <= 1) return;
@@ -568,7 +617,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
     
-    // 17. ИНИЦИАЛИЗАЦИЯ ЯНДЕКС КАРТ ДЛЯ ОБЫЧНЫХ МОДАЛЬНЫХ ОКОН
+    // 18. ИНИЦИАЛИЗАЦИЯ ЯНДЕКС КАРТ ДЛЯ ОБЫЧНЫХ МОДАЛЬНЫХ ОКОН
     function initYandexMap(mapElement) {
         const lat = mapElement.getAttribute('data-lat');
         const lon = mapElement.getAttribute('data-lon');
@@ -614,7 +663,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // 18. ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ
+    // 19. ФУНКЦИЯ ПОКАЗА ПРОСТОГО СООБЩЕНИЯ
     function showSimpleMessage(text) {
         const message = document.createElement('div');
         message.className = 'info-message';
@@ -646,7 +695,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 3000);
     }
     
-    // 19. ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ПРОВЕРЯЕМ СОХРАНЕННЫЙ ВЫБОР МЕСТА
+    // 20. ПРИ ЗАГРУЗКЕ СТРАНИЦЫ ПРОВЕРЯЕМ СОХРАНЕННЫЙ ВЫБОР МЕСТА
     window.addEventListener('load', function() {
         const savedPlace = localStorage.getItem('selectedSportPlace');
         if (savedPlace) {
@@ -674,7 +723,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
     
-    // 20. ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ
+    // 21. ИНИЦИАЛИЗАЦИЯ ВСЕХ ФУНКЦИЙ
     function initAll() {
         console.log("🔄 Инициализация функций активного отдыха...");
         
@@ -697,7 +746,7 @@ document.addEventListener("DOMContentLoaded", function() {
         applyMobileLayout();
     }
     
-    // 21. ФУНКЦИЯ ПРИМЕНЕНИЯ МОБИЛЬНОГО МАКЕТА
+    // 22. ФУНКЦИЯ ПРИМЕНЕНИЯ МОБИЛЬНОГО МАКЕТА
     function applyMobileLayout() {
         if (window.innerWidth <= 768) {
             console.log("📱 Применяем мобильный макет активного отдыха...");
@@ -812,35 +861,35 @@ activeStyle.textContent = `
     }
     
     .place-item {
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 12px 15px;
-    margin: 8px 0;
-    background: #5021a0; /* Основной фон элемента - белый */
-    border: 2px solid #814cd6; /* Светло-серая рамка */
-    border-radius: 6px;
-}
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 12px 15px;
+        margin: 8px 0;
+        background: #5021a0;
+        border: 2px solid #814cd6;
+        border-radius: 6px;
+    }
 
     .place-item:hover {
-        background: #814cd6; /* Светло-серый фон при наведении */
-        border-color: #814cd6; /* Синяя рамка при наведении */
+        background: #814cd6;
+        border-color: #814cd6;
         transform: translateX(5px);
     }
 
     .place-item.active {
-        background: #9883b8 !important; /* Белый фон для активного элемента */
-        border-color: #814cd6 !important; /* Ярко-синяя рамка для активного элемента */
-        box-shadow: 0 0 0 2px rgba(152, 18, 241, 0.1), /* Внутренняя голубая тень */
-                    0 4px 12px rgba(152, 18, 241, 0.1) !important; /* Внешняя голубая тень */
-        color: #ffffff !important; /* Темно-серый цвет основного текста */
+        background: #9883b8 !important;
+        border-color: #814cd6 !important;
+        box-shadow: 0 0 0 2px rgba(152, 18, 241, 0.1),
+                    0 4px 12px rgba(152, 18, 241, 0.1) !important;
+        color: #ffffff !important;
     }
 
     .place-item.active strong {
-        color: #ffffff !important; /* Темно-синий цвет для заголовка (тег <strong>) */
+        color: #ffffff !important;
     }
 
     .place-item.active * {
-        color: #fcfcfc !important; /* Очень темный цвет для ВСЕГО текста внутри элемента */
+        color: #fcfcfc !important;
     }
 `;
 
