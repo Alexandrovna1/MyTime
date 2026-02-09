@@ -946,6 +946,203 @@ document.addEventListener("DOMContentLoaded", function() {
             }, 3000);
         }
         
+        // 2.12 ДОБАВЛЕНИЕ СТИЛЕЙ ДЛЯ РЕЗУЛЬТАТОВ ФИЛЬТРАЦИИ
+        function addFilterResultsStyles() {
+            if (!document.querySelector('#filter-results-styles')) {
+                const style = document.createElement('style');
+                style.id = 'filter-results-styles';
+                style.textContent = `
+                    .filter-results-modal {
+                        display: none;
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background: rgba(0, 0, 0, 0.8);
+                        z-index: 2000;
+                        overflow-y: auto;
+                        padding: 20px;
+                        box-sizing: border-box;
+                    }
+                    
+                    .filter-results-modal.show {
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: center;
+                        animation: fadeIn 0.3s ease-out;
+                    }
+                    
+                    .filter-results-content {
+                        background: linear-gradient(135deg, #2d1b47, #3c2568);
+                        border-radius: 20px;
+                        padding: 25px;
+                        width: 90%;
+                        max-width: 1200px;
+                        margin-top: 40px;
+                        margin-bottom: 40px;
+                        border: 2px solid #9370db;
+                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                        max-height: 85vh;
+                        overflow-y: auto;
+                    }
+                    
+                    .filter-results-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 25px;
+                        padding-bottom: 15px;
+                        border-bottom: 2px solid #9370db;
+                    }
+                    
+                    .filter-results-header h2 {
+                        color: #fff;
+                        font-size: 1.5em;
+                        margin: 0;
+                    }
+                    
+                    .filter-results-close {
+                        background: #9370db;
+                        color: white;
+                        border: none;
+                        padding: 10px 20px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        font-size: 14px;
+                        transition: all 0.3s ease;
+                    }
+                    
+                    .filter-results-close:hover {
+                        background: #7b5fb3;
+                        transform: translateY(-2px);
+                    }
+                    
+                    .filter-results-grid {
+                        display: grid;
+                        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+                        gap: 20px;
+                    }
+                    
+                    .filter-result-item {
+                        background: rgba(255, 255, 255, 0.05);
+                        border-radius: 15px;
+                        overflow: hidden;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        border: 1px solid rgba(147, 112, 219, 0.3);
+                    }
+                    
+                    .filter-result-item:hover {
+                        transform: translateY(-5px);
+                        border-color: #9370db;
+                        box-shadow: 0 10px 20px rgba(147, 112, 219, 0.3);
+                    }
+                    
+                    .filter-result-image {
+                        height: 200px;
+                        overflow: hidden;
+                    }
+                    
+                    .filter-result-image img {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        transition: transform 0.3s ease;
+                    }
+                    
+                    .filter-result-item:hover .filter-result-image img {
+                        transform: scale(1.05);
+                    }
+                    
+                    .filter-result-info {
+                        padding: 15px;
+                    }
+                    
+                    .filter-result-info h3 {
+                        color: #fff;
+                        margin: 0 0 10px 0;
+                        font-size: 1.2em;
+                    }
+                    
+                    .filter-result-info p {
+                        color: #e6e0ff;
+                        margin: 0 0 15px 0;
+                        font-size: 0.9em;
+                        line-height: 1.5;
+                    }
+                    
+                    .filter-result-meta {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                        align-items: center;
+                    }
+                    
+                    .filter-result-type {
+                        background: rgba(147, 112, 219, 0.2);
+                        color: #b19cd9;
+                        padding: 5px 10px;
+                        border-radius: 20px;
+                        font-size: 0.8em;
+                        border: 1px solid #9370db;
+                    }
+                    
+                    .filter-result-price {
+                        color: #ffd700;
+                        font-weight: bold;
+                        font-size: 0.9em;
+                    }
+                    
+                    .filter-result-rating {
+                        color: #ffcc00;
+                        font-weight: bold;
+                        font-size: 0.9em;
+                    }
+                    
+                    @keyframes fadeIn {
+                        from {
+                            opacity: 0;
+                        }
+                        to {
+                            opacity: 1;
+                        }
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .filter-results-content {
+                            width: 95%;
+                            padding: 15px;
+                            margin-top: 20px;
+                        }
+                        
+                        .filter-results-grid {
+                            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                            gap: 15px;
+                        }
+                        
+                        .filter-result-image {
+                            height: 150px;
+                        }
+                        
+                        .filter-results-header h2 {
+                            font-size: 1.2em;
+                        }
+                    }
+                    
+                    @media (max-width: 480px) {
+                        .filter-results-grid {
+                            grid-template-columns: 1fr;
+                        }
+                        
+                        .filter-result-item {
+                            max-width: 100%;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
         
     }
     
@@ -1023,7 +1220,204 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
     
-    // ==================== 4. ИНИЦИАЛИЗАЦИЯ ====================
+    // ==================== 4. АДАПТИВНЫЙ МАКЕТ КАРТОЧЕК ====================
+    
+    // 4.1 ПРИМЕНЕНИЕ МОБИЛЬНОГО МАКЕТА ДЛЯ РЕСТОРАНОВ
+    function applyRestaurantMobileLayout() {
+        if (window.innerWidth <= 768) {
+            console.log("📱 Применяем мобильный макет для ресторанов...");
+            
+            // Убедимся, что используется grid layout
+            const restaurantList = document.querySelector('.event-list');
+            if (restaurantList) {
+                restaurantList.style.cssText = `
+                    display: grid !important;
+                    grid-template-columns: repeat(2, 1fr) !important;
+                    gap: 15px !important;
+                    width: 100% !important;
+                    margin: 0 auto !important;
+                    padding: 10px !important;
+                `;
+            }
+            
+            // Применяем стили для карточек ресторанов
+            document.querySelectorAll('.event-list > div').forEach(container => {
+                container.style.cssText = `
+                    width: 100% !important;
+                    margin: 0 !important;
+                    margin-bottom: 0 !important;
+                    break-inside: avoid !important;
+                    page-break-inside: avoid !important;
+                    -webkit-column-break-inside: avoid !important;
+                    height: auto !important;
+                    min-height: 320px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    animation: none !important;
+                `;
+                
+                // Уменьшаем изображения
+                const imageSlider = container.querySelector('.image-slider');
+                if (imageSlider) {
+                    imageSlider.style.cssText = `
+                        height: 140px !important;
+                        min-height: 140px !important;
+                        max-height: 140px !important;
+                        overflow: hidden !important;
+                    `;
+                    
+                    const images = imageSlider.querySelectorAll('img');
+                    images.forEach(img => {
+                        img.style.cssText = `
+                            height: 140px !important;
+                            object-fit: cover !important;
+                        `;
+                    });
+                }
+                
+                // Уменьшаем заголовок
+                const title = container.querySelector('h3');
+                if (title) {
+                    title.style.cssText = `
+                        font-size: 14px !important;
+                        line-height: 1.3 !important;
+                        margin: 8px 10px 5px 10px !important;
+                        min-height: 36px !important;
+                        height: 36px !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 2 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
+                        text-overflow: ellipsis !important;
+                    `;
+                }
+                
+                // Уменьшаем описание
+                const description = container.querySelector('p');
+                if (description) {
+                    description.style.cssText = `
+                        font-size: 12px !important;
+                        line-height: 1.4 !important;
+                        margin: 0 10px 8px 10px !important;
+                        flex-grow: 1 !important;
+                        display: -webkit-box !important;
+                        -webkit-line-clamp: 3 !important;
+                        -webkit-box-orient: vertical !important;
+                        overflow: hidden !important;
+                        text-overflow: ellipsis !important;
+                        min-height: 50px !important;
+                    `;
+                }
+                
+                // Уменьшаем кнопку
+                const button = container.querySelector('.btn-detail');
+                if (button) {
+                    button.style.cssText = `
+                        margin: 0 10px 10px 10px !important;
+                        padding: 8px 12px !important;
+                        font-size: 12px !important;
+                        min-height: 36px !important;
+                        display: flex !important;
+                        align-items: center !important;
+                        justify-content: center !important;
+                    `;
+                }
+                
+                // Уменьшаем рейтинг, если есть
+                const rating = container.querySelector('.rating');
+                if (rating) {
+                    rating.style.cssText = `
+                        font-size: 11px !important;
+                        margin: 5px 10px !important;
+                    `;
+                }
+            });
+            
+            console.log("✅ Мобильный макет для ресторанов применен");
+        } else {
+            // Для десктопа сбрасываем стили
+            console.log("🖥️ Применяем десктопный макет для ресторанов...");
+            
+            const restaurantList = document.querySelector('.event-list');
+            if (restaurantList) {
+                restaurantList.style.cssText = `
+                    display: flex !important;
+                    flex-wrap: wrap !important;
+                    justify-content: center !important;
+                    gap: 20px !important;
+                    padding: 20px !important;
+                `;
+            }
+            
+            document.querySelectorAll('.event-list > div').forEach(container => {
+                container.style.cssText = `
+                    width: 280px !important;
+                    margin: 0 !important;
+                    height: auto !important;
+                    min-height: 380px !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                `;
+                
+                // Восстанавливаем размеры изображений
+                const imageSlider = container.querySelector('.image-slider');
+                if (imageSlider) {
+                    imageSlider.style.cssText = `
+                        height: 180px !important;
+                        min-height: 180px !important;
+                        max-height: 180px !important;
+                    `;
+                    
+                    const images = imageSlider.querySelectorAll('img');
+                    images.forEach(img => {
+                        img.style.cssText = `
+                            height: 180px !important;
+                            object-fit: cover !important;
+                        `;
+                    });
+                }
+                
+                // Восстанавливаем размер заголовка
+                const title = container.querySelector('h3');
+                if (title) {
+                    title.style.cssText = `
+                        font-size: 16px !important;
+                        margin: 12px 15px 8px 15px !important;
+                    `;
+                }
+                
+                // Восстанавливаем описание
+                const description = container.querySelector('p');
+                if (description) {
+                    description.style.cssText = `
+                        font-size: 14px !important;
+                        margin: 0 15px 10px 15px !important;
+                    `;
+                }
+                
+                // Восстанавливаем кнопку
+                const button = container.querySelector('.btn-detail');
+                if (button) {
+                    button.style.cssText = `
+                        margin: 0 15px 15px 15px !important;
+                        padding: 10px 15px !important;
+                        font-size: 14px !important;
+                    `;
+                }
+                
+                // Восстанавливаем рейтинг
+                const rating = container.querySelector('.rating');
+                if (rating) {
+                    rating.style.cssText = `
+                        font-size: 13px !important;
+                        margin: 8px 15px !important;
+                    `;
+                }
+            });
+        }
+    }
+    
+    // ==================== 5. ИНИЦИАЛИЗАЦИЯ ====================
     
     function init() {
         console.log('🔄 Инициализация страницы ресторанов...');
@@ -1036,6 +1430,9 @@ document.addEventListener("DOMContentLoaded", function() {
         
         // Настраиваем фильтры
         setupFilters();
+        
+        // Применяем адаптивный макет
+        applyRestaurantMobileLayout();
         
         // Инициализируем начальное состояние
         setTimeout(() => {
@@ -1051,10 +1448,17 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('Кнопка фильтра:', document.querySelector('.filter-toggle') ? '✅ Найдена' : '❌ Не найдена');
         console.log('Меню фильтров:', document.querySelector('.filter-dropdown') ? '✅ Найдено' : '❌ Не найдено');
         console.log('Количество ресторанов:', document.querySelectorAll('.event-list > div').length);
+        console.log('Ширина окна:', window.innerWidth, 'px');
+        console.log('Применен макет:', window.innerWidth <= 768 ? 'Мобильный' : 'Десктопный');
     }
     
     // Запуск инициализации
     init();
+    
+    // Добавляем обработчик изменения размера окна
+    window.addEventListener('resize', function() {
+        setTimeout(applyRestaurantMobileLayout, 100);
+    });
 });
 
 // Обработчик ошибок
