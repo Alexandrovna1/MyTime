@@ -2319,3 +2319,217 @@ footer p {
 .modal-content .yandex-map {
     min-height: 350px;
 }
+/* ==================== СТИЛИ ДЛЯ АКТИВНОГО ОТДЫХА ==================== */
+.active-section {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    margin: 4em 0;
+    padding: 2em 0;
+}
+
+.active-section h2 {
+    text-align: center;
+    font-size: 2.8em;
+    margin-bottom: 1.8em;
+    color: #b19cd9;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.active-section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, #9370db, transparent);
+}
+
+/* Затемнение краев */
+.active-section::before,
+.active-section::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.active-section::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(30, 0, 60, 0.95), transparent);
+}
+
+.active-section::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(30, 0, 60, 0.95), transparent);
+}
+
+/* Контейнер с прокруткой */
+.active-container {
+    position: relative;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    padding: 20px 0;
+    margin: 0;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Убираем стандартный скроллбар */
+.active-container::-webkit-scrollbar {
+    display: none;
+}
+
+.active-list {
+    display: inline-flex;
+    gap: 30px;
+    padding: 0 20px;
+    animation-duration: 60s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    width: max-content;
+    animation-name: scrollLeftInfinite;
+}
+
+.active-list:hover {
+    animation-play-state: paused;
+}
+
+/* Стили для списка мест активного отдыха */
+.sports-places-list {
+    margin: 20px 0;
+}
+
+.sports-places-list h3 {
+    color: #b19cd9;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.places-list {
+    list-style: none;
+    padding: 10px;
+    margin: 15px 0;
+    background: rgba(30, 0, 60, 0.5);
+    border-radius: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+}
+
+.places-list li {
+    padding: 12px 15px;
+    margin: 8px 0;
+    background: rgba(45, 27, 71, 0.7);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #e6e0ff;
+    border: 1px solid transparent;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.places-list li:hover {
+    background: rgba(147, 112, 219, 0.2);
+    border-color: rgba(147, 112, 219, 0.5);
+    transform: translateX(5px);
+}
+
+.places-list li.active {
+    background: rgba(147, 112, 219, 0.3);
+    border-color: #9370db;
+    color: #fff;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(147, 112, 219, 0.3);
+}
+
+.places-list li.active:before {
+    content: '▶';
+    margin-right: 5px;
+    color: #9370db;
+}
+
+.place-description {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(30, 0, 60, 0.7);
+    border-radius: 10px;
+    border-left: 4px solid #9370db;
+}
+
+.place-description h3 {
+    color: #b19cd9;
+    margin-bottom: 10px;
+}
+
+.place-description p {
+    color: #e6e0ff;
+    line-height: 1.6;
+}
+
+/* Адаптивность для активного отдыха */
+@media (max-width: 768px) {
+    .places-list {
+        max-height: 200px;
+    }
+    
+    .places-list li {
+        padding: 10px 12px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 576px) {
+    .places-list {
+        max-height: 180px;
+    }
+    
+    .places-list li {
+        padding: 8px 10px;
+        font-size: 0.85em;
+    }
+    
+    .sports-places-list h3 {
+        font-size: 1.3em;
+    }
+}
+/* Добавьте в конец файла home.css */
+.filter-dropdown select#active-category {
+    width: 100%;
+    margin-bottom: 1.8em;
+    padding: 14px;
+    border: 2px solid #7b68ee;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background: rgba(30, 0, 60, 0.8);
+    color: #e6e0ff;
+    cursor: pointer;
+}
+
+.filter-dropdown select#active-category option {
+    background: rgba(45, 27, 71, 0.95);
+    color: #e6e0ff;
+    padding: 10px;
+}
+
+/* Адаптивность для фильтров */
+@media (max-width: 768px) {
+    .filter-dropdown select#active-category {
+        font-size: 0.9em;
+        padding: 12px;
+    }
+}
