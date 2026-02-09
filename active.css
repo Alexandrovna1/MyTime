@@ -30,6 +30,7 @@ html, body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 15px rgba(75, 0, 130, 0.4);
+    min-height: 80px;
 }
 
 .logo a {
@@ -49,6 +50,8 @@ html, body {
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
+    flex: 1;
 }
 
 /* Основное меню для десктопа */
@@ -56,6 +59,8 @@ html, body {
     list-style-type: none;
     display: flex;
     gap: 2em;
+    margin: 0;
+    padding: 0;
 }
 
 nav a {
@@ -96,20 +101,19 @@ nav a:hover::after {
 }
 
 /* ==================== ГАМБУРГЕР-МЕНЮ ==================== */
+/* Гамбургер скрыт на десктопе */
 .hamburger {
     display: none;
-    flex-direction: column;
-    cursor: pointer;
-    width: 30px;
-    height: 24px;
-    justify-content: space-between;
     background: transparent;
     border: none;
+    cursor: pointer;
     padding: 0;
+    width: 30px;
+    height: 30px;
+    position: relative;
     z-index: 1001;
-    position: absolute;
-    right: 20px;
-    top: 18px;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .hamburger span {
@@ -117,20 +121,133 @@ nav a:hover::after {
     width: 100%;
     height: 3px;
     background-color: #b19cd9;
-    border-radius: 2px;
+    border-radius: 3px;
     transition: all 0.3s ease;
+    transform-origin: center;
 }
 
+/* Активное состояние гамбургера */
 .hamburger.active span:nth-child(1) {
-    transform: translateY(10px) rotate(45deg);
+    transform: rotate(45deg) translate(6px, 6px);
 }
 
 .hamburger.active span:nth-child(2) {
     opacity: 0;
+    transform: scaleX(0);
 }
 
 .hamburger.active span:nth-child(3) {
-    transform: translateY(-10px) rotate(-45deg);
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* ==================== МОБИЛЬНАЯ НАВИГАЦИЯ ==================== */
+@media (max-width: 992px) {
+    .navbar {
+        padding: 0.8em 1em;
+        min-height: 60px;
+        position: relative;
+    }
+    
+    .logo {
+        flex: 0 0 auto;
+        z-index: 1002;
+    }
+    
+    .logo a {
+        font-size: 1.4em;
+    }
+    
+    /* ГАМБУРГЕР СПРАВА В ВЕРХНЕМ УГЛУ */
+    .hamburger {
+        display: flex !important;
+        order: 3;
+        margin-left: auto;
+        width: 30px;
+        height: 24px;
+        position: relative;
+        z-index: 1002;
+    }
+    
+    /* Мобильное меню */
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        right: -100%;
+        width: 280px;
+        height: calc(100vh - 60px);
+        background: rgba(20, 0, 40, 0.98);
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2em 1.5em;
+        transition: right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 1000;
+        overflow-y: auto;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+        border-left: 2px solid #9370db;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    .nav-menu li {
+        width: 100%;
+        margin-bottom: 1em;
+    }
+    
+    nav a {
+        display: block;
+        width: 100%;
+        margin: 0;
+        padding: 1em 1.2em;
+        text-align: left;
+        font-size: 1.1em;
+        border-radius: 8px;
+        border: 1px solid transparent;
+    }
+    
+    nav a:hover {
+        background-color: rgba(147, 112, 219, 0.3);
+        border-color: rgba(147, 112, 219, 0.5);
+    }
+    
+    /* Контейнер навигации на мобильных */
+    .nav-container {
+        justify-content: flex-end;
+        order: 2;
+        width: auto;
+    }
+}
+
+/* Для очень маленьких экранов */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.6em 0.8em;
+    }
+    
+    .logo a {
+        font-size: 1.2em;
+    }
+    
+    .hamburger {
+        width: 26px;
+        height: 20px;
+    }
+    
+    .nav-menu {
+        width: 100%;
+        right: -100%;
+        padding: 1.5em 1em;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    nav a {
+        padding: 0.9em 1em;
+        font-size: 1em;
+    }
 }
 
 /* ==================== ЗАГОЛОВОК СТРАНИЦЫ ==================== */
@@ -150,13 +267,6 @@ nav a:hover::after {
     letter-spacing: 1px;
 }
 
-.page-header p {
-    font-size: 1.2em;
-    color: #e6e0ff;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 /* ==================== ФИЛЬТРЫ ==================== */
 .filter-menu {
     position: relative;
@@ -172,6 +282,23 @@ nav a:hover::after {
     gap: 15px;
     margin-bottom: 10px;
     flex-wrap: wrap;
+}
+
+/* ==================== УПРАВЛЕНИЕ Z-INDEX КНОПОК ФИЛЬТРАЦИИ ==================== */
+/* Нормальный z-index для кнопок */
+.filter-toggle, .reset-filters, .apply-filters {
+    z-index: 999 !important; /* Высокий z-index по умолчанию */
+    position: relative;
+}
+
+/* При открытых модальных окнах уменьшаем z-index кнопок фильтрации */
+.modal-details:not(.hidden) ~ .filter-menu .filter-toggle,
+.modal-details:not(.hidden) ~ .filter-menu .reset-filters,
+.modal-details:not(.hidden) ~ .filter-menu .apply-filters,
+.filter-results-modal.show ~ .filter-menu .filter-toggle,
+.filter-results-modal.show ~ .filter-menu .reset-filters,
+.filter-results-modal.show ~ .filter-menu .apply-filters {
+    z-index: 100 !important; /* Низкий z-index при открытых модалках */
 }
 
 .filter-toggle, .reset-filters {
@@ -190,7 +317,6 @@ nav a:hover::after {
     box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3);
     position: relative;
     overflow: hidden;
-    z-index: 100 !important;
 }
 
 .reset-filters {
@@ -228,34 +354,31 @@ nav a:hover::after {
     left: 100%;
 }
 
-/* ==================== ВЫПАДАЮЩЕЕ МЕНЮ ФИЛЬТРОВ ==================== */
 .filter-dropdown {
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.filter-dropdown.show {
-    display: block;
-    opacity: 1;
-    visibility: visible;
     position: absolute;
     top: 100%;
     left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: rgba(45, 27, 71, 0.98);
+    transform: translateX(-50%) translateY(-20px);
+    background: rgba(45, 27, 71, 0.95);
     backdrop-filter: blur(10px);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 20px 40px rgba(75, 0, 130, 0.4);
-    width: 350px;
+    padding: 2.5em;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(75, 0, 130, 0.3);
+    width: 380px;
     z-index: 1002;
-    margin-top: 10px;
-    border: 2px solid #9370db;
+    margin-top: 15px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid rgba(147, 112, 219, 0.3);
 }
 
-/* Группы фильтров */
+.filter-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 .filter-group {
     margin-bottom: 20px;
     text-align: left;
@@ -266,14 +389,14 @@ nav a:hover::after {
     margin-bottom: 8px;
     color: #e6e0ff;
     font-weight: 600;
-    font-size: 1em;
+    font-size: 1.1em;
 }
 
 .filter-group select {
     width: 100%;
-    padding: 10px;
+    padding: 14px;
     border: 2px solid #7b68ee;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1em;
     transition: all 0.3s ease;
     background: rgba(30, 0, 60, 0.8);
@@ -287,12 +410,11 @@ nav a:hover::after {
     box-shadow: 0 0 0 3px rgba(147, 112, 219, 0.2);
 }
 
-/* Слайдер цены */
 .filter-group input[type="range"] {
     width: 100%;
     margin: 10px 0;
-    height: 6px;
-    border-radius: 3px;
+    height: 8px;
+    border-radius: 4px;
     background: #7b68ee;
     outline: none;
     -webkit-appearance: none;
@@ -303,60 +425,59 @@ nav a:hover::after {
 .filter-group input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     background: #9370db;
     cursor: pointer;
-    border: 2px solid #e6e0ff;
-    box-shadow: 0 2px 6px rgba(75, 0, 130, 0.5);
+    border: 3px solid #e6e0ff;
+    box-shadow: 0 2px 8px rgba(75, 0, 130, 0.5);
 }
 
-#cost-value {
+#cost-value, #rating-value {
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 12px;
     font-weight: bold;
-    color: #b19cd9;
-    font-size: 1em;
-    padding: 3px 8px;
+    color: #e6e0ff;
+    font-size: 1.1em;
+    padding: 4px 12px;
     background: rgba(147, 112, 219, 0.2);
-    border-radius: 5px;
+    border-radius: 6px;
     border: 1px solid #9370db;
 }
 
-/* Кнопка применения фильтров */
 .apply-filters {
     background: linear-gradient(135deg, #4b0082 0%, #7b68ee 100%);
     color: white;
     border: none;
-    padding: 14px 28px;
+    padding: 16px 32px;
     cursor: pointer;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: 10px;
     width: 100%;
-    font-size: 1.1em;
+    font-size: 1.2em;
     transition: all 0.3s ease;
-    margin-top: 15px;
+    margin-top: 20px;
+    letter-spacing: 1px;
     text-transform: uppercase;
     position: relative;
     overflow: hidden;
-    z-index: 100 !important;
 }
 
 .apply-filters:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(123, 104, 238, 0.4);
+    box-shadow: 0 10px 25px rgba(123, 104, 238, 0.5);
     background: linear-gradient(135deg, #7b68ee 0%, #4b0082 100%);
 }
 
-/* ==================== СЕТКА РЕСТОРАНОВ (ОТ 1 ДО 4 КАРТОЧЕК) ==================== */
-.restaurant-list {
+/* ==================== СЕТКА МЕРОПРИЯТИЙ (4 В СТРОКУ) ==================== */
+.events-list {
     max-width: 1400px;
     margin: 0 auto;
     padding: 0 2em 4em;
 }
 
-.restaurant-list h2 {
+.events-list h2 {
     text-align: center;
     font-size: 2.8em;
     margin-bottom: 1.8em;
@@ -366,7 +487,7 @@ nav a:hover::after {
     padding-bottom: 20px;
 }
 
-.restaurant-list h2::after {
+.events-list h2::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -377,15 +498,16 @@ nav a:hover::after {
     background: linear-gradient(90deg, transparent, #9370db, transparent);
 }
 
-/* АДАПТИВНАЯ СЕТКА ОТ 1 ДО 4 КАРТОЧЕК */
-.event-list {
+/* ОСНОВНАЯ СЕТКА - 4 КАРТОЧКИ В РЯДУ ДЛЯ ДЕСКТОПА */
+.event-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
     margin-top: 20px;
+    width: 100%;
 }
 
-/* ==================== КАРТОЧКИ РЕСТОРАНОВ ==================== */
+/* ==================== КАРТОЧКИ МЕРОПРИЯТИЙ ==================== */
 .container {
     background: rgba(45, 27, 71, 0.95);
     padding: 20px;
@@ -519,7 +641,7 @@ nav a:hover::after {
     width: 100%;
     height: 100%;
     background: rgba(20, 0, 40, 0.97);
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2000;
@@ -535,18 +657,18 @@ nav a:hover::after {
 }
 
 .modal-details.visible {
-    display: flex;
     opacity: 1;
     visibility: visible;
+    display: flex;
 }
 
 .modal-content {
     background: rgba(45, 27, 71, 0.98);
-    padding: 30px;
-    border-radius: 20px;
+    padding: 40px;
+    border-radius: 25px;
     box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
     width: 95%;
-    max-width: 900px;
+    max-width: 1000px;
     max-height: 90vh;
     overflow-y: auto;
     position: relative;
@@ -567,31 +689,31 @@ nav a:hover::after {
 
 .modal-content h2 {
     color: #b19cd9;
-    margin-bottom: 20px;
-    font-size: 2em;
+    margin-bottom: 25px;
+    font-size: 2.3em;
     text-align: center;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .modal-content p {
-    margin: 15px 0;
+    margin: 20px 0;
     line-height: 1.8;
     font-size: 1.1em;
     color: #e6e0ff;
 }
 
-/* Информация о ресторане в модальном окне */
+/* Информация о мероприятии в модальном окне */
 .modal-info {
     background: rgba(30, 0, 60, 0.8);
-    padding: 20px;
-    border-radius: 12px;
-    margin: 20px 0;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 25px 0;
     border-left: 5px solid #9370db;
     box-shadow: 0 5px 15px rgba(75, 0, 130, 0.3);
 }
 
 .modal-info p {
-    margin: 10px 0;
+    margin: 12px 0;
     font-size: 1.1em;
     color: #e6e0ff;
     line-height: 1.6;
@@ -606,9 +728,9 @@ nav a:hover::after {
 .modal-content .gallery {
     position: relative;
     width: 100%;
-    height: 350px;
-    margin: 20px 0;
-    border-radius: 12px;
+    height: 400px;
+    margin: 25px 0;
+    border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
 }
@@ -636,14 +758,14 @@ nav a:hover::after {
     background: rgba(45, 27, 71, 0.9);
     color: white;
     border: none;
-    font-size: 24px;
-    padding: 12px;
+    font-size: 28px;
+    padding: 15px;
     cursor: pointer;
     z-index: 10;
     transition: all 0.3s ease;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -657,21 +779,21 @@ nav a:hover::after {
 }
 
 .prev-button {
-    left: 15px;
+    left: 20px;
 }
 
 .next-button {
-    right: 15px;
+    right: 20px;
 }
 
 /* Карта Яндекс */
 .yandex-map {
     width: 100%;
-    height: 350px;
-    border-radius: 12px;
+    height: 400px;
+    border-radius: 15px;
     overflow: hidden;
-    margin: 20px 0;
-    border: 2px solid #121212;
+    margin: 25px 0;
+    border: 2px solid #9370db;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
     background: rgba(30, 0, 60, 0.8);
     position: relative;
@@ -689,31 +811,82 @@ nav a:hover::after {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* Список кинотеатров */
+.cinema-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(45, 27, 71, 0.6);
+    border-radius: 10px;
+    padding: 15px;
+    border: 1px solid rgba(147, 112, 219, 0.3);
+}
+
+.cinema-list li {
+    padding: 15px 20px;
+    margin: 12px 0;
+    background: rgba(30, 0, 60, 0.9);
+    border-radius: 10px;
+    border-left: 4px solid #7b68ee;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 1.05em;
+    color: #e6e0ff;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cinema-list li:hover {
+    background: rgba(123, 104, 238, 0.2);
+    transform: translateX(8px);
+    box-shadow: 0 5px 15px rgba(123, 104, 238, 0.3);
+}
+
+.cinema-list li.active {
+    background: rgba(147, 112, 219, 0.3);
+    border-left: 4px solid #b19cd9;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(147, 112, 219, 0.4);
+}
+
+.cinema-list li::before {
+    content: '🎬';
+    font-size: 1.2em;
+    margin-right: 10px;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3));
+}
+
 /* Кнопка закрытия */
 .close-modal {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: #3b2093;
+    top: 20px;
+    right: 20px;
+    background: #8b0000;
     color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 12px 18px;
     cursor: pointer;
     border-radius: 50%;
     font-weight: bold;
     font-size: 1.2em;
     transition: all 0.3s ease;
     z-index: 10;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 5px 15px rgba(206, 205, 205, 0.4);
+    box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
 }
 
 .close-modal:hover {
-    background: #7d78c1;
+    background: #b22222;
     transform: rotate(90deg) scale(1.1);
 }
 
@@ -879,6 +1052,60 @@ nav a:hover::after {
     font-size: 1.1em;
 }
 
+
+/* Анимация для модального окна */
+@keyframes modalAppear {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* ==================== СТИЛИ ДЛЯ БАЛЛУНОВ ==================== */
+.ymaps-balloon__content {
+    background-color: #9370db !important;
+    color: #f7f4f4 !important;
+    font-family: 'Arial', sans-serif !important;
+    border-radius: 15px !important;
+    padding: 20px !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4) !important;
+    max-width: 350px !important;
+    line-height: 1.6 !important;
+    border: 2px solid #7b68ee !important;
+}
+
+.ymaps-balloon__tail {
+    background-color: #9370db !important;
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.5) !important;
+}
+
+.map-balloon-title {
+    color: #f7f4f4;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.map-balloon-content {
+    color: #e6e0ff;
+    line-height: 1.5;
+}
+
+.map-balloon-content p {
+    margin: 8px 0;
+    color: #e6e0ff;
+}
+
+.map-balloon-content strong {
+    color: #b19cd9;
+}
+
 /* ==================== АНИМАЦИИ ==================== */
 @keyframes fadeIn {
     from {
@@ -891,7 +1118,22 @@ nav a:hover::after {
     }
 }
 
-.page-header, .restaurant-list {
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        transform: scale(40, 40);
+    }
+}
+
+.page-header, .events-list {
     animation: fadeIn 1s ease-out;
 }
 
@@ -915,39 +1157,33 @@ nav a:hover::after {
     background: linear-gradient(#9370db, #7b68ee);
 }
 
-/* ==================== ФУТЕР ==================== */
-footer {
-    text-align: center;
-    padding: 2em;
-    background: rgba(20, 0, 40, 0.98);
-    color: #e6e0ff;
-    font-size: 1em;
-    margin-top: 3em;
-    border-top: 3px solid #9370db;
-    position: relative;
+.cinema-list::-webkit-scrollbar {
+    width: 8px;
 }
 
-footer::before {
-    content: '';
-    position: absolute;
-    top: -3px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, #7b68ee, #9370db, #7b68ee);
+.cinema-list::-webkit-scrollbar-track {
+    background: rgba(30, 0, 60, 0.3);
+    border-radius: 4px;
 }
 
-footer p {
-    font-size: 1em;
-    letter-spacing: 1px;
+.cinema-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(#7b68ee, #9370db);
+    border-radius: 4px;
 }
 
-/* ==================== АДАПТИВНОСТЬ ==================== */
+/* ==================== ДОСТУПНОСТЬ ==================== */
+*:focus {
+    outline: 3px solid #9370db;
+    outline-offset: 3px;
+}
 
-/* Для средних экранов */
+/* ==================== АДАПТИВНОСТЬ ДЛЯ СЕТКИ МЕРОПРИЯТИЙ ==================== */
+
+/* Для средних экранов (ноутбуки) - 3 карточки */
 @media (max-width: 1200px) {
-    .event-list {
+    .event-grid {
         grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .filter-results-grid {
@@ -955,7 +1191,7 @@ footer p {
     }
 }
 
-/* Для планшетов */
+/* Для планшетов - 2 карточки */
 @media (max-width: 992px) {
     .navbar {
         padding: 1em;
@@ -1039,8 +1275,9 @@ footer p {
         font-size: 2.5em;
     }
     
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
+    /* Сетка мероприятий - 2 карточки */
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
     }
     
@@ -1089,7 +1326,7 @@ footer p {
     }
 }
 
-/* Для мобильных */
+/* Для мобильных устройств - 2 карточки */
 @media (max-width: 768px) {
     .page-header {
         padding: 3em 1.5em 1.5em;
@@ -1103,7 +1340,8 @@ footer p {
         font-size: 2.2em;
     }
     
-    .event-list {
+    /* Сетка мероприятий - 2 карточки */
+    .event-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
     }
@@ -1165,7 +1403,7 @@ footer p {
     }
 }
 
-/* Для маленьких мобильных */
+/* Для маленьких мобильных устройств - 1 карточка */
 @media (max-width: 576px) {
     .page-header h1 {
         font-size: 1.8em;
@@ -1175,15 +1413,18 @@ footer p {
         font-size: 1.8em;
     }
     
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+    /* Сетка мероприятий - 1 карточка */
+    .event-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        max-width: 320px;
+        margin: 0 auto;
     }
     
     .container {
         height: 320px;
-        max-width: none;
-        margin: 0;
+        max-width: 320px;
+        margin: 0 auto;
     }
     
     .image-slider {
@@ -1248,7 +1489,7 @@ footer p {
     }
     
     .filter-results-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     
@@ -1294,14 +1535,17 @@ footer p {
         transform: translateY(-8px) rotate(-45deg);
     }
     
-    .event-list {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
+    /* Сетка мероприятий - 1 карточка */
+    .event-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 0 10px;
     }
     
     .container {
         height: 300px;
         padding: 12px;
+        max-width: none;
     }
     
     .image-slider {
@@ -1336,11 +1580,37 @@ footer p {
     }
 }
 
-/* Для экранов с шириной более 480px но менее 768px - показываем 3 карточки */
+/* Для экранов с шириной более 480px но менее 768px - показываем 2 карточки */
 @media (min-width: 481px) and (max-width: 768px) {
-    .event-list {
-        grid-template-columns: repeat(3, 1fr);
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
         gap: 15px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 768px но менее 992px - показываем 2 карточки */
+@media (min-width: 769px) and (max-width: 992px) {
+    .event-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    
+    .filter-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+/* Для экранов с шириной более 992px но менее 1200px - показываем 3 карточки */
+@media (min-width: 993px) and (max-width: 1200px) {
+    .event-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
     }
     
     .filter-results-grid {
@@ -1349,16 +1619,16 @@ footer p {
     }
 }
 
-/* Для экранов с шириной более 768px но менее 992px - показываем 3-4 карточки */
-@media (min-width: 769px) and (max-width: 992px) {
-    .event-list {
+/* Для экранов с шириной более 1200px - показываем 4 карточки */
+@media (min-width: 1201px) {
+    .event-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
+        gap: 25px;
     }
     
     .filter-results-grid {
         grid-template-columns: repeat(4, 1fr);
-        gap: 15px;
+        gap: 20px;
     }
 }
 
@@ -1380,174 +1650,86 @@ footer p {
     z-index: 1000;
 }
 
-/* Стили для модального окна результатов фильтрации */
-                .filter-results-modal {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(20, 0, 40, 0.97);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    z-index: 2000;
-                    opacity: 0;
-                    visibility: hidden;
-                    transition: all 0.4s ease;
-                    padding: 20px;
-                    backdrop-filter: blur(5px);
-                }
-                
-                .filter-results-modal.show {
-                    opacity: 1;
-                    visibility: visible;
-                }
-                
-                .filter-results-content {
-                    background: rgba(45, 27, 71, 0.98);
-                    padding: 40px;
-                    border-radius: 25px;
-                    box-shadow: 0 30px 60px rgba(75, 0, 130, 0.5);
-                    width: 95%;
-                    max-width: 1200px;
-                    max-height: 85vh;
-                    overflow-y: auto;
-                    position: relative;
-                    border: 2px solid #9370db;
-                }
-                
-                .filter-results-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-bottom: 30px;
-                    padding-bottom: 20px;
-                    border-bottom: 2px solid #7b68ee;
-                }
-                
-                .filter-results-header h2 {
-                    color: #b19cd9;
-                    font-size: 2em;
-                    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-                    margin: 0;
-                }
-                
-                .filter-results-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-                    gap: 25px;
-                    margin-top: 20px;
-                }
-                
-                .filter-result-item {
-                    background: rgba(30, 0, 60, 0.8);
-                    border-radius: 15px;
-                    overflow: hidden;
-                    transition: all 0.3s ease;
-                    border: 1px solid rgba(147, 112, 219, 0.3);
-                    cursor: pointer;
-                }
-                
-                .filter-result-item:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 15px 30px rgba(147, 112, 219, 0.3);
-                    border-color: #9370db;
-                }
-                
-                .filter-result-image {
-                    width: 100%;
-                    height: 200px;
-                    overflow: hidden;
-                }
-                
-                .filter-result-image img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                    transition: transform 0.5s ease;
-                }
-                
-                .filter-result-item:hover .filter-result-image img {
-                    transform: scale(1.05);
-                }
-                
-                .filter-result-info {
-                    padding: 20px;
-                }
-                
-                .filter-result-info h3 {
-                    color: #b19cd9;
-                    margin-bottom: 10px;
-                    font-size: 1.4em;
-                }
-                
-                .filter-result-info p {
-                    color: #e6e0ff;
-                    margin-bottom: 15px;
-                    font-size: 1em;
-                    line-height: 1.5;
-                }
-                
-                .filter-result-meta {
-                    display: flex;
-                    flex-wrap: wrap;
-                    justify-content: space-between;
-                    align-items: center;
-                    margin-top: 15px;
-                    padding-top: 15px;
-                    border-top: 1px solid rgba(147, 112, 219, 0.2);
-                    gap: 10px;
-                }
-                
-                .filter-result-type {
-                    background: rgba(147, 112, 219, 0.2);
-                    color: #b19cd9;
-                    padding: 5px 10px;
-                    border-radius: 20px;
-                    font-size: 0.9em;
-                    border: 1px solid rgba(147, 112, 219, 0.5);
-                }
-                
-                .filter-result-price {
-                    color: #9370db;
-                    font-weight: bold;
-                    font-size: 1.1em;
-                }
-                
-                .filter-result-rating {
-                    color: #ffd700;
-                    font-weight: bold;
-                }
-                
-                .filter-result-time {
-                    color: #b19cd9;
-                    font-size = '0.9em';
-                    margin-left: auto;
-                }
-                
-                .filter-results-close {
-                    background: #8b0000;
-                    color: white;
-                    border: none;
-                    padding: 12px 24px;
-                    cursor: pointer;
-                    border-radius: 8px;
-                    font-weight: bold;
-                    font-size: 1em;
-                    transition: all 0.3s ease;
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                }
-                
-                .filter-results-close:hover {
-                    background: #b22222;
-                    transform: scale(1.05);
-                }
-                
-                .no-results {
-                    grid-column: 1 / -1;
-                    text-align: center;
-                    padding: 40px;
-                }
+/* На мобильных меню скрыто, гамбургер виден */
+@media (max-width: 992px) {
+    .nav-menu {
+        display: none;
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .hamburger {
+        display: flex !important;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.modal-details.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Стили для изображений галереи */
+.gallery {
+    position: relative;
+}
+
+.gallery img {
+    display: none;
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.gallery img.active {
+    display: block;
+}
+
+/* Плавное появление изображений */
+.image-slider img,
+.gallery img {
+    transition: opacity 0.5s ease;
+}
+
+.image-slider img:not(.active),
+.gallery img:not(.active) {
+    opacity: 0;
+}
+
+.image-slider img.active,
+.gallery img.active {
+    opacity: 1;
+}
+
+/* Анимация загрузки карточек */
+@keyframes fadeIn {
+    from { 
+        opacity: 0; 
+        transform: translateY(20px);
+    }
+    to { 
+        opacity: 1; 
+        transform: translateY(0);
+    }
+}
+
+.concert .container,
+.spektakl .container,
+.cinema .container,
+.master_class .container,
+.vstrecha .container {
+    animation: fadeIn 0.5s ease;
+}
+
